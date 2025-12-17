@@ -17,7 +17,7 @@ export default function Navbar() {
           href="/"
           className="font-semibold tracking-tight text-[var(--color-navy)]"
         >
-          webbrand
+          webrrand
         </Link>
 
         <nav className="hidden items-center gap-6 md:flex">

@@ -15,7 +15,7 @@ export default function Footer() {
       <div className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-10 px-4 py-14 md:grid-cols-3">
         <div className="space-y-3">
           <div className="font-semibold tracking-tight text-[var(--color-navy)]">
-            webbrand
+            webrrand
           </div>
           <p className="text-sm leading-6 text-[var(--color-slate)]">
             Conversion-first websites, landing pages, CRM systems, and AI automation.
@@ -38,7 +38,7 @@ export default function Footer() {
           </div>
 
           <div className="mt-10 flex flex-col gap-2 text-xs text-[var(--color-slate)] sm:flex-row sm:items-center sm:justify-between">
-            <div>© {new Date().getFullYear()} webbrand</div>
+            <div>© {new Date().getFullYear()} webrrand</div>
             <div>Privacy-first. No spam. / Privacy prima di tutto. Niente spam.</div>
           </div>
         </div>

@@ -15,7 +15,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "webbrand",
+  title: "webrrand",
   description: "Conversion-first digital systems & AI agency.",
 };
 
