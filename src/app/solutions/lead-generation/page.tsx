@@ -1,43 +1,149 @@
 import PageShell from "@/components/PageShell";
+import type { ReactNode } from "react";
 
 export default function LeadGenerationPage() {
   return (
     <PageShell
-      kicker="Lead Generation / Growth Engine"
-      title="Funnel + CRM + nurture"
-      subtitle={
+      kicker={
         <>
-          If you want predictable leads, you need a system—not random campaigns.
+          Sistema lead
           <br />
-          Se vuoi lead prevedibili, ti serve un sistema—non campagne casuali.
+          Lead system
         </>
       }
-      primaryCta={{ href: "/contact", label: "Request Lead System / Richiedi sistema lead" }}
+      title={
+        <>
+          Funnel + CRM + follow-up automatico
+          <br />
+          Funnel + CRM + automated follow-up
+        </>
+      }
+      subtitle={
+        <>
+          Se vuoi lead prevedibili, ti serve un sistema—non campagne casuali.
+          <br />
+          If you want predictable leads, you need a system—not random campaigns.
+        </>
+      }
+      primaryCta={{
+        href: "/contact",
+        label: (
+          <>
+            Richiedi sistema lead
+            <br />
+            Request lead system
+          </>
+        ),
+      }}
     >
       <section className="grid grid-cols-1 gap-4 md:grid-cols-3">
-        <Card title="Who it’s for" bullets={["B2B lead gen", "Service businesses", "Teams needing consistency"]} />
-        <Card title="What you receive / Cosa ricevi" bullets={["Funnel map", "CRM pipeline", "Nurture automation"]} />
-        <Card title="Outcome" bullets={["More qualified leads", "Faster follow-up", "Better close rate"]} />
+        <Card
+          title="Casi d’uso / Use cases"
+          bullets={[
+            <>
+              Lead da ads o outbound senza follow-up
+              <br />
+              Leads from ads or outbound with no follow-up
+            </>,
+            <>
+              Pipeline non chiara e nessun next step
+              <br />
+              Unclear pipeline and no next steps
+            </>,
+            <>
+              Nurture manuale e tempi di risposta lenti
+              <br />
+              Manual nurture and slow response times
+            </>,
+          ]}
+        />
+        <Card
+          title="Per chi è / Who it’s for"
+          bullets={[
+            <>
+              B2B con ciclo di vendita e lead da qualificare
+              <br />
+              B2B with a sales cycle and leads to qualify
+            </>,
+            <>
+              Service business con richieste da gestire
+              <br />
+              Service businesses managing inbound requests
+            </>,
+            <>
+              Team che vogliono consistenza (non campagne random)
+              <br />
+              Teams that want consistency (not random campaigns)
+            </>,
+          ]}
+        />
+        <Card
+          title="Non è per / Not for"
+          bullets={[
+            <>
+              Chi vuole solo “più lead” senza definire qualità
+              <br />
+              Teams wanting “more leads” without defining quality
+            </>,
+            <>
+              Team senza un minimo processo commerciale
+              <br />
+              Teams without a basic sales process
+            </>,
+            <>
+              Progetti senza owner per CRM e follow-up
+              <br />
+              Projects with no owner for CRM and follow-up
+            </>,
+          ]}
+        />
       </section>
 
-      <FinalCta
-        title="Want a lead system recommendation? / Vuoi una raccomandazione?"
-        desc="Share your offer and current funnel. We’ll propose the shortest delivery path. / Condividi offerta e funnel attuale. Ti proponiamo il percorso più rapido."
-        href="/contact"
-        label="Request Lead System / Richiedi sistema lead"
-      />
+      <section className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-8">
+        <div className="space-y-3">
+          <div className="text-sm font-semibold text-[var(--color-navy)]">
+            Cosa ricevi
+            <span className="text-[var(--color-slate)]"> / </span>
+            What you receive
+          </div>
+          <ul className="space-y-2 text-sm text-[var(--color-slate)]">
+            {[
+              <>
+                Mappa funnel (touchpoint → next action)
+                <br />
+                Funnel map (touchpoint → next action)
+              </>,
+              <>
+                Pipeline CRM con stage, regole, e ownership
+                <br />
+                CRM pipeline with stages, rules, and ownership
+              </>,
+              <>
+                Workflow follow-up (email/task) con tempi e trigger
+                <br />
+                Follow-up workflows (email/tasks) with timings and triggers
+              </>,
+            ].map((b, idx) => (
+              <li key={idx} className="flex gap-2">
+                <span className="mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-cyan)]" />
+                <span>{b}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
     </PageShell>
   );
 }
 
-function Card({ title, bullets }: { title: string; bullets: string[] }) {
+function Card({ title, bullets }: { title: string; bullets: ReactNode[] }) {
   return (
     <div className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6">
       <div className="space-y-3">
         <div className="text-sm font-semibold text-[var(--color-navy)]">{title}</div>
         <ul className="space-y-2 text-sm text-[var(--color-slate)]">
           {bullets.map((b) => (
-            <li key={b} className="flex gap-2">
+            <li key={String(b)} className="flex gap-2">
               <span className="mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-cyan)]" />
               <span>{b}</span>
             </li>
@@ -45,34 +151,5 @@ function Card({ title, bullets }: { title: string; bullets: string[] }) {
         </ul>
       </div>
     </div>
-  );
-}
-
-function FinalCta({
-  title,
-  desc,
-  href,
-  label,
-}: {
-  title: string;
-  desc: string;
-  href: string;
-  label: string;
-}) {
-  return (
-    <section className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-8">
-      <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-        <div className="space-y-2">
-          <div className="text-sm font-semibold text-[var(--color-navy)]">{title}</div>
-          <div className="text-sm leading-6 text-[var(--color-slate)]">{desc}</div>
-        </div>
-        <a
-          href={href}
-          className="inline-flex w-fit rounded-full bg-[var(--color-blue)] px-5 py-3 text-sm font-semibold text-white hover:opacity-95"
-        >
-          {label}
-        </a>
-      </div>
-    </section>
   );
 }

@@ -1,42 +1,131 @@
 import PageShell from "@/components/PageShell";
-import CtaButton from "@/components/CtaButton";
+import type { ReactNode } from "react";
 
-const tiers = [
+const steps: {
+  title: string;
+  desc: ReactNode;
+  bullets: ReactNode[];
+}[] = [
   {
     title: "Audit",
-    desc: "Fast diagnosis + action plan.",
-    bullets: ["Conversion + tracking audit", "Prioritized roadmap", "Quick wins"],
+    desc: (
+      <>
+        Analizziamo il contesto, gli obiettivi e i colli di bottiglia per definire cosa costruire e perché.
+        <br />
+        We analyze context, goals, and bottlenecks to define what to build and why.
+      </>
+    ),
+    bullets: [
+      <>
+        Analisi del sistema attuale
+        <br />
+        Current system analysis
+      </>,
+      <>
+        Priorità chiare
+        <br />
+        Clear priorities
+      </>,
+      <>
+        Raccomandazioni operative
+        <br />
+        Actionable recommendations
+      </>,
+    ],
   },
   {
-    title: "Delivery",
-    desc: "Landing / website / CRM system delivered with clear ownership.",
-    bullets: ["Pages + copy structure", "Form + CRM routing", "Automation basics"],
+    title: "Build",
+    desc: (
+      <>
+        Progettiamo e implementiamo il sistema concordato: sito, landing, CRM, automazioni o AI.
+        <br />
+        We design and implement the agreed system: website, landing pages, CRM, automations, or AI.
+      </>
+    ),
+    bullets: [
+      <>
+        Sistema funzionante
+        <br />
+        Working system
+      </>,
+      <>
+        Setup tecnico completo
+        <br />
+        Full technical setup
+      </>,
+      <>
+        Flussi testati
+        <br />
+        Tested flows
+      </>,
+    ],
   },
   {
     title: "Scale",
-    desc: "Monthly optimization + growth experiments.",
-    bullets: ["Iteration", "Reporting", "Automation expansion"],
+    desc: (
+      <>
+        Ottimizziamo, misuriamo e miglioriamo nel tempo in base ai dati reali.
+        <br />
+        We optimize, measure, and improve over time based on real data.
+      </>
+    ),
+    bullets: [
+      <>
+        KPI chiari
+        <br />
+        Clear KPIs
+      </>,
+      <>
+        Miglioramenti continui
+        <br />
+        Continuous improvements
+      </>,
+      <>
+        Supporto strategico
+        <br />
+        Strategic support
+      </>,
+    ],
   },
 ];
 
 export default function PlansPage() {
   return (
     <PageShell
-      kicker="Plans"
-      title="Transparent structure. Custom scope."
-      subtitle={
+      kicker={
         <>
-          You’ll always know what’s included. Final pricing depends on scope,
-          integrations, and speed.
+          Modello di ingaggio
           <br />
-          Saprai sempre cosa è incluso. Il prezzo finale dipende da scope,
-          integrazioni e velocità.
+          Engagement model
         </>
       }
-      primaryCta={{ href: "/contact", label: "Request a Call / Richiedi una call" }}
+      title={
+        <>
+          Come lavoriamo
+          <br />
+          How we work
+        </>
+      }
+      subtitle={
+        <>
+          Un modello semplice e trasparente per costruire sistemi che funzionano davvero.
+          <br />
+          A clear and practical engagement model to build systems that actually work.
+        </>
+      }
+      primaryCta={{
+        href: "/contact",
+        label: (
+          <>
+            Richiedi una call
+            <br />
+            Request a call
+          </>
+        ),
+      }}
     >
       <section className="grid grid-cols-1 gap-4 md:grid-cols-3">
-        {tiers.map((t) => (
+        {steps.map((t) => (
           <div
             key={t.title}
             className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6"
@@ -51,8 +140,8 @@ export default function PlansPage() {
                 </div>
               </div>
               <ul className="space-y-2 text-sm text-[var(--color-slate)]">
-                {t.bullets.map((b) => (
-                  <li key={b} className="flex gap-2">
+                {t.bullets.map((b, idx) => (
+                  <li key={idx} className="flex gap-2">
                     <span className="mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-cyan)]" />
                     <span>{b}</span>
                   </li>
@@ -64,16 +153,15 @@ export default function PlansPage() {
       </section>
 
       <section className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-8">
-        <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-          <div className="space-y-2">
-            <div className="text-sm font-semibold text-[var(--color-navy)]">
-              Not sure what you need?
-            </div>
-            <div className="text-sm leading-6 text-[var(--color-slate)]">
-              Oracolo generates an auto brief in 2 minutes.
-            </div>
-          </div>
-          <CtaButton href="/oracolo">Start Oracolo</CtaButton>
+        <div className="space-y-2 text-sm leading-6 text-[var(--color-slate)]">
+          <p>
+            Ogni progetto è diverso. Il percorso viene definito dopo una prima call,
+            in base agli obiettivi e alla complessità reale.
+          </p>
+          <p>
+            Every project is different. The engagement is defined after an initial call,
+            based on goals and real complexity.
+          </p>
         </div>
       </section>
     </PageShell>

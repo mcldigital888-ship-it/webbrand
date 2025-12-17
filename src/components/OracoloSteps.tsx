@@ -28,14 +28,18 @@ export default function OracoloSteps() {
             Oracolo
           </div>
           <h2 className="font-[var(--font-display)] text-2xl font-semibold text-[var(--color-navy)]">
-            Choose your goal / Scegli il tuo obiettivo
+            Scegli il tuo obiettivo
+            <br />
+            Choose your goal
           </h2>
           <ul className="mt-3 space-y-2 text-sm text-[var(--color-slate)]">
             {steps.map((s) => (
               <li key={s.en} className="flex gap-2">
                 <span className="mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-cyan)]" />
                 <span>
-                  {s.en} <span className="text-[var(--color-slate)]">/</span> {s.it}
+                  {s.it}
+                  <br />
+                  {s.en}
                 </span>
               </li>
             ))}
@@ -47,13 +51,17 @@ export default function OracoloSteps() {
             href="/oracolo"
             className="inline-flex w-fit rounded-full bg-[var(--color-blue)] px-5 py-3 text-sm font-semibold text-white hover:opacity-95"
           >
-            Start Oracolo / Avvia Oracolo
+            Avvia Oracolo
+            <br />
+            Start Oracolo
           </Link>
           <Link
             href="/contact"
             className="inline-flex w-fit rounded-full border border-[var(--color-navy)]/15 px-5 py-3 text-sm font-semibold text-[var(--color-navy)] hover:border-[var(--color-navy)]/25 hover:bg-[var(--color-navy)]/[0.03]"
           >
-            Request a Call / Richiedi una call
+            Richiedi una call
+            <br />
+            Request a call
           </Link>
         </div>
       </div>

@@ -1,65 +1,154 @@
 import PageShell from "@/components/PageShell";
+import type { ReactNode } from "react";
 
 export default function AiAppsPage() {
   return (
     <PageShell
-      kicker="AI & Automations"
-      title="AI Apps"
-      subtitle={
+      kicker={
         <>
-          AI features users actually adopt—built around one job to be done.
+          AI & automazione
           <br />
-          Funzionalità AI che le persone usano davvero—costruite attorno a un obiettivo.
+          AI & automation
         </>
       }
-      primaryCta={{ href: "/contact", label: "Request AI Demo" }}
+      title={
+        <>
+          Micro-app AI costruite su un workflow
+          <br />
+          Small AI apps built around one workflow
+        </>
+      }
+      subtitle={
+        <>
+          Funzionalità AI che le persone usano davvero—costruite attorno a un obiettivo.
+          <br />
+          AI features users actually adopt—built around one job to be done.
+        </>
+      }
+      primaryCta={{
+        href: "/contact",
+        label: (
+          <>
+            Richiedi demo AI
+            <br />
+            Request AI demo
+          </>
+        ),
+      }}
     >
       <section className="grid grid-cols-1 gap-4 md:grid-cols-3">
         <Card
-          title="Use cases / Casi d’uso"
+          title="Casi d’uso / Use cases"
           bullets={[
-            "AI search for internal docs / Ricerca AI su documenti",
-            "Quote generator / Generatore preventivi",
-            "Lead classifier / Classificatore lead",
-            "Ops helper UI / UI di supporto operativo",
+            <>
+              Ricerca AI su documenti interni
+              <br />
+              AI search for internal docs
+            </>,
+            <>
+              Generatore preventivi (quote)
+              <br />
+              Quote generator
+            </>,
+            <>
+              Classificatore lead e suggerimenti next step
+              <br />
+              Lead classifier and next-step suggestions
+            </>,
+            <>
+              UI di supporto operativo (ops helper)
+              <br />
+              Ops helper UI
+            </>,
           ]}
         />
         <Card
-          title="Who this is for / Per chi è"
+          title="Per chi è / Who it’s for"
           bullets={[
-            "Teams needing speed + consistency",
-            "Businesses with repeatable decisions",
-            "Companies collecting structured data",
+            <>
+              Team che vogliono velocità e consistenza
+              <br />
+              Teams needing speed + consistency
+            </>,
+            <>
+              Aziende con decisioni ripetibili
+              <br />
+              Businesses with repeatable decisions
+            </>,
+            <>
+              Aziende con dati strutturati (o facilmente strutturabili)
+              <br />
+              Companies collecting structured (or structurable) data
+            </>,
           ]}
         />
         <Card
-          title="Not for / Non è per"
+          title="Non è per / Not for"
           bullets={[
-            "Unclear ownership",
-            "No data or no process",
-            "AI as a gimmick",
+            <>
+              Ownership non chiara
+              <br />
+              Unclear ownership
+            </>,
+            <>
+              Nessun dato o nessun processo
+              <br />
+              No data or no process
+            </>,
+            <>
+              AI come gimmick (senza adozione)
+              <br />
+              AI as a gimmick (no adoption)
+            </>,
           ]}
         />
       </section>
 
-      <FinalCta
-        title="Request an AI app demo / Richiedi una demo app AI"
-        desc="Tell us the one workflow you want faster. We’ll propose the smallest useful AI app. / Dicci quale workflow vuoi accelerare. Ti proponiamo la più piccola app utile."
-        href="/contact"
-        label="Request AI Demo / Richiedi Demo AI"
-      />
+      <section className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-8">
+        <div className="space-y-3">
+          <div className="text-sm font-semibold text-[var(--color-navy)]">
+            Cosa ricevi
+            <span className="text-[var(--color-slate)]"> / </span>
+            What you receive
+          </div>
+          <ul className="space-y-2 text-sm text-[var(--color-slate)]">
+            {[
+              <>
+                Specifica del workflow: input, output, regole
+                <br />
+                Workflow spec: inputs, outputs, rules
+              </>,
+              <>
+                UI minima per uso reale (non solo API)
+                <br />
+                Minimal UI for real usage (not just an API)
+              </>,
+              <>
+                Logging e metriche di adozione/qualità
+                <br />
+                Logging and adoption/quality metrics
+              </>,
+            ].map((b, idx) => (
+              <li key={idx} className="flex gap-2">
+                <span className="mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-cyan)]" />
+                <span>{b}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
     </PageShell>
   );
 }
 
-function Card({ title, bullets }: { title: string; bullets: string[] }) {
+function Card({ title, bullets }: { title: string; bullets: ReactNode[] }) {
   return (
     <div className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6">
       <div className="space-y-3">
         <div className="text-sm font-semibold text-[var(--color-navy)]">{title}</div>
         <ul className="space-y-2 text-sm text-[var(--color-slate)]">
           {bullets.map((b) => (
-            <li key={b} className="flex gap-2">
+            <li key={String(b)} className="flex gap-2">
               <span className="mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-cyan)]" />
               <span>{b}</span>
             </li>
@@ -67,34 +156,5 @@ function Card({ title, bullets }: { title: string; bullets: string[] }) {
         </ul>
       </div>
     </div>
-  );
-}
-
-function FinalCta({
-  title,
-  desc,
-  href,
-  label,
-}: {
-  title: string;
-  desc: string;
-  href: string;
-  label: string;
-}) {
-  return (
-    <section className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-8">
-      <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-        <div className="space-y-2">
-          <div className="text-sm font-semibold text-[var(--color-navy)]">{title}</div>
-          <div className="text-sm leading-6 text-[var(--color-slate)]">{desc}</div>
-        </div>
-        <a
-          href={href}
-          className="inline-flex w-fit rounded-full bg-[var(--color-blue)] px-5 py-3 text-sm font-semibold text-white hover:opacity-95"
-        >
-          {label}
-        </a>
-      </div>
-    </section>
   );
 }

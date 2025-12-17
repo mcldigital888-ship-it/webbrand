@@ -1,11 +1,12 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 
 export default function FinalCtaBand({
   title,
   subtitle,
 }: {
-  title: string;
-  subtitle: string;
+  title: ReactNode;
+  subtitle: ReactNode;
 }) {
   return (
     <section className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-8">
@@ -24,13 +25,17 @@ export default function FinalCtaBand({
             href="/contact"
             className="inline-flex w-fit rounded-full bg-[var(--color-blue)] px-5 py-3 text-sm font-semibold text-white hover:opacity-95"
           >
-            Request a Call / Richiedi una call
+            Richiedi una call
+            <br />
+            Request a call
           </Link>
           <Link
             href="/oracolo"
             className="inline-flex w-fit rounded-full border border-[var(--color-navy)]/15 px-5 py-3 text-sm font-semibold text-[var(--color-navy)] hover:border-[var(--color-navy)]/25 hover:bg-[var(--color-navy)]/[0.03]"
           >
-            Start Oracolo / Avvia Oracolo
+            Avvia Oracolo
+            <br />
+            Start Oracolo
           </Link>
         </div>
       </div>

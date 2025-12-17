@@ -29,14 +29,14 @@ export default function ContactPage() {
 
   function validate() {
     const next: Record<string, string> = {};
-    if (!form.fullName.trim()) next.fullName = "Name is required / Nome obbligatorio.";
-    if (!form.email.trim()) next.email = "Email is required / Email obbligatoria.";
+    if (!form.fullName.trim()) next.fullName = "Nome obbligatorio. / Name is required.";
+    if (!form.email.trim()) next.email = "Email obbligatoria. / Email is required.";
     if (form.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
-      next.email = "Enter a valid email / Inserisci un’email valida.";
+      next.email = "Inserisci un’email valida. / Enter a valid email.";
     }
     if (!form.preferredSolution)
-      next.preferredSolution = "Select a solution / Seleziona una soluzione.";
-    if (!form.message.trim()) next.message = "Message is required / Messaggio obbligatorio.";
+      next.preferredSolution = "Seleziona una soluzione. / Select a solution.";
+    if (!form.message.trim()) next.message = "Messaggio obbligatorio. / Message is required.";
     return next;
   }
 
@@ -84,12 +84,14 @@ export default function ContactPage() {
           const data = (await res.json().catch(() => null)) as
             | { error?: string }
             | null;
-          throw new Error(data?.error || "Failed to submit");
+          throw new Error(data?.error || "Invio non riuscito. / Failed to submit.");
         }
 
         setSubmitted(true);
       } catch (err) {
-        setSubmitError(err instanceof Error ? err.message : "Failed to submit");
+        setSubmitError(
+          err instanceof Error ? err.message : "Invio non riuscito. / Failed to submit."
+        );
       } finally {
         setSubmitting(false);
       }
@@ -98,13 +100,25 @@ export default function ContactPage() {
 
   return (
     <PageShell
-      kicker="Contact"
-      title="Request a call or send a short brief / Richiedi una call o invia un brief"
+      kicker={
+        <>
+          Contatto
+          <br />
+          Contact
+        </>
+      }
+      title={
+        <>
+          Richiedi una call o invia un brief
+          <br />
+          Request a call or send a brief
+        </>
+      }
       subtitle={
         <>
-          Tell us your goal. We’ll respond with next steps and a simple plan.
-          <br />
           Dicci il tuo obiettivo. Ti rispondiamo con i prossimi step e un piano semplice.
+          <br />
+          Tell us your goal. We’ll respond with next steps and a simple plan.
         </>
       }
     >
@@ -113,12 +127,12 @@ export default function ContactPage() {
           {!submitted ? (
             <form onSubmit={onSubmit} className="space-y-6">
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <Field label="Full name / Nome" required error={errors.fullName}>
+                <Field label="Nome / Full name" required error={errors.fullName}>
                   <input
                     value={form.fullName}
                     onChange={(e) => setField("fullName", e.target.value)}
                     className={inputClassName(!!errors.fullName)}
-                    placeholder="Your name / Il tuo nome"
+                    placeholder="Il tuo nome / Your name"
                   />
                 </Field>
                 <Field label="Email" required error={errors.email}>
@@ -133,15 +147,15 @@ export default function ContactPage() {
               </div>
 
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <Field label="Company (optional) / Azienda (opzionale)">
+                <Field label="Azienda (opzionale) / Company (optional)">
                   <input
                     value={form.company}
                     onChange={(e) => setField("company", e.target.value)}
                     className={inputClassName(false)}
-                    placeholder="Company name / Nome azienda"
+                    placeholder="Nome azienda / Company name"
                   />
                 </Field>
-                <Field label="Website (optional) / Sito web (opzionale)">
+                <Field label="Sito web (opzionale) / Website (optional)">
                   <input
                     value={form.website}
                     onChange={(e) => setField("website", e.target.value)}
@@ -152,7 +166,7 @@ export default function ContactPage() {
               </div>
 
               <Field
-                label="Preferred solution / Soluzione preferita"
+                label="Soluzione preferita / Preferred solution"
                 required
                 error={errors.preferredSolution}
               >
@@ -161,34 +175,34 @@ export default function ContactPage() {
                   onChange={(e) => setField("preferredSolution", e.target.value)}
                   className={inputClassName(!!errors.preferredSolution)}
                 >
-                  <option value="">Select</option>
+                  <option value="">Seleziona / Select</option>
                   <option value="website-conversion">
-                    Website Conversion / Conversione sito
+                    Conversione sito / Website conversion
                   </option>
-                  <option value="landing-ads">Landing Page for Ads / Landing ads</option>
+                  <option value="landing-ads">Landing per ads / Ads landing page</option>
                   <option value="lead-generation">
-                    Lead Generation / Growth Engine / Lead engine
+                    Sistema lead / Lead system
                   </option>
-                  <option value="crm-sales">CRM & Sales System / CRM vendite</option>
-                  <option value="ai-automation">AI & Automations / AI & automazioni</option>
+                  <option value="crm-sales">CRM & vendite / CRM & sales</option>
+                  <option value="ai-automation">AI & automazione / AI & automation</option>
                   <option value="food-retail">
-                    Food / Retail Smart Solutions / Soluzioni Food/Retail
+                    Soluzioni Food / Retail / Food & retail solutions
                   </option>
                 </select>
               </Field>
 
-              <Field label="Message / Messaggio" required error={errors.message}>
+              <Field label="Messaggio / Message" required error={errors.message}>
                 <textarea
                   value={form.message}
                   onChange={(e) => setField("message", e.target.value)}
                   className={[inputClassName(!!errors.message), "h-28 py-3"].join(" ")}
-                  placeholder="Goal, timeline, current setup... / Obiettivo, timeline, setup attuale..."
+                  placeholder="Obiettivo, timeline, setup attuale... / Goal, timeline, current setup..."
                 />
               </Field>
 
               <div className="flex flex-col gap-2 text-xs text-[var(--color-slate)]">
-                <div>Response time: within 24–48 hours. / Risposta: 24–48 ore.</div>
-                <div>Privacy: we don’t spam. / Privacy: niente spam.</div>
+                <div>Risposta: 24–48 ore. / Response time: 24–48 hours.</div>
+                <div>Privacy: niente spam. / Privacy: we don’t spam.</div>
               </div>
 
               <button
@@ -196,7 +210,7 @@ export default function ContactPage() {
                 disabled={submitting}
                 className="inline-flex w-fit rounded-full bg-[var(--color-blue)] px-5 py-3 text-sm font-semibold text-white hover:opacity-95"
               >
-                {submitting ? "Submitting... / Invio..." : "Send / Invia"}
+                {submitting ? "Invio... / Submitting..." : "Richiedi / Request"}
               </button>
 
               {submitError ? (
@@ -208,19 +222,21 @@ export default function ContactPage() {
           ) : (
             <div className="space-y-4">
               <div className="text-sm font-semibold text-[var(--color-success)]">
-                Sent. / Inviato.
+                Inviato. / Sent.
               </div>
               <div className="text-sm leading-6 text-[var(--color-slate)]">
-                We received your message. Next step: we’ll reply with the fastest plan.
-                <br />
                 Abbiamo ricevuto il tuo messaggio. Prossimo step: ti rispondiamo con il piano più rapido.
+                <br />
+                We received your message. Next step: we’ll reply with the fastest plan.
               </div>
               <button
                 type="button"
                 onClick={() => setSubmitted(false)}
                 className="inline-flex w-fit rounded-full border border-[var(--color-navy)]/15 px-5 py-3 text-sm font-semibold text-[var(--color-navy)] hover:border-[var(--color-navy)]/25 hover:bg-[var(--color-navy)]/[0.03]"
               >
-                Send another message / Invia un altro messaggio
+                Invia un altro messaggio
+                <br />
+                Send another message
               </button>
             </div>
           )}
@@ -229,25 +245,33 @@ export default function ContactPage() {
         <div className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6">
           <div className="space-y-3">
             <div className="text-sm font-semibold text-[var(--color-navy)]">
-              What happens after you submit / Cosa succede dopo l’invio
+              Cosa succede dopo l’invio
+              <br />
+              What happens after you submit
             </div>
             <ul className="space-y-2 text-sm text-[var(--color-slate)]">
               <li className="flex gap-2">
                 <span className="mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-cyan)]" />
                 <span>
-                  We receive your request / Riceviamo la tua richiesta
+                  Riceviamo la tua richiesta
+                  <br />
+                  We receive your request
                 </span>
               </li>
               <li className="flex gap-2">
                 <span className="mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-cyan)]" />
                 <span>
-                  We review within 24h / Revisioniamo entro 24 ore
+                  Revisioniamo entro 24 ore
+                  <br />
+                  We review within 24h
                 </span>
               </li>
               <li className="flex gap-2">
                 <span className="mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-cyan)]" />
                 <span>
-                  We propose next steps / Proponiamo i prossimi step
+                  Proponiamo i prossimi step
+                  <br />
+                  We propose next steps
                 </span>
               </li>
             </ul>

@@ -1,4 +1,5 @@
-import CtaButton from "@/components/CtaButton";
+ import type { ReactNode } from "react";
+ import CtaButton from "@/components/CtaButton";
 
 export default function PageShell({
   kicker,
@@ -7,11 +8,11 @@ export default function PageShell({
   primaryCta,
   children,
 }: {
-  kicker?: string;
-  title: string;
-  subtitle: React.ReactNode;
-  primaryCta?: { href: string; label: string };
-  children?: React.ReactNode;
+  kicker?: ReactNode;
+  title: ReactNode;
+  subtitle: ReactNode;
+  primaryCta?: { href: string; label: ReactNode };
+  children?: ReactNode;
 }) {
   return (
     <div className="space-y-14">

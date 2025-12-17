@@ -1,65 +1,154 @@
 import PageShell from "@/components/PageShell";
+import type { ReactNode } from "react";
 
 export default function AiAutomationsPage() {
   return (
     <PageShell
-      kicker="AI & Automations"
-      title="Automations"
-      subtitle={
+      kicker={
         <>
-          Automations that reduce delays and keep leads from slipping.
+          AI & automazione
           <br />
-          Automazioni che riducono ritardi e impediscono ai lead di perdersi.
+          AI & automation
         </>
       }
-      primaryCta={{ href: "/contact", label: "Request AI Demo" }}
+      title={
+        <>
+          Automazioni che riducono ritardi e lead persi
+          <br />
+          Automations that reduce delays and lost leads
+        </>
+      }
+      subtitle={
+        <>
+          Automazioni che riducono ritardi e impediscono ai lead di perdersi.
+          <br />
+          Automations that reduce delays and keep leads from slipping.
+        </>
+      }
+      primaryCta={{
+        href: "/contact",
+        label: (
+          <>
+            Richiedi demo AI
+            <br />
+            Request AI demo
+          </>
+        ),
+      }}
     >
       <section className="grid grid-cols-1 gap-4 md:grid-cols-3">
         <Card
-          title="Use cases / Casi d’uso"
+          title="Casi d’uso / Use cases"
           bullets={[
-            "Instant lead routing / Routing lead immediato",
-            "Follow-up within minutes / Follow-up in pochi minuti",
-            "Lead status updates / Aggiornamento stato lead",
-            "Ops reminders / Promemoria operativi",
+            <>
+              Routing lead immediato (form → owner)
+              <br />
+              Instant lead routing (form → owner)
+            </>,
+            <>
+              Follow-up in pochi minuti (task/email)
+              <br />
+              Follow-up within minutes (tasks/email)
+            </>,
+            <>
+              Aggiornamenti stato lead e reminder
+              <br />
+              Lead status updates and reminders
+            </>,
+            <>
+              Promemoria operativi (SLA, checklist, handoff)
+              <br />
+              Ops reminders (SLA, checklists, handoffs)
+            </>,
           ]}
         />
         <Card
-          title="Who this is for / Per chi è"
+          title="Per chi è / Who it’s for"
           bullets={[
-            "Teams with slow response times",
-            "Sales teams doing manual follow-up",
-            "Businesses needing consistent execution",
+            <>
+              Team con tempi di risposta lenti
+              <br />
+              Teams with slow response times
+            </>,
+            <>
+              Sales team con follow-up manuale
+              <br />
+              Sales teams doing manual follow-up
+            </>,
+            <>
+              Aziende che vogliono esecuzione consistente
+              <br />
+              Businesses needing consistent execution
+            </>,
           ]}
         />
         <Card
-          title="Not for / Non è per"
+          title="Non è per / Not for"
           bullets={[
-            "Teams without a basic process",
-            "Complex projects with no owner",
-            "Automation without measurable outcome",
+            <>
+              Team senza processo minimo
+              <br />
+              Teams without a basic process
+            </>,
+            <>
+              Progetti complessi senza owner
+              <br />
+              Complex projects with no owner
+            </>,
+            <>
+              Automazione senza outcome misurabile
+              <br />
+              Automation without measurable outcome
+            </>,
           ]}
         />
       </section>
 
-      <FinalCta
-        title="Request an automation demo / Richiedi una demo automazioni"
-        desc="Tell us your bottleneck and timeline. We’ll propose the fastest automation map. / Dicci il collo di bottiglia e la timeline. Ti proponiamo la mappa più rapida."
-        href="/contact"
-        label="Request AI Demo / Richiedi Demo AI"
-      />
+      <section className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-8">
+        <div className="space-y-3">
+          <div className="text-sm font-semibold text-[var(--color-navy)]">
+            Cosa ricevi
+            <span className="text-[var(--color-slate)]"> / </span>
+            What you receive
+          </div>
+          <ul className="space-y-2 text-sm text-[var(--color-slate)]">
+            {[
+              <>
+                Mappa automazioni: trigger → azione → output
+                <br />
+                Automation map: trigger → action → output
+              </>,
+              <>
+                Routing e regole: owner, SLA, escalation
+                <br />
+                Routing and rules: owner, SLA, escalation
+              </>,
+              <>
+                Logging e controlli minimi per affidabilità
+                <br />
+                Basic logging and checks for reliability
+              </>,
+            ].map((b, idx) => (
+              <li key={idx} className="flex gap-2">
+                <span className="mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-cyan)]" />
+                <span>{b}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
     </PageShell>
   );
 }
 
-function Card({ title, bullets }: { title: string; bullets: string[] }) {
+function Card({ title, bullets }: { title: string; bullets: ReactNode[] }) {
   return (
     <div className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6">
       <div className="space-y-3">
         <div className="text-sm font-semibold text-[var(--color-navy)]">{title}</div>
         <ul className="space-y-2 text-sm text-[var(--color-slate)]">
           {bullets.map((b) => (
-            <li key={b} className="flex gap-2">
+            <li key={String(b)} className="flex gap-2">
               <span className="mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-cyan)]" />
               <span>{b}</span>
             </li>
@@ -67,34 +156,5 @@ function Card({ title, bullets }: { title: string; bullets: string[] }) {
         </ul>
       </div>
     </div>
-  );
-}
-
-function FinalCta({
-  title,
-  desc,
-  href,
-  label,
-}: {
-  title: string;
-  desc: string;
-  href: string;
-  label: string;
-}) {
-  return (
-    <section className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-8">
-      <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-        <div className="space-y-2">
-          <div className="text-sm font-semibold text-[var(--color-navy)]">{title}</div>
-          <div className="text-sm leading-6 text-[var(--color-slate)]">{desc}</div>
-        </div>
-        <a
-          href={href}
-          className="inline-flex w-fit rounded-full bg-[var(--color-blue)] px-5 py-3 text-sm font-semibold text-white hover:opacity-95"
-        >
-          {label}
-        </a>
-      </div>
-    </section>
   );
 }

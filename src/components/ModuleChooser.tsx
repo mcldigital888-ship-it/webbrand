@@ -1,11 +1,12 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 
 export type ModuleChooserItem = {
-  title: string;
-  who: string;
-  bullets: string[];
+  title: ReactNode;
+  who: ReactNode;
+  bullets: ReactNode[];
   href: string;
-  cta: string;
+  cta: ReactNode;
 };
 
 export default function ModuleChooser({
@@ -13,8 +14,8 @@ export default function ModuleChooser({
   subtitle,
   items,
 }: {
-  title: string;
-  subtitle?: string;
+  title: ReactNode;
+  subtitle?: ReactNode;
   items: ModuleChooserItem[];
 }) {
   return (
@@ -46,7 +47,7 @@ export default function ModuleChooser({
 
               <ul className="space-y-2 text-sm text-[var(--color-slate)]">
                 {item.bullets.map((b) => (
-                  <li key={b} className="flex gap-2">
+                  <li key={String(b)} className="flex gap-2">
                     <span className="mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-cyan)]" />
                     <span>{b}</span>
                   </li>
