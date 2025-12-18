@@ -1,23 +1,29 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
+import { LangToggle } from "@/components/LangToggle";
+import Bilingual from "@/components/Bilingual";
 
 const navItems = [
-  { href: "/solutions", label: "Solutions / Soluzioni" },
-  { href: "/process", label: "Process / Processo" },
-  { href: "/case-studies", label: "Case Studies / Casi" },
-  { href: "/plans", label: "Plans / Piani" },
-  { href: "/oracolo", label: "Oracolo" },
-  { href: "/contact", label: "Contact / Contatto" },
+  { href: "/services", label: <Bilingual en="Services" it="Servizi" /> },
+  { href: "/work", label: <Bilingual en="Work" it="Progetti" /> },
+  { href: "/insights", label: <Bilingual en="Insights" it="Insights" /> },
+  { href: "/about", label: <Bilingual en="About" it="Chi siamo" /> },
 ];
 
 export default function Navbar() {
+  const [open, setOpen] = useState(false);
+
   return (
     <header className="sticky top-0 z-50 border-b border-black/5 bg-[var(--color-surface)]/80 backdrop-blur">
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-4">
         <Link
           href="/"
           className="font-semibold tracking-tight text-[var(--color-navy)]"
+          onClick={() => setOpen(false)}
         >
-          webrrand
+          Webbrand
         </Link>
 
         <nav className="hidden items-center gap-6 md:flex">
@@ -33,20 +39,56 @@ export default function Navbar() {
         </nav>
 
         <div className="flex items-center gap-3">
+          <div className="hidden md:block">
+            <LangToggle />
+          </div>
           <Link
             href="/contact"
-            className="hidden rounded-full border border-[var(--color-navy)]/15 px-4 py-2 text-sm font-medium text-[var(--color-navy)] transition-colors hover:border-[var(--color-navy)]/25 hover:bg-[var(--color-navy)]/[0.03] md:inline-flex"
+            className="hidden rounded-full bg-[var(--color-blue)] px-4 py-2 text-sm font-semibold text-white transition-opacity hover:opacity-95 md:inline-flex"
           >
-            Request a Call / Richiedi una call
+            Book a Call
           </Link>
-          <Link
-            href="/oracolo"
-            className="inline-flex rounded-full bg-[var(--color-blue)] px-4 py-2 text-sm font-semibold text-white transition-colors hover:opacity-95"
+
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            className="inline-flex h-10 items-center justify-center rounded-full border border-[var(--color-navy)]/15 px-4 text-sm font-semibold text-[var(--color-navy)] hover:border-[var(--color-navy)]/25 hover:bg-[var(--color-navy)]/[0.03] md:hidden"
+            aria-expanded={open}
+            aria-label="Toggle menu"
           >
-            Start Oracolo / Avvia Oracolo
-          </Link>
+            Menu
+          </button>
         </div>
       </div>
+
+      {open ? (
+        <div className="border-t border-black/5 bg-[var(--color-surface)] md:hidden">
+          <div className="mx-auto w-full max-w-6xl px-4 py-4">
+            <div className="flex flex-col gap-3">
+              <div className="w-fit">
+                <LangToggle />
+              </div>
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  className="rounded-xl px-3 py-2 text-sm font-semibold text-[var(--color-navy)] hover:bg-black/[0.03]"
+                >
+                  {item.label}
+                </Link>
+              ))}
+              <Link
+                href="/contact"
+                onClick={() => setOpen(false)}
+                className="mt-1 inline-flex w-fit rounded-full bg-[var(--color-blue)] px-5 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-95"
+              >
+                Book a Call
+              </Link>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </header>
   );
 }

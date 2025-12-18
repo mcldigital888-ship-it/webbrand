@@ -3,6 +3,7 @@ import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import { LanguageProvider } from "@/components/LangToggle";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -15,8 +16,16 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "webrrand",
-  description: "Conversion-first digital systems & AI agency.",
+  title: {
+    default: "Webbrand",
+    template: "%s | Webbrand",
+  },
+  description: "AI + data + craft. Built for measurable growth.",
+  openGraph: {
+    title: "Webbrand",
+    description: "AI + data + craft. Built for measurable growth.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -29,11 +38,13 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${spaceGrotesk.variable} antialiased`}
       >
-        <Navbar />
-        <main className="mx-auto w-full max-w-6xl px-4 py-14">
-          {children}
-        </main>
-        <Footer />
+        <LanguageProvider>
+          <Navbar />
+          <main className="mx-auto w-full max-w-6xl px-4 py-14">
+            {children}
+          </main>
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   );

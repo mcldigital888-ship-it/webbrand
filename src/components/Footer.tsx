@@ -1,12 +1,11 @@
 import Link from "next/link";
 
 const links = [
-  { href: "/solutions", label: "Solutions / Soluzioni" },
-  { href: "/process", label: "Process / Processo" },
-  { href: "/case-studies", label: "Case Studies / Casi" },
-  { href: "/plans", label: "Plans / Piani" },
-  { href: "/oracolo", label: "Oracolo" },
-  { href: "/contact", label: "Contact / Contatto" },
+  { href: "/services", label: "Services" },
+  { href: "/work", label: "Work" },
+  { href: "/insights", label: "Insights" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export default function Footer() {
@@ -15,13 +14,14 @@ export default function Footer() {
       <div className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-10 px-4 py-14 md:grid-cols-3">
         <div className="space-y-3">
           <div className="font-semibold tracking-tight text-[var(--color-navy)]">
-            webrrand
+            Webbrand
           </div>
           <p className="text-sm leading-6 text-[var(--color-slate)]">
-            Conversion-first websites, landing pages, CRM systems, and AI automation.
-            <br />
-            Siti orientati alla conversione, landing, CRM e automazione AI.
+            AI + data + craft.
+            Built for measurable growth.
           </p>
+          <div className="text-sm font-medium text-[var(--color-slate)]">Berlin · Remote</div>
+          <div className="text-sm font-medium text-[var(--color-slate)]">hello@webbrand.studio</div>
         </div>
 
         <div className="md:col-span-2">
@@ -38,8 +38,8 @@ export default function Footer() {
           </div>
 
           <div className="mt-10 flex flex-col gap-2 text-xs text-[var(--color-slate)] sm:flex-row sm:items-center sm:justify-between">
-            <div>© {new Date().getFullYear()} webrrand</div>
-            <div>Privacy-first. No spam. / Privacy prima di tutto. Niente spam.</div>
+            <div>© {new Date().getFullYear()} Webbrand</div>
+            <div>Privacy-first. No spam.</div>
           </div>
         </div>
       </div>

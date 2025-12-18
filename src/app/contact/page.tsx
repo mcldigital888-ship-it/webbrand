@@ -9,11 +9,10 @@ export default function ContactPage() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [form, setForm] = useState({
-    fullName: "",
+    name: "",
     email: "",
     company: "",
-    website: "",
-    preferredSolution: "",
+    budgetRange: "",
     message: "",
   });
 
@@ -29,14 +28,13 @@ export default function ContactPage() {
 
   function validate() {
     const next: Record<string, string> = {};
-    if (!form.fullName.trim()) next.fullName = "Nome obbligatorio. / Name is required.";
-    if (!form.email.trim()) next.email = "Email obbligatoria. / Email is required.";
+    if (!form.name.trim()) next.name = "Name is required.";
+    if (!form.email.trim()) next.email = "Email is required.";
     if (form.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
-      next.email = "Inserisci un’email valida. / Enter a valid email.";
+      next.email = "Enter a valid email.";
     }
-    if (!form.preferredSolution)
-      next.preferredSolution = "Seleziona una soluzione. / Select a solution.";
-    if (!form.message.trim()) next.message = "Messaggio obbligatorio. / Message is required.";
+    if (!form.budgetRange) next.budgetRange = "Select a budget range.";
+    if (!form.message.trim()) next.message = "Message is required.";
     return next;
   }
 
@@ -61,14 +59,13 @@ export default function ContactPage() {
         const payload = {
           source: "contact",
           businessType: "",
-          goal: form.preferredSolution,
+          goal: "contact",
           email: form.email,
           answers: {
-            fullName: form.fullName,
+            name: form.name,
             email: form.email,
             company: form.company,
-            website: form.website,
-            preferredSolution: form.preferredSolution,
+            budgetRange: form.budgetRange,
             message: form.message,
           },
           timestamp: new Date().toISOString(),
@@ -100,39 +97,21 @@ export default function ContactPage() {
 
   return (
     <PageShell
-      kicker={
-        <>
-          Contatto
-          <br />
-          Contact
-        </>
-      }
-      title={
-        <>
-          Richiedi una call o invia un brief
-          <br />
-          Request a call or send a brief
-        </>
-      }
-      subtitle={
-        <>
-          Dicci il tuo obiettivo. Ti rispondiamo con i prossimi step e un piano semplice.
-          <br />
-          Tell us your goal. We’ll respond with next steps and a simple plan.
-        </>
-      }
+      kicker="Contact"
+      title="Book a call or send the brief"
+      subtitle="Share your goal, constraints, and timeline. We’ll reply with a clear next step."
     >
       <section className="grid grid-cols-1 gap-4 md:grid-cols-3">
         <div className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6 md:col-span-2">
           {!submitted ? (
             <form onSubmit={onSubmit} className="space-y-6">
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <Field label="Nome / Full name" required error={errors.fullName}>
+                <Field label="Name" required error={errors.name}>
                   <input
-                    value={form.fullName}
-                    onChange={(e) => setField("fullName", e.target.value)}
-                    className={inputClassName(!!errors.fullName)}
-                    placeholder="Il tuo nome / Your name"
+                    value={form.name}
+                    onChange={(e) => setField("name", e.target.value)}
+                    className={inputClassName(!!errors.name)}
+                    placeholder="Your name"
                   />
                 </Field>
                 <Field label="Email" required error={errors.email}>
@@ -147,71 +126,64 @@ export default function ContactPage() {
               </div>
 
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <Field label="Azienda (opzionale) / Company (optional)">
+                <Field label="Company">
                   <input
                     value={form.company}
                     onChange={(e) => setField("company", e.target.value)}
                     className={inputClassName(false)}
-                    placeholder="Nome azienda / Company name"
+                    placeholder="Company name"
                   />
                 </Field>
-                <Field label="Sito web (opzionale) / Website (optional)">
-                  <input
-                    value={form.website}
-                    onChange={(e) => setField("website", e.target.value)}
-                    className={inputClassName(false)}
-                    placeholder="https://..."
-                  />
+                <Field label="Budget range" required error={errors.budgetRange}>
+                  <select
+                    value={form.budgetRange}
+                    onChange={(e) => setField("budgetRange", e.target.value)}
+                    className={inputClassName(!!errors.budgetRange)}
+                  >
+                    <option value="">Select</option>
+                    <option value="<5k">&lt; €5k</option>
+                    <option value="5-10k">€5k–€10k</option>
+                    <option value="10-25k">€10k–€25k</option>
+                    <option value="25k+">€25k+</option>
+                  </select>
                 </Field>
               </div>
 
-              <Field
-                label="Soluzione preferita / Preferred solution"
-                required
-                error={errors.preferredSolution}
-              >
-                <select
-                  value={form.preferredSolution}
-                  onChange={(e) => setField("preferredSolution", e.target.value)}
-                  className={inputClassName(!!errors.preferredSolution)}
-                >
-                  <option value="">Seleziona / Select</option>
-                  <option value="website-conversion">
-                    Conversione sito / Website conversion
-                  </option>
-                  <option value="landing-ads">Landing per ads / Ads landing page</option>
-                  <option value="lead-generation">
-                    Sistema lead / Lead system
-                  </option>
-                  <option value="crm-sales">CRM & vendite / CRM & sales</option>
-                  <option value="ai-automation">AI & automazione / AI & automation</option>
-                  <option value="food-retail">
-                    Soluzioni Food / Retail / Food & retail solutions
-                  </option>
-                </select>
-              </Field>
-
-              <Field label="Messaggio / Message" required error={errors.message}>
+              <Field label="Message" required error={errors.message}>
                 <textarea
                   value={form.message}
                   onChange={(e) => setField("message", e.target.value)}
                   className={[inputClassName(!!errors.message), "h-28 py-3"].join(" ")}
-                  placeholder="Obiettivo, timeline, setup attuale... / Goal, timeline, current setup..."
+                  placeholder="Goal, timeline, current setup..."
                 />
               </Field>
 
               <div className="flex flex-col gap-2 text-xs text-[var(--color-slate)]">
-                <div>Risposta: 24–48 ore. / Response time: 24–48 hours.</div>
-                <div>Privacy: niente spam. / Privacy: we don’t spam.</div>
+                <div>Response time: 24–48 hours.</div>
+                <div>Privacy-first. No spam.</div>
               </div>
 
-              <button
-                type="submit"
-                disabled={submitting}
-                className="inline-flex w-fit rounded-full bg-[var(--color-blue)] px-5 py-3 text-sm font-semibold text-white hover:opacity-95"
-              >
-                {submitting ? "Invio... / Submitting..." : "Richiedi / Request"}
-              </button>
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="inline-flex w-fit rounded-full bg-[var(--color-blue)] px-5 py-3 text-sm font-semibold text-white hover:opacity-95"
+                >
+                  {submitting ? "Submitting..." : "Send"}
+                </button>
+                <a
+                  href="mailto:hello@webbrand.studio"
+                  className="inline-flex w-fit rounded-full border border-[var(--color-navy)]/15 px-5 py-3 text-sm font-semibold text-[var(--color-navy)] hover:border-[var(--color-navy)]/25 hover:bg-[var(--color-navy)]/[0.03]"
+                >
+                  Email us
+                </a>
+                <a
+                  href="#book"
+                  className="inline-flex w-fit rounded-full border border-[var(--color-navy)]/15 px-5 py-3 text-sm font-semibold text-[var(--color-navy)] hover:border-[var(--color-navy)]/25 hover:bg-[var(--color-navy)]/[0.03]"
+                >
+                  Book a Call
+                </a>
+              </div>
 
               {submitError ? (
                 <div className="text-sm text-[var(--color-slate)]">
@@ -221,12 +193,8 @@ export default function ContactPage() {
             </form>
           ) : (
             <div className="space-y-4">
-              <div className="text-sm font-semibold text-[var(--color-success)]">
-                Inviato. / Sent.
-              </div>
+              <div className="text-sm font-semibold text-[var(--color-success)]">Sent.</div>
               <div className="text-sm leading-6 text-[var(--color-slate)]">
-                Abbiamo ricevuto il tuo messaggio. Prossimo step: ti rispondiamo con il piano più rapido.
-                <br />
                 We received your message. Next step: we’ll reply with the fastest plan.
               </div>
               <button
@@ -234,8 +202,6 @@ export default function ContactPage() {
                 onClick={() => setSubmitted(false)}
                 className="inline-flex w-fit rounded-full border border-[var(--color-navy)]/15 px-5 py-3 text-sm font-semibold text-[var(--color-navy)] hover:border-[var(--color-navy)]/25 hover:bg-[var(--color-navy)]/[0.03]"
               >
-                Invia un altro messaggio
-                <br />
                 Send another message
               </button>
             </div>
@@ -244,37 +210,57 @@ export default function ContactPage() {
 
         <div className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6">
           <div className="space-y-3">
-            <div className="text-sm font-semibold text-[var(--color-navy)]">
-              Cosa succede dopo l’invio
-              <br />
-              What happens after you submit
-            </div>
+            <div className="text-sm font-semibold text-[var(--color-navy)]">What happens next?</div>
             <ul className="space-y-2 text-sm text-[var(--color-slate)]">
               <li className="flex gap-2">
                 <span className="mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-cyan)]" />
-                <span>
-                  Riceviamo la tua richiesta
-                  <br />
-                  We receive your request
-                </span>
+                <span>We review your message</span>
               </li>
               <li className="flex gap-2">
                 <span className="mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-cyan)]" />
-                <span>
-                  Revisioniamo entro 24 ore
-                  <br />
-                  We review within 24h
-                </span>
+                <span>We reply with a clear recommendation</span>
               </li>
               <li className="flex gap-2">
                 <span className="mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-cyan)]" />
-                <span>
-                  Proponiamo i prossimi step
-                  <br />
-                  We propose next steps
-                </span>
+                <span>We align scope, timeline, and next actions</span>
               </li>
             </ul>
+          </div>
+        </div>
+      </section>
+
+      <section className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6">
+          <div className="text-sm font-semibold text-[var(--color-navy)]">Mini FAQ</div>
+          <div className="mt-4 space-y-4 text-sm leading-6 text-[var(--color-slate)]">
+            <div>
+              <div className="font-semibold text-[var(--color-navy)]">Do you work with small teams?</div>
+              <div>Yes. If the goal is clear and the decision-making is fast.</div>
+            </div>
+            <div>
+              <div className="font-semibold text-[var(--color-navy)]">What’s the usual timeline?</div>
+              <div>Most launches ship in weeks, not months. Scope defines speed.</div>
+            </div>
+            <div>
+              <div className="font-semibold text-[var(--color-navy)]">Do you use AI?</div>
+              <div>Yes. AI accelerates cycles. Humans decide what ships.</div>
+            </div>
+            <div>
+              <div className="font-semibold text-[var(--color-navy)]">Can we start with a small sprint?</div>
+              <div>Yes. We can begin with a strategy + structure sprint, then build.</div>
+            </div>
+          </div>
+        </div>
+        <div
+          id="book"
+          className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6"
+        >
+          <div className="text-sm font-semibold text-[var(--color-navy)]">Book a call</div>
+          <div className="mt-3 text-sm leading-6 text-[var(--color-slate)]">
+            Add your calendar link here (Calendly, Cal.com, etc.).
+          </div>
+          <div className="mt-5 inline-flex w-fit rounded-full bg-[var(--color-blue)] px-5 py-3 text-sm font-semibold text-white">
+            Calendar CTA
           </div>
         </div>
       </section>
