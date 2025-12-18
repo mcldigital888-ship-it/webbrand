@@ -6,10 +6,10 @@ import { LangToggle } from "@/components/LangToggle";
 import Bilingual from "@/components/Bilingual";
 
 const navItems = [
-  { href: "/services", label: <Bilingual en="Services" it="Servizi" /> },
-  { href: "/work", label: <Bilingual en="Work" it="Progetti" /> },
-  { href: "/insights", label: <Bilingual en="Insights" it="Insights" /> },
-  { href: "/about", label: <Bilingual en="About" it="Chi siamo" /> },
+  { href: "/solutions", label: <Bilingual en="Solutions" it="Soluzioni" /> },
+  { href: "/process", label: <Bilingual en="Process" it="Processo" /> },
+  { href: "/case-studies", label: <Bilingual en="Case Studies" it="Case study" /> },
+  { href: "/plans", label: <Bilingual en="Plans" it="Piani" /> },
 ];
 
 export default function Navbar() {
@@ -43,10 +43,16 @@ export default function Navbar() {
             <LangToggle />
           </div>
           <Link
+            href="/oracolo"
+            className="hidden rounded-full border border-[var(--color-navy)]/15 px-4 py-2 text-sm font-semibold text-[var(--color-navy)] transition-colors hover:border-[var(--color-navy)]/25 hover:bg-[var(--color-navy)]/[0.03] md:inline-flex"
+          >
+            <Bilingual en="Oracolo" it="Oracolo" />
+          </Link>
+          <Link
             href="/contact"
             className="hidden rounded-full bg-[var(--color-blue)] px-4 py-2 text-sm font-semibold text-white transition-opacity hover:opacity-95 md:inline-flex"
           >
-            Book a Call
+            <Bilingual en="Book a Call" it="Prenota una call" />
           </Link>
 
           <button
@@ -79,11 +85,18 @@ export default function Navbar() {
                 </Link>
               ))}
               <Link
+                href="/oracolo"
+                onClick={() => setOpen(false)}
+                className="mt-1 inline-flex w-fit rounded-full border border-[var(--color-navy)]/15 px-5 py-3 text-sm font-semibold text-[var(--color-navy)] transition-colors hover:border-[var(--color-navy)]/25 hover:bg-[var(--color-navy)]/[0.03]"
+              >
+                <Bilingual en="Oracolo" it="Oracolo" />
+              </Link>
+              <Link
                 href="/contact"
                 onClick={() => setOpen(false)}
                 className="mt-1 inline-flex w-fit rounded-full bg-[var(--color-blue)] px-5 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-95"
               >
-                Book a Call
+                <Bilingual en="Book a Call" it="Prenota una call" />
               </Link>
             </div>
           </div>

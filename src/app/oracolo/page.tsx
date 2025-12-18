@@ -2,41 +2,101 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import PageShell from "@/components/PageShell";
+
+type TrackSlug =
+  | "sito-che-converte"
+  | "landing-ads"
+  | "social-contenuti"
+  | "funnel-completo"
+  | "crm-che-chiude"
+  | "automazioni-ai"
+  | "integrazioni-custom"
+  | "food-retail";
+
+type PrimaryGoal =
+  | "sales-website"
+  | "ads-landing"
+  | "social"
+  | "growth"
+  | "crm"
+  | "ai"
+  | "integrations"
+  | "kiosk";
+
+function trackToGoal(track: TrackSlug | null): PrimaryGoal | "" {
+  if (!track) return "";
+  if (track === "sito-che-converte") return "sales-website";
+  if (track === "landing-ads") return "ads-landing";
+  if (track === "social-contenuti") return "social";
+  if (track === "funnel-completo") return "growth";
+  if (track === "crm-che-chiude") return "crm";
+  if (track === "automazioni-ai") return "ai";
+  if (track === "integrazioni-custom") return "integrations";
+  if (track === "food-retail") return "kiosk";
+  return "";
+}
+
+function getInitialTrack(): TrackSlug | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const url = new URL(window.location.href);
+    const raw = url.searchParams.get("track");
+    const allowed: TrackSlug[] = [
+      "sito-che-converte",
+      "landing-ads",
+      "social-contenuti",
+      "funnel-completo",
+      "crm-che-chiude",
+      "automazioni-ai",
+      "integrazioni-custom",
+      "food-retail",
+    ];
+    return allowed.includes(raw as TrackSlug) ? (raw as TrackSlug) : null;
+  } catch {
+    return null;
+  }
+}
 
 export default function OracoloPage() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [form, setForm] = useState({
-    businessType: "",
-    primaryGoal: "",
-    currentSituation: "",
-    adBudgetRange: "",
-    timeline: "",
-    fullName: "",
-    email: "",
-    company: "",
-    website: "",
+  const [form, setForm] = useState(() => {
+    const track = getInitialTrack();
+    const goal = trackToGoal(track);
+    const businessType = track === "food-retail" ? "food-retail" : "";
+    return {
+      businessType,
+      primaryGoal: goal,
+      currentSituation: "",
+      adBudgetRange: "",
+      timeline: "",
+      fullName: "",
+      email: "",
+      company: "",
+      website: "",
+    };
   });
 
   const primaryGoalOptions = useMemo(() => {
     const base = [
       {
         value: "sales-website",
-        label: "Sito che converte (conversion-first) / Conversion-first website",
+        label: "Sito Web che converte / Conversion-first website",
       },
-      { value: "ads-landing", label: "Landing per ads / Ads landing page" },
+      { value: "ads-landing", label: "Landing Page per ADS / Ads landing page" },
+      { value: "social", label: "Gestione Social + Contenuti / Social + content" },
       {
-        value: "lead-system",
-        label: "Sistema lead (funnel + CRM + follow-up) / Lead system (funnel + CRM + follow-up)",
+        value: "growth",
+        label: "Growth Engine (lead + nurture) / Growth engine (lead + nurture)",
       },
       { value: "crm", label: "CRM & vendite / CRM & sales" },
       { value: "ai", label: "AI & automazione / AI & automation" },
+      { value: "integrations", label: "Software / Integrazioni / Software & integrations" },
       {
         value: "kiosk",
-        label: "Soluzione kiosk Food/Retail / Food/Retail kiosk solution",
+        label: "Food/Retail smart (totem) / Food & retail smart (kiosk)",
       },
     ];
 
@@ -67,7 +127,15 @@ export default function OracoloPage() {
       };
     }
 
-    if (goal === "lead-system") {
+    if (goal === "social") {
+      return {
+        modules: ["Social + contenuti / Social + content", "Landing per ads / Ads landing page"],
+        timeline: "30 days",
+        kpi: "Lead qualificati/mese: +20–40% / Qualified leads/month: +20–40%",
+      };
+    }
+
+    if (goal === "growth") {
       return {
         modules: ["Sistema lead / Lead system", "CRM & vendite / CRM & sales"],
         timeline: "30–60 days",
@@ -88,6 +156,14 @@ export default function OracoloPage() {
         modules: ["Assistenti AI / AI assistants", "Automazioni / Automations"],
         timeline: "30–60 days",
         kpi: "Riduzione lavoro manuale stimata: 15–30% / Expected manual work reduction: 15–30%",
+      };
+    }
+
+    if (goal === "integrations") {
+      return {
+        modules: ["Integrazioni / Integrations", "Automazioni / Automations"],
+        timeline: "14–30 days",
+        kpi: "Tempo risparmiato: 10–25% / Time saved: 10–25%",
       };
     }
 
@@ -195,182 +271,237 @@ export default function OracoloPage() {
   }
 
   return (
-    <PageShell
-      kicker="Oracolo"
-      title={
-        <>
-          Intake di 2 minuti → brief automatico
-          <br />
-          2-minute intake → auto brief
-        </>
-      }
-      subtitle={
-        <>
-          Rispondi a poche domande e ricevi un brief strutturato per i prossimi step più rapidi.
-          <br />
-          Answer a few questions and receive a structured brief for the fastest next steps.
-        </>
-      }
-    >
-      <section className="grid grid-cols-1 gap-4 md:grid-cols-3">
-        <div className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6 md:col-span-2">
-          {!submitted ? (
-            <form onSubmit={onSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <Field
-                  label="Tipo di attività / Business type"
-                  error={errors.businessType}
-                  required
-                >
-                  <select
-                    value={form.businessType}
-                    onChange={(e) => setField("businessType", e.target.value)}
-                    className={inputClassName(!!errors.businessType)}
-                  >
-                    <option value="">Seleziona / Select</option>
-                    <option value="b2b">B2B</option>
-                    <option value="food-retail">Food / Retail</option>
-                    <option value="service">Servizi / Services</option>
-                  </select>
-                </Field>
+    <div className="space-y-10">
+      <section className="rounded-3xl border border-black/5 bg-[#ff5a1f] px-6 py-10 text-black sm:px-10">
+        <div className="space-y-6">
+          <div className="space-y-3">
+            <h1 className="font-[var(--font-display)] text-4xl font-semibold tracking-tight sm:text-5xl">
+              Oracolo webrrand™ — dimmi cosa vuoi costruire
+              <br />
+              <span className="text-black/70">Webrrand oracle™ — tell us what to build</span>
+            </h1>
+            <p className="max-w-3xl text-sm leading-6 text-black/75">
+              Compili 2 minuti. L&apos;Oracolo fa le domande giuste e genera: Brief completo + Roadmap implementazione + Stima
+              tempi + KPI target + proposta modulare.
+              <span className="text-black/60"> / </span>
+              A 2-minute intake. We ask the right questions and generate: a full brief + implementation roadmap +
+              timeline + KPI targets + modular quote.
+            </p>
+          </div>
 
-                <Field label="Obiettivo principale / Primary goal" error={errors.primaryGoal} required>
-                  <select
-                    value={form.primaryGoal}
-                    onChange={(e) => setField("primaryGoal", e.target.value)}
-                    className={inputClassName(!!errors.primaryGoal)}
-                  >
-                    <option value="">Seleziona / Select</option>
-                    {primaryGoalOptions.map((o) => (
-                      <option key={o.value} value={o.value}>
-                        {o.label}
-                      </option>
-                    ))}
-                  </select>
-                </Field>
+          <div className="rounded-2xl border border-black/10 bg-black/10 p-6">
+            <div className="text-sm font-semibold text-black">
+              Cosa ottieni
+              <span className="text-black/60"> / </span>
+              What you get
+            </div>
+            <div className="mt-2 text-sm leading-6 text-black/75">
+              Project Brief (obiettivo, target, vincoli), Page/Flow Blueprint, Deliverables & Timeline, Stima ROI/KPI,
+              Preventivo modulare.
+              <span className="text-black/60"> / </span>
+              Project brief (objective, target, constraints), page/flow blueprint, deliverables & timeline, ROI/KPI
+              estimate, modular quote.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="rounded-3xl border border-black/5 bg-[var(--color-surface)] p-6 sm:p-8">
+        {!submitted ? (
+          <form onSubmit={onSubmit} className="space-y-8">
+            <div className="space-y-3">
+              <div className="text-sm font-semibold text-[var(--color-navy)]">
+                Scegli cosa vuoi realizzare
+                <span className="text-[var(--color-slate)]"> / </span>
+                Choose what to build
               </div>
-
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <Field
-                  label="Situazione attuale / Current situation"
-                  error={errors.currentSituation}
-                  required
-                >
-                  <select
-                    value={form.currentSituation}
-                    onChange={(e) => setField("currentSituation", e.target.value)}
-                    className={inputClassName(!!errors.currentSituation)}
-                  >
-                    <option value="">Seleziona / Select</option>
-                    <option value="starting">Parto da zero / Starting from scratch</option>
-                    <option value="have-traffic-no-leads">
-                      Ho traffico, pochi lead / Traffic exists, leads are weak
-                    </option>
-                    <option value="have-leads-no-system">
-                      Ho lead, nessun follow-up / Leads exist, no follow-up system
-                    </option>
-                    <option value="crm-mess">CRM presente ma caotico / CRM exists but messy</option>
-                    <option value="ops-heavy">Molto lavoro manuale / Ops-heavy, lots of manual work</option>
-                  </select>
-                </Field>
-
-                <Field label="Timeline / Timeline" error={errors.timeline} required>
-                  <select
-                    value={form.timeline}
-                    onChange={(e) => setField("timeline", e.target.value)}
-                    className={inputClassName(!!errors.timeline)}
-                  >
-                    <option value="">Seleziona / Select</option>
-                    <option value="urgent">Urgente / Urgent</option>
-                    <option value="30">30 giorni / 30 days</option>
-                    <option value="60+">60+ giorni / 60+ days</option>
-                  </select>
-                </Field>
-              </div>
-
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <Field label="Budget ads mensile (opzionale) / Monthly ad budget (optional)">
-                  <select
-                    value={form.adBudgetRange}
-                    onChange={(e) => setField("adBudgetRange", e.target.value)}
-                    className={inputClassName(false)}
-                  >
-                    <option value="">Seleziona / Select</option>
-                    <option value="0">Niente ads / No ads</option>
-                    <option value="1-2k">$1k–$2k</option>
-                    <option value="2-5k">$2k–$5k</option>
-                    <option value="5-10k">$5k–$10k</option>
-                    <option value="10k+">$10k+</option>
-                  </select>
-                </Field>
-
-                <Field label="Sito web (opzionale) / Website (optional)">
-                  <input
-                    value={form.website}
-                    onChange={(e) => setField("website", e.target.value)}
-                    className={inputClassName(false)}
-                    placeholder="https://..."
-                  />
-                </Field>
-              </div>
-
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <Field label="Nome / Full name" error={errors.fullName} required>
-                  <input
-                    value={form.fullName}
-                    onChange={(e) => setField("fullName", e.target.value)}
-                    className={inputClassName(!!errors.fullName)}
-                    placeholder="Il tuo nome / Your name"
-                  />
-                </Field>
-
-                <Field label="Email" error={errors.email} required>
-                  <input
-                    value={form.email}
-                    onChange={(e) => setField("email", e.target.value)}
-                    className={inputClassName(!!errors.email)}
-                    placeholder="you@company.com"
-                    inputMode="email"
-                  />
-                </Field>
-              </div>
-
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <Field label="Azienda (opzionale) / Company (optional)">
-                  <input
-                    value={form.company}
-                    onChange={(e) => setField("company", e.target.value)}
-                    className={inputClassName(false)}
-                    placeholder="Nome azienda / Company name"
-                  />
-                </Field>
-              </div>
-
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-                <button
-                  type="submit"
-                  disabled={submitting}
-                  className="inline-flex w-fit rounded-full bg-[var(--color-blue)] px-5 py-3 text-sm font-semibold text-white hover:opacity-95"
-                >
-                  {submitting ? "Avvio... / Starting..." : "Avvia / Start"}
-                </button>
-                <Link
-                  href="/contact"
-                  className="inline-flex w-fit rounded-full border border-[var(--color-navy)]/15 px-5 py-3 text-sm font-semibold text-[var(--color-navy)] hover:border-[var(--color-navy)]/25 hover:bg-[var(--color-navy)]/[0.03]"
-                >
-                  Richiedi una call
-                  <span className="text-[var(--color-slate)]"> / </span>
-                  Request a call
-                </Link>
-              </div>
-
-              {submitError ? (
-                <div className="text-sm text-[var(--color-slate)]">
-                  {submitError}
-                </div>
+              {errors.primaryGoal ? (
+                <div className="text-xs font-medium text-[var(--color-slate)]">{errors.primaryGoal}</div>
               ) : null}
-            </form>
-          ) : (
+              <div className="grid grid-cols-1 gap-3">
+                {primaryGoalOptions.map((o) => (
+                  <label
+                    key={o.value}
+                    className="flex cursor-pointer items-start gap-3 rounded-2xl border border-black/10 bg-white p-4 hover:bg-[var(--color-background)]"
+                  >
+                    <input
+                      type="radio"
+                      name="primaryGoal"
+                      value={o.value}
+                      checked={form.primaryGoal === o.value}
+                      onChange={(e) => setField("primaryGoal", e.target.value)}
+                      className="mt-1 h-4 w-4"
+                    />
+                    <span className="text-sm font-semibold text-[var(--color-navy)]">{o.label}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <Field label="Tipo di attività / Business type" error={errors.businessType} required>
+                <select
+                  value={form.businessType}
+                  onChange={(e) => setField("businessType", e.target.value)}
+                  className={inputClassName(!!errors.businessType)}
+                >
+                  <option value="">Seleziona / Select</option>
+                  <option value="b2b">B2B</option>
+                  <option value="food-retail">Food / Retail</option>
+                  <option value="service">Servizi / Services</option>
+                </select>
+              </Field>
+
+              <Field label="Timeline / Timeline" error={errors.timeline} required>
+                <select
+                  value={form.timeline}
+                  onChange={(e) => setField("timeline", e.target.value)}
+                  className={inputClassName(!!errors.timeline)}
+                >
+                  <option value="">Seleziona / Select</option>
+                  <option value="urgent">Urgente / Urgent</option>
+                  <option value="30">30 giorni / 30 days</option>
+                  <option value="60+">60+ giorni / 60+ days</option>
+                </select>
+              </Field>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <Field label="Budget ads mensile (opzionale) / Monthly ad budget (optional)">
+                <select
+                  value={form.adBudgetRange}
+                  onChange={(e) => setField("adBudgetRange", e.target.value)}
+                  className={inputClassName(false)}
+                >
+                  <option value="">Seleziona / Select</option>
+                  <option value="0">Niente ads / No ads</option>
+                  <option value="1-2k">$1k–$2k</option>
+                  <option value="2-5k">$2k–$5k</option>
+                  <option value="5-10k">$5k–$10k</option>
+                  <option value="10k+">$10k+</option>
+                </select>
+              </Field>
+
+              <Field label="Sito web (opzionale) / Website (optional)">
+                <input
+                  value={form.website}
+                  onChange={(e) => setField("website", e.target.value)}
+                  className={inputClassName(false)}
+                  placeholder="https://..."
+                />
+              </Field>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <Field label="Nome / Full name" error={errors.fullName} required>
+                <input
+                  value={form.fullName}
+                  onChange={(e) => setField("fullName", e.target.value)}
+                  className={inputClassName(!!errors.fullName)}
+                  placeholder="Il tuo nome / Your name"
+                />
+              </Field>
+
+              <Field label="Email" error={errors.email} required>
+                <input
+                  value={form.email}
+                  onChange={(e) => setField("email", e.target.value)}
+                  className={inputClassName(!!errors.email)}
+                  placeholder="you@company.com"
+                  inputMode="email"
+                />
+              </Field>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <Field label="Azienda (opzionale) / Company (optional)">
+                <input
+                  value={form.company}
+                  onChange={(e) => setField("company", e.target.value)}
+                  className={inputClassName(false)}
+                  placeholder="Nome azienda / Company name"
+                />
+              </Field>
+
+              <Field label="Situazione attuale (opzionale) / Current situation (optional)">
+                <select
+                  value={form.currentSituation}
+                  onChange={(e) => setField("currentSituation", e.target.value)}
+                  className={inputClassName(false)}
+                >
+                  <option value="">Seleziona / Select</option>
+                  <option value="starting">Parto da zero / Starting from scratch</option>
+                  <option value="have-traffic-no-leads">Ho traffico, pochi lead / Traffic exists, leads are weak</option>
+                  <option value="have-leads-no-system">Ho lead, nessun follow-up / Leads exist, no follow-up system</option>
+                  <option value="crm-mess">CRM presente ma caotico / CRM exists but messy</option>
+                  <option value="ops-heavy">Molto lavoro manuale / Ops-heavy, lots of manual work</option>
+                </select>
+              </Field>
+            </div>
+
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+              <div className="rounded-2xl border border-black/5 bg-[var(--color-background)] p-5">
+                <div className="text-sm font-semibold text-[var(--color-navy)]">
+                  Privacy garantita
+                  <span className="text-[var(--color-slate)]"> / </span>
+                  Privacy
+                </div>
+                <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">
+                  Dati protetti, nessuna vendita a terzi.
+                  <span className="text-[var(--color-slate)]"> / </span>
+                  Data protected, never sold.
+                </div>
+              </div>
+              <div className="rounded-2xl border border-black/5 bg-[var(--color-background)] p-5">
+                <div className="text-sm font-semibold text-[var(--color-navy)]">
+                  Zero spam
+                  <span className="text-[var(--color-slate)]"> / </span>
+                  Zero spam
+                </div>
+                <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">
+                  Nessuna newsletter non richiesta.
+                  <span className="text-[var(--color-slate)]"> / </span>
+                  No unsolicited newsletters.
+                </div>
+              </div>
+              <div className="rounded-2xl border border-black/5 bg-[var(--color-background)] p-5">
+                <div className="text-sm font-semibold text-[var(--color-navy)]">
+                  Cosa succede dopo
+                  <span className="text-[var(--color-slate)]"> / </span>
+                  What happens next
+                </div>
+                <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">
+                  Ricevi brief + roadmap entro 24h.
+                  <span className="text-[var(--color-slate)]"> / </span>
+                  Get brief + roadmap within 24h.
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+              <button
+                type="submit"
+                disabled={submitting}
+                className="inline-flex w-fit rounded-full bg-[var(--color-blue)] px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-95"
+              >
+                {submitting ? "Invio... / Submitting..." : "Inizia ora (2 min) / Start now (2 min)"}
+              </button>
+              <Link
+                href="/contact"
+                className="inline-flex w-fit rounded-full border border-[var(--color-navy)]/15 px-6 py-3 text-sm font-semibold text-[var(--color-navy)] transition-colors hover:border-[var(--color-navy)]/25 hover:bg-[var(--color-navy)]/[0.03]"
+              >
+                Preferisco parlare: Prenota una Call
+                <span className="text-[var(--color-slate)]"> / </span>
+                Prefer to talk: book a call
+              </Link>
+            </div>
+
+            {submitError ? (
+              <div className="text-sm text-[var(--color-slate)]">{submitError}</div>
+            ) : null}
+          </form>
+        ) : (
+          <div className="rounded-3xl border border-black/5 bg-[var(--color-surface)] p-6 sm:p-8">
             <div className="space-y-6">
               <div className="space-y-2">
                 <div className="text-sm font-semibold text-[var(--color-navy)]">
@@ -478,54 +609,10 @@ export default function OracoloPage() {
                 </button>
               </div>
             </div>
-          )}
-        </div>
-
-        <aside className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6">
-          <div className="space-y-3">
-            <div className="text-sm font-semibold text-[var(--color-navy)]">
-              Perché Oracolo funziona
-              <br />
-              Why Oracolo works
-            </div>
-            <ul className="space-y-2 text-sm text-[var(--color-slate)]">
-              <li className="flex gap-2">
-                <span className="mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-cyan)]" />
-                <span>
-                  Un obiettivo → un sistema consigliato.
-                  <br />
-                  One goal → one recommended system.
-                </span>
-              </li>
-              <li className="flex gap-2">
-                <span className="mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-cyan)]" />
-                <span>
-                  Il brief è pronto per il CRM.
-                  <br />
-                  The brief format is CRM-ready.
-                </span>
-              </li>
-              <li className="flex gap-2">
-                <span className="mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-cyan)]" />
-                <span>
-                  Percorso più rapido verso una proposta rilevante.
-                  <br />
-                  Fastest path to a relevant proposal.
-                </span>
-              </li>
-            </ul>
-            <Link
-              href="/solutions"
-              className="inline-flex w-fit rounded-full border border-[var(--color-navy)]/15 px-4 py-2 text-sm font-semibold text-[var(--color-navy)] hover:border-[var(--color-navy)]/25 hover:bg-[var(--color-navy)]/[0.03]"
-            >
-              Vedi soluzioni
-              <br />
-              See solutions
-            </Link>
           </div>
-        </aside>
+        )}
       </section>
-    </PageShell>
+    </div>
   );
 }
 

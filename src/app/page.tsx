@@ -1,308 +1,332 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import CTASection from "@/components/CTASection";
-import LogoBand from "@/components/LogoBand";
-import MetricCards from "@/components/MetricCards";
-import ServiceCards from "@/components/ServiceCards";
-import Reveal from "@/components/Reveal";
-import { caseStudies } from "@/lib/content";
+import Bilingual from "@/components/Bilingual";
+import SectionBand from "@/components/SectionBand";
+import GoalCard from "@/components/GoalCard";
+import ModuleCard from "@/components/ModuleCard";
 
 export const metadata: Metadata = {
   title: "Home",
   description:
-    "Ultra modern studio for strategy, brand, web, and performance—built for measurable growth.",
+    "Metti ordine. Automatizza. Converti. Sistemi modulari, zero fuffa.",
   openGraph: {
     title: "Webbrand",
     description:
-      "Ultra modern studio for strategy, brand, web, and performance—built for measurable growth.",
+      "Metti ordine. Automatizza. Converti. Sistemi modulari, zero fuffa.",
     type: "website",
   },
 };
 
-const metrics = [
-  { label: "Projects", value: "40+" },
-  { label: "Avg. lift", value: "+18%" },
-  { label: "Time-to-launch", value: "2–6w" },
-  { label: "Countries", value: "8" },
+const goalsPreview = [
+  {
+    number: "1",
+    href: "/solutions#sito-che-converte",
+    title: { it: "Mi serve un sito che converta", en: "I need a website that converts" },
+    desc: {
+      it: "Architettura UX, copy strategico, tracking eventi e integrazione CRM.",
+      en: "Conversion UX, strategic copy, event tracking, and CRM integration.",
+    },
+  },
+  {
+    number: "2",
+    href: "/solutions#landing-ads",
+    title: { it: "Mi serve una landing per ads", en: "I need a landing page for ads" },
+    desc: {
+      it: "Pagina singola ottimizzata per campagne: anti-frizione e tracciamento completo.",
+      en: "Single-page built for campaigns: zero friction and full tracking.",
+    },
+  },
+  {
+    number: "3",
+    href: "/solutions#social-contenuti",
+    title: { it: "Mi serve gestione social + contenuti", en: "I need social + content" },
+    desc: {
+      it: "Calendario editoriale, produzione, format ricorrenti e collegamento a funnel/CRM.",
+      en: "Editorial calendar, production, repeatable formats, connected to funnel/CRM.",
+    },
+  },
+  {
+    number: "4",
+    href: "/solutions#crm-che-chiude",
+    title: { it: "Voglio un CRM che chiuda", en: "I want a CRM that closes" },
+    desc: {
+      it: "Pipeline strutturata, scoring, follow-up intelligente e reporting vendite.",
+      en: "Structured pipeline, lead scoring, smart follow-ups, and sales reporting.",
+    },
+  },
 ];
 
-const services = [
+const modules = [
   {
-    title: "Marketing & Growth Strategy",
-    description: "Positioning, channel focus, and a measurable plan.",
-    href: "/services/strategy",
+    title: { it: "WEB (Siti + Landing)", en: "WEB (Sites + Landing)" },
+    desc: {
+      it: "Progettazione UX, copy strategico, sviluppo conversion-first.",
+      en: "Conversion-first UX, strategic copy, and development.",
+    },
+    bullets: [
+      { it: "Architettura pagine", en: "Information architecture" },
+      { it: "SEO tecnico + tracking", en: "Technical SEO + tracking" },
+      { it: "Integrazione CRM", en: "CRM integration" },
+    ],
   },
   {
-    title: "Brand Identity",
-    description: "Premium identity systems that scale.",
-    href: "/services/brand",
+    title: { it: "MARKETING (Social + Contenuti + Campagne)", en: "MARKETING (Social + Content + Campaigns)" },
+    desc: {
+      it: "Gestione e produzione con un sistema, non post isolati.",
+      en: "A system for content + campaigns, not random posts.",
+    },
+    bullets: [
+      { it: "Piano editoriale", en: "Content plan" },
+      { it: "ADV & retargeting", en: "Ads & retargeting" },
+      { it: "Messaggi che convertono", en: "Conversion messaging" },
+    ],
   },
   {
-    title: "Digital Experience",
-    description: "Websites built for clarity, speed, and conversion.",
-    href: "/services/web",
+    title: { it: "SALES SYSTEM (CRM + Pipeline + Follow-up)", en: "SALES SYSTEM (CRM + Pipeline + Follow-up)" },
+    desc: {
+      it: "CRM strutturato per gestire lead, timing e closing.",
+      en: "A CRM setup designed for speed, follow-up, and closing.",
+    },
+    bullets: [
+      { it: "Pipeline + automazioni", en: "Pipeline + automation" },
+      { it: "Follow-up multi-canale", en: "Multi-channel follow-up" },
+      { it: "Reporting vendite", en: "Sales reporting" },
+    ],
   },
   {
-    title: "Performance & Analytics",
-    description: "Tracking, dashboards, and experiments.",
-    href: "/services/performance",
+    title: { it: "AI (Assistenti + Automazioni + AI Apps)", en: "AI (Assistants + Automations + AI Apps)" },
+    desc: {
+      it: "AI applicata ai processi: meno lavoro manuale, più velocità.",
+      en: "Applied AI: less manual work, more speed.",
+    },
+    bullets: [
+      { it: "Assistenti conversazionali", en: "AI assistants" },
+      { it: "Workflow automation", en: "Workflow automation" },
+      { it: "App verticali", en: "Vertical apps" },
+    ],
   },
   {
-    title: "Content & Social",
-    description: "Content systems that compound.",
-    href: "/services/content",
-  },
-  {
-    title: "All services",
-    description: "The full menu—pick the track that fits.",
-    href: "/services",
-  },
-];
-
-const process = ["Discover", "Design", "Build", "Launch", "Optimize"];
-
-const testimonials = [
-  {
-    quote: "The work was fast, sharp, and measurable. Zero fluff.",
-    name: "Head of Growth",
-    company: "Client A",
-  },
-  {
-    quote: "Finally a site that looks premium and sells clearly.",
-    name: "Founder",
-    company: "Client B",
-  },
-  {
-    quote: "Tracking fixed, dashboards clean, decisions became obvious.",
-    name: "Marketing Lead",
-    company: "Client C",
+    title: { it: "SOFTWARE & INTEGRAZIONI", en: "SOFTWARE & INTEGRATIONS" },
+    desc: {
+      it: "Colleghiamo strumenti esistenti e riduciamo passaggi manuali.",
+      en: "Connect tools and eliminate manual steps.",
+    },
+    bullets: [
+      { it: "Integrazioni con stack", en: "Stack integrations" },
+      { it: "Automazioni operative", en: "Operational automations" },
+      { it: "Custom quando serve", en: "Custom when needed" },
+    ],
   },
 ];
 
 export default function Home() {
-  const featured = caseStudies.slice(0, 3);
-
   return (
-    <div className="space-y-16">
-      <section className="space-y-8">
-        <Reveal>
-          <div className="space-y-5">
-            <p className="text-sm font-semibold tracking-wide text-[var(--color-cyan)]">
-              AI-powered studio
-            </p>
+    <div className="space-y-10">
+      <SectionBand tone="accent" className="overflow-hidden">
+        <div className="space-y-6">
+          <div className="space-y-3">
+            <div className="text-sm font-semibold tracking-wide text-[var(--color-navy)]/70">
+              <Bilingual en="WEBRRAND AGENCY" it="WEBRRAND AGENCY" />
+            </div>
             <h1 className="max-w-4xl font-[var(--font-display)] text-5xl font-semibold tracking-tight text-[var(--color-navy)] sm:text-6xl">
-              Build the next wave.
+              <Bilingual
+                it={
+                  <>
+                    Metti ordine. Automatizza.
+                    <br />
+                    Converti.
+                  </>
+                }
+                en={
+                  <>
+                    Get organized. Automate.
+                    <br />
+                    Convert.
+                  </>
+                }
+              />
             </h1>
             <p className="max-w-2xl text-lg leading-8 text-[var(--color-slate)]">
-              AI + data + craft. Built for measurable growth.
+              <Bilingual
+                it="Costruiamo sistemi digitali e AI per aziende che vogliono smettere di rincorrere: siti e landing che convertono, social e campagne che generano lead, CRM che chiudono, software e integrazioni che eliminano caos."
+                en="We build modular digital + AI systems for teams that want clarity and conversion: websites and landing pages that sell, campaigns that generate leads, CRMs that close, and integrations that remove chaos."
+              />
             </p>
             <div className="flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/contact"
                 className="inline-flex w-fit rounded-full bg-[var(--color-blue)] px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-95"
               >
-                Book a Call
+                <Bilingual en="Book a Call (15 min)" it="Prenota una call (15 min)" />
               </Link>
               <Link
-                href="/work"
-                className="inline-flex w-fit rounded-full border border-[var(--color-navy)]/15 px-6 py-3 text-sm font-semibold text-[var(--color-navy)] transition-colors hover:border-[var(--color-navy)]/25 hover:bg-[var(--color-navy)]/[0.03]"
+                href="/solutions"
+                className="inline-flex w-fit rounded-full border border-[var(--color-navy)]/15 bg-white/60 px-6 py-3 text-sm font-semibold text-[var(--color-navy)] transition-colors hover:border-[var(--color-navy)]/25 hover:bg-white"
               >
-                View Work
+                <Bilingual en="Choose your objective" it="Scegli il tuo obiettivo" />
               </Link>
             </div>
             <p className="text-sm font-medium text-[var(--color-slate)]">
-              Trusted by modern teams.
+              <Bilingual
+                it="Risposta entro 24h · Call breve · Next step chiaro · Zero fuffa"
+                en="Reply within 24h · Short call · Clear next step · Zero fluff"
+              />
             </p>
           </div>
-        </Reveal>
-      </section>
 
-      <LogoBand />
-
-      <MetricCards metrics={metrics} />
-
-      <section className="grid grid-cols-1 gap-4 md:grid-cols-3">
-        <Pillar
-          title="Strategy"
-          desc="Define the signal. Align the team. Set measurable priorities."
-        />
-        <Pillar
-          title="Build"
-          desc="Brand + web systems that look premium and move fast."
-        />
-        <Pillar
-          title="Scale"
-          desc="Performance, analytics, and content that compound."
-        />
-      </section>
-
-      <section className="space-y-6">
-        <div className="flex items-end justify-between gap-6">
-          <div className="space-y-2">
-            <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--color-navy)]">
-              Services
-            </h2>
-            <p className="max-w-2xl text-sm leading-6 text-[var(--color-slate)]">
-              Pick a track. Ship a system. Measure the lift.
-            </p>
-          </div>
-        </div>
-        <ServiceCards items={services} />
-      </section>
-
-      <section className="space-y-6">
-        <div className="space-y-2">
-          <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--color-navy)]">
-            Featured work
-          </h2>
-          <p className="max-w-2xl text-sm leading-6 text-[var(--color-slate)]">
-            Problem. Approach. Result.
-          </p>
-        </div>
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-          {featured.map((c) => (
-            <Reveal key={c.slug}>
-              <Link
-                href={`/work/${c.slug}`}
-                className="group rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6 transition-transform duration-300 hover:-translate-y-1"
-              >
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between gap-4">
-                    <div className="text-xs font-semibold uppercase tracking-wide text-[var(--color-slate)]">
-                      {c.client}
-                    </div>
-                    <div className="text-xs font-semibold text-[var(--color-navy)]">
-                      {c.outcome}
-                    </div>
-                  </div>
-                  <div className="font-[var(--font-display)] text-xl font-semibold tracking-tight text-[var(--color-navy)]">
-                    {c.oneLiner}
-                  </div>
-                  <div className="grid grid-cols-1 gap-3 text-sm leading-6 text-[var(--color-slate)]">
-                    <div>
-                      <div className="text-xs font-semibold uppercase tracking-wide text-[var(--color-slate)]">
-                        Problem
-                      </div>
-                      <div>{c.challenge}</div>
-                    </div>
-                    <div>
-                      <div className="text-xs font-semibold uppercase tracking-wide text-[var(--color-slate)]">
-                        Approach
-                      </div>
-                      <div>{c.solution}</div>
-                    </div>
-                    <div>
-                      <div className="text-xs font-semibold uppercase tracking-wide text-[var(--color-slate)]">
-                        Result
-                      </div>
-                      <div>{c.result}</div>
-                    </div>
-                  </div>
-                  <div className="pt-1 text-sm font-semibold text-[var(--color-navy)]">
-                    View case
-                  </div>
-                </div>
-              </Link>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      <section className="space-y-6">
-        <div className="space-y-2">
-          <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--color-navy)]">
-            Process
-          </h2>
-          <p className="max-w-2xl text-sm leading-6 text-[var(--color-slate)]">
-            A simple loop designed to ship.
-          </p>
-        </div>
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-5">
-          {process.map((s) => (
-            <Reveal key={s}>
-              <div className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-5">
-                <div className="text-sm font-semibold text-[var(--color-navy)]">{s}</div>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="rounded-2xl border border-black/5 bg-white/70 p-6">
+              <div className="text-sm font-semibold text-[var(--color-navy)]">
+                <Bilingual en="Acquisition" it="Acquisizione" />
               </div>
-            </Reveal>
-          ))}
+              <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">
+                <Bilingual
+                  it="Landing + ads + social → lead tracciati"
+                  en="Landing + ads + social → tracked leads"
+                />
+              </div>
+            </div>
+            <div className="rounded-2xl border border-black/5 bg-white/70 p-6">
+              <div className="text-sm font-semibold text-[var(--color-navy)]">
+                <Bilingual en="Conversion" it="Conversione" />
+              </div>
+              <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">
+                <Bilingual it="CRM + follow-up + chatbot → demo/preventivi" en="CRM + follow-up + chatbot → demos/quotes" />
+              </div>
+            </div>
+            <div className="rounded-2xl border border-black/5 bg-white/70 p-6 md:col-span-3">
+              <div className="text-sm font-semibold text-[var(--color-navy)]">
+                <Bilingual en="Control" it="Controllo" />
+              </div>
+              <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">
+                <Bilingual it="Dashboard KPI + automazioni → meno errori, più velocità" en="KPI dashboards + automations → fewer errors, more speed" />
+              </div>
+            </div>
+          </div>
         </div>
-      </section>
+      </SectionBand>
 
-      <section className="rounded-2xl border border-black/5 bg-[var(--color-navy)] p-8 text-white">
+      <SectionBand tone="muted">
         <div className="space-y-6">
           <div className="space-y-2">
-            <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight">
-              What clients say
+            <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--color-navy)]">
+              <Bilingual
+                it="Sei qui per una di queste cose. Clicca e vai dritto."
+                en="You’re here for one of these. Click and go straight."
+              />
             </h2>
-            <p className="max-w-2xl text-sm leading-6 text-white/70">
-              Short quotes. Clear signal.
+            <p className="max-w-3xl text-sm leading-6 text-[var(--color-slate)]">
+              <Bilingual
+                it="Non perdiamo tempo. Identifica il tuo obiettivo e accedi direttamente alla soluzione progettata per quello."
+                en="No wasted time. Pick your goal and jump to the solution designed for it."
+              />
             </p>
           </div>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-            {testimonials.map((t) => (
-              <div key={t.quote} className="rounded-2xl border border-white/10 bg-white/5 p-6">
-                <div className="space-y-3">
-                  <div className="text-sm leading-6">“{t.quote}”</div>
-                  <div className="text-xs font-semibold uppercase tracking-wide text-white/70">
-                    {t.name} · {t.company}
-                  </div>
-                </div>
-              </div>
+          <div className="grid grid-cols-1 gap-3">
+            {goalsPreview.map((g) => (
+              <GoalCard key={g.number} number={g.number} title={g.title} desc={g.desc} href={g.href} />
             ))}
           </div>
+          <div>
+            <Link
+              href="/solutions"
+              className="inline-flex w-fit rounded-full bg-[var(--color-blue)] px-5 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-95"
+            >
+              <Bilingual en="See all objectives" it="Vedi tutti gli obiettivi" />
+            </Link>
+          </div>
         </div>
-      </section>
+      </SectionBand>
 
-      <section className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-8">
-        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+      <SectionBand tone="light">
+        <div className="space-y-6">
           <div className="space-y-2">
-            <h2 className="font-[var(--font-display)] text-2xl font-semibold text-[var(--color-navy)]">
-              Newsletter
+            <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--color-navy)]">
+              <Bilingual it='Vendiamo risultati, non "servizi separati"' en='We sell outcomes, not "separate services"' />
             </h2>
-            <p className="max-w-2xl text-sm leading-6 text-[var(--color-slate)]">
-              One email. One useful idea. No noise.
+            <p className="max-w-3xl text-sm leading-6 text-[var(--color-slate)]">
+              <Bilingual
+                it="Ogni modulo funziona da solo, ma è progettato per integrarsi con gli altri. Nessun lock-in: lo scopo è un sistema che sai usare."
+                en="Each module works standalone, but it’s designed to integrate with the rest. No lock-in: the goal is a system your team can run."
+              />
             </p>
           </div>
-          <form className="flex w-full max-w-md gap-3">
-            <input
-              className="h-11 flex-1 rounded-xl border border-black/10 bg-white px-3 text-sm text-[var(--color-navy)] outline-none focus:border-[var(--color-blue)]"
-              placeholder="you@company.com"
-              inputMode="email"
-            />
-            <button
-              type="button"
-              className="inline-flex h-11 items-center rounded-xl bg-[var(--color-blue)] px-5 text-sm font-semibold text-white transition-opacity hover:opacity-95"
-            >
-              Join
-            </button>
-          </form>
-        </div>
-      </section>
-
-      <CTASection
-        title="Ready to build your next wave?"
-        subtitle="Bring your goal. We’ll ship the system—and measure the impact."
-        primary={{ href: "/contact", label: "Book a Call" }}
-        secondary={{ href: "/work", label: "View Work" }}
-      />
-    </div>
-  );
-}
-
-function Pillar({ title, desc }: { title: string; desc: string }) {
-  return (
-    <Reveal>
-      <div className="group relative overflow-hidden rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6 transition-transform duration-300 hover:-translate-y-0.5">
-        <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-          <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-[var(--color-cyan)]/15 blur-2xl" />
-        </div>
-        <div className="relative space-y-2">
-          <div className="font-[var(--font-display)] text-2xl font-semibold tracking-tight text-[var(--color-navy)]">
-            {title}
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            {modules.map((m) => (
+              <ModuleCard key={m.title.en} title={m.title} desc={m.desc} bullets={m.bullets} />
+            ))}
           </div>
-          <div className="text-sm leading-6 text-[var(--color-slate)]">{desc}</div>
+          <div>
+            <Link
+              href="/solutions"
+              className="inline-flex w-fit rounded-full border border-[var(--color-navy)]/15 px-5 py-3 text-sm font-semibold text-[var(--color-navy)] transition-colors hover:border-[var(--color-navy)]/25 hover:bg-[var(--color-navy)]/[0.03]"
+            >
+              <Bilingual en="Pick the right module" it="Scegli il modulo giusto" />
+            </Link>
+          </div>
         </div>
-      </div>
-    </Reveal>
+      </SectionBand>
+
+      <SectionBand tone="muted">
+        <div className="space-y-6">
+          <div className="space-y-2">
+            <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--color-navy)]">
+              <Bilingual it="Da confusione a sistema in 3 step" en="From chaos to a system in 3 steps" />
+            </h2>
+            <p className="max-w-3xl text-sm leading-6 text-[var(--color-slate)]">
+              <Bilingual
+                it="Questo è il processo reale: tempi concreti e deliverable tangibili."
+                en="A real process: concrete timelines and tangible deliverables."
+              />
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="rounded-2xl border border-black/5 bg-white p-6">
+              <div className="text-sm font-semibold text-[var(--color-navy)]">
+                <Bilingual it="Diagnosi (7 giorni)" en="Diagnose (7 days)" />
+              </div>
+              <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">
+                <Bilingual
+                  it="Analisi di funnel, tracking, messaggi e colli di bottiglia. Output: audit + azioni."
+                  en="Audit funnel, tracking, messaging, bottlenecks. Output: audit + actions."
+                />
+              </div>
+            </div>
+            <div className="rounded-2xl border border-black/5 bg-white p-6">
+              <div className="text-sm font-semibold text-[var(--color-navy)]">
+                <Bilingual it="Build (14–30 giorni)" en="Build (14–30 days)" />
+              </div>
+              <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">
+                <Bilingual
+                  it="Implementazione: sito/landing, CRM, automazioni, AI. Tutto tracciato."
+                  en="Implementation: site/landing, CRM, automations, AI. Fully tracked."
+                />
+              </div>
+            </div>
+            <div className="rounded-2xl border border-black/5 bg-white p-6">
+              <div className="text-sm font-semibold text-[var(--color-navy)]">
+                <Bilingual it="Scale (mensile)" en="Scale (monthly)" />
+              </div>
+              <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">
+                <Bilingual
+                  it="Ottimizzazione, A/B test, automazioni e miglioramenti guidati dai KPI."
+                  en="Optimization, A/B tests, automation, KPI-driven improvements."
+                />
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <Link
+              href="/process"
+              className="inline-flex w-fit rounded-full bg-[var(--color-blue)] px-5 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-95"
+            >
+              <Bilingual en="See the full process" it="Vedi il processo" />
+            </Link>
+          </div>
+        </div>
+      </SectionBand>
+    </div>
   );
 }
