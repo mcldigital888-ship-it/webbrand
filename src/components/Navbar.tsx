@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LangToggle } from "@/components/LangToggle";
 import Bilingual from "@/components/Bilingual";
 
@@ -14,6 +14,37 @@ const navItems = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [adminCta, setAdminCta] = useState<
+    | { show: false }
+    | { show: true; href: string; label: string }
+    | null
+  >(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/admin/api/auth/status", { cache: "no-store" })
+      .then((r) => r.json())
+      .then((data: any) => {
+        if (cancelled) return;
+        if (!data || data.ok !== true) {
+          setAdminCta({ show: true, href: "/admin/login", label: "Admin Login" });
+          return;
+        }
+        if (data.show) {
+          setAdminCta({ show: true, href: data.href, label: data.label });
+          return;
+        }
+        setAdminCta({ show: false });
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setAdminCta({ show: true, href: "/admin/login", label: "Admin Login" });
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 border-b border-black/5 bg-[var(--color-surface)]/80 backdrop-blur">
@@ -42,6 +73,14 @@ export default function Navbar() {
           <div className="hidden md:block">
             <LangToggle />
           </div>
+          {adminCta && adminCta.show ? (
+            <Link
+              href={adminCta.href}
+              className="hidden rounded-full border border-[var(--color-navy)]/15 px-4 py-2 text-sm font-semibold text-[var(--color-navy)] transition-colors hover:border-[var(--color-navy)]/25 hover:bg-[var(--color-navy)]/[0.03] md:inline-flex"
+            >
+              {adminCta.label}
+            </Link>
+          ) : null}
           <Link
             href="/oracolo"
             className="hidden rounded-full border border-[var(--color-navy)]/15 px-4 py-2 text-sm font-semibold text-[var(--color-navy)] transition-colors hover:border-[var(--color-navy)]/25 hover:bg-[var(--color-navy)]/[0.03] md:inline-flex"
@@ -84,6 +123,15 @@ export default function Navbar() {
                   {item.label}
                 </Link>
               ))}
+              {adminCta && adminCta.show ? (
+                <Link
+                  href={adminCta.href}
+                  onClick={() => setOpen(false)}
+                  className="mt-1 inline-flex w-fit rounded-full border border-[var(--color-navy)]/15 px-5 py-3 text-sm font-semibold text-[var(--color-navy)] transition-colors hover:border-[var(--color-navy)]/25 hover:bg-[var(--color-navy)]/[0.03]"
+                >
+                  {adminCta.label}
+                </Link>
+              ) : null}
               <Link
                 href="/oracolo"
                 onClick={() => setOpen(false)}

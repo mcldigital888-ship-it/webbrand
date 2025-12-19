@@ -21,6 +21,7 @@ enum TaskType {
 enum AutomationEventStatus {
   pending
   processed
+  failed
 }
 
 model User {
@@ -202,7 +203,8 @@ model AutomationRule {
   id          String   @id @default(cuid())
   active      Boolean  @default(true)
   eventName   String   @map("event_name")
-  description String
+  conditionJson Json?  @map("condition_json")
+  description String?
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
 

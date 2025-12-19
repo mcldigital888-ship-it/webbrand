@@ -65,7 +65,12 @@ async function main() {
 
     if (!existing) {
       await prisma.automationRule.create({
-        data: { eventName: r.eventName, description: r.description, active: true },
+        data: {
+          eventName: r.eventName,
+          conditionJson: {},
+          description: r.description,
+          active: true,
+        },
       });
     }
   }
