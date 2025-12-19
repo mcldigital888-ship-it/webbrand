@@ -1,22 +1,38 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import PageShell from "@/components/PageShell";
+import { CONFIG } from "@/lib/integrations";
+import { submitIntegrationForm } from "@/lib/webhook";
+import { trackEvent } from "@/lib/tracking";
 
 export default function ContactPage() {
-  const [submitted, setSubmitted] = useState(false);
+  const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const startedAtRef = useRef<number | null>(null);
+  const [started, setStarted] = useState(false);
   const [form, setForm] = useState({
     name: "",
     email: "",
     company: "",
-    budgetRange: "",
-    message: "",
+    objective: "",
+    consent: false,
+    hp: "",
   });
 
-  function setField(name: keyof typeof form, value: string) {
+  const objectiveOptions = useMemo(
+    () => ["Website", "Landing", "CRM setup", "Integrations", "AI automations"],
+    []
+  );
+
+  useEffect(() => {
+    setSubmitError(null);
+  }, []);
+
+  function setField(name: keyof typeof form, value: string | boolean) {
     setForm((prev) => ({ ...prev, [name]: value }));
     setErrors((prev) => {
       if (!prev[name]) return prev;
@@ -33,66 +49,49 @@ export default function ContactPage() {
     if (form.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
       next.email = "Enter a valid email.";
     }
-    if (!form.budgetRange) next.budgetRange = "Select a budget range.";
-    if (!form.message.trim()) next.message = "Message is required.";
+    if (!form.objective) next.objective = "Select an objective.";
+    if (!form.consent) next.consent = "Consent is required.";
     return next;
   }
 
-  function onSubmit(e: React.FormEvent) {
-    void (async () => {
-      e.preventDefault();
-      setSubmitError(null);
-      const next = validate();
-      setErrors(next);
-      if (Object.keys(next).length > 0) return;
+  async function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setSubmitError(null);
 
-      const leadsEndpointEnabled =
-        process.env.NEXT_PUBLIC_LEADS_ENDPOINT_ENABLED === "true";
+    if (form.hp) return;
 
-      if (!leadsEndpointEnabled) {
-        setSubmitted(true);
-        return;
-      }
+    const startedAt = startedAtRef.current;
+    if (startedAt && Date.now() - startedAt < 1200) {
+      setSubmitError("Please wait a moment and try again.");
+      return;
+    }
 
-      setSubmitting(true);
-      try {
-        const payload = {
-          source: "contact",
-          businessType: "",
-          goal: "contact",
+    const next = validate();
+    setErrors(next);
+    if (Object.keys(next).length > 0) {
+      trackEvent("form_error", { form_name: "contact_book_call" });
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      await submitIntegrationForm({
+        formName: "contact_book_call",
+        consent: form.consent,
+        fields: {
+          name: form.name,
           email: form.email,
-          answers: {
-            name: form.name,
-            email: form.email,
-            company: form.company,
-            budgetRange: form.budgetRange,
-            message: form.message,
-          },
-          timestamp: new Date().toISOString(),
-        };
+          company: form.company,
+          objective: form.objective,
+        },
+      });
 
-        const res = await fetch("/api/leads", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
-
-        if (!res.ok) {
-          const data = (await res.json().catch(() => null)) as
-            | { error?: string }
-            | null;
-          throw new Error(data?.error || "Invio non riuscito. / Failed to submit.");
-        }
-
-        setSubmitted(true);
-      } catch (err) {
-        setSubmitError(
-          err instanceof Error ? err.message : "Invio non riuscito. / Failed to submit."
-        );
-      } finally {
-        setSubmitting(false);
-      }
-    })();
+      router.push("/thank-you");
+    } catch {
+      setSubmitError("Failed to submit. Payload saved locally.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -103,8 +102,26 @@ export default function ContactPage() {
     >
       <section className="grid grid-cols-1 gap-4 md:grid-cols-3">
         <div className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6 md:col-span-2">
-          {!submitted ? (
-            <form onSubmit={onSubmit} className="space-y-6">
+          <form
+            onSubmit={onSubmit}
+            className="space-y-6"
+            onFocusCapture={() => {
+              if (!started) {
+                setStarted(true);
+                startedAtRef.current = Date.now();
+                trackEvent("form_start", { form_name: "contact_book_call" });
+              }
+            }}
+          >
+            <input
+              value={form.hp}
+              onChange={(e) => setField("hp", e.target.value)}
+              className="hidden"
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+            />
+
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <Field label="Name" required error={errors.name}>
                   <input
@@ -134,33 +151,43 @@ export default function ContactPage() {
                     placeholder="Company name"
                   />
                 </Field>
-                <Field label="Budget range" required error={errors.budgetRange}>
+                <Field label="Objective" required error={errors.objective}>
                   <select
-                    value={form.budgetRange}
-                    onChange={(e) => setField("budgetRange", e.target.value)}
-                    className={inputClassName(!!errors.budgetRange)}
+                    value={form.objective}
+                    onChange={(e) => setField("objective", e.target.value)}
+                    className={inputClassName(!!errors.objective)}
                   >
                     <option value="">Select</option>
-                    <option value="<5k">&lt; €5k</option>
-                    <option value="5-10k">€5k–€10k</option>
-                    <option value="10-25k">€10k–€25k</option>
-                    <option value="25k+">€25k+</option>
+                    {objectiveOptions.map((o) => (
+                      <option key={o} value={o}>
+                        {o}
+                      </option>
+                    ))}
                   </select>
                 </Field>
               </div>
 
-              <Field label="Message" required error={errors.message}>
-                <textarea
-                  value={form.message}
-                  onChange={(e) => setField("message", e.target.value)}
-                  className={[inputClassName(!!errors.message), "h-28 py-3"].join(" ")}
-                  placeholder="Goal, timeline, current setup..."
+              <label className="flex items-start gap-2 text-xs text-[var(--color-slate)]">
+                <input
+                  type="checkbox"
+                  checked={form.consent}
+                  onChange={(e) => setField("consent", e.target.checked)}
+                  className="mt-1"
                 />
-              </Field>
+                <span>
+                  I agree to be contacted and accept the Privacy policy.
+                  {errors.consent ? (
+                    <span className="block">{errors.consent}</span>
+                  ) : null}
+                </span>
+              </label>
 
               <div className="flex flex-col gap-2 text-xs text-[var(--color-slate)]">
                 <div>Response time: 24–48 hours.</div>
                 <div>Privacy-first. No spam.</div>
+                {!CONFIG.WEBHOOK_URL ? (
+                  <div>Webhook not set: submissions are stored locally.</div>
+                ) : null}
               </div>
 
               <div className="flex flex-col gap-3 sm:flex-row">
@@ -190,22 +217,7 @@ export default function ContactPage() {
                   {submitError}
                 </div>
               ) : null}
-            </form>
-          ) : (
-            <div className="space-y-4">
-              <div className="text-sm font-semibold text-[var(--color-success)]">Sent.</div>
-              <div className="text-sm leading-6 text-[var(--color-slate)]">
-                We received your message. Next step: we’ll reply with the fastest plan.
-              </div>
-              <button
-                type="button"
-                onClick={() => setSubmitted(false)}
-                className="inline-flex w-fit rounded-full border border-[var(--color-navy)]/15 px-5 py-3 text-sm font-semibold text-[var(--color-navy)] hover:border-[var(--color-navy)]/25 hover:bg-[var(--color-navy)]/[0.03]"
-              >
-                Send another message
-              </button>
-            </div>
-          )}
+          </form>
         </div>
 
         <div className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6">

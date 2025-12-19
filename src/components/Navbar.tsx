@@ -7,9 +7,9 @@ import Bilingual from "@/components/Bilingual";
 
 const navItems = [
   { href: "/solutions", label: <Bilingual en="Solutions" it="Soluzioni" /> },
-  { href: "/process", label: <Bilingual en="Process" it="Processo" /> },
-  { href: "/case-studies", label: <Bilingual en="Case Studies" it="Case study" /> },
-  { href: "/plans", label: <Bilingual en="Plans" it="Piani" /> },
+  { href: "/crm-system", label: <Bilingual en="CRM System" it="CRM" /> },
+  { href: "/ai-systems", label: <Bilingual en="AI Systems" it="AI" /> },
+  { href: "/integrations", label: <Bilingual en="Integrations" it="Integrazioni" /> },
 ];
 
 export default function Navbar() {

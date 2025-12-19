@@ -4,4 +4,9 @@ node_modules
 .env.*
 .DS_Store
 src/components/ServiceCard.tsx
-WEBRRAND-AGENCY[1].pdf
+WEBRRAND-AGENCY\[1\].pdf
+
+# Local databases
+*.db
+*.db-journal
+prisma/*.db

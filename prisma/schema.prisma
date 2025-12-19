@@ -1,0 +1,231 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  admin
+  sales
+}
+
+enum TaskType {
+  call
+  follow_up
+  note
+}
+
+enum AutomationEventStatus {
+  pending
+  processed
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  role         UserRole
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now()) @map("created_at")
+  lastLoginAt  DateTime? @map("last_login_at")
+
+  leadsOwned   Lead[]   @relation("LeadOwner")
+  dealsOwned   Deal[]   @relation("DealOwner")
+  tasksAssigned Task[] @relation("TaskAssignee")
+
+  @@map("users")
+}
+
+model Lead {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  source    String?
+  utmData   Json?    @map("utm_data")
+  score     Int      @default(0)
+  status    String   @default("new")
+
+  ownerId   String?  @map("owner_id")
+  owner     User?    @relation("LeadOwner", fields: [ownerId], references: [id])
+
+  deals     Deal[]
+  tasks     Task[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([ownerId])
+  @@index([email])
+  @@map("leads")
+}
+
+model Company {
+  id        String   @id @default(cuid())
+  name      String
+  industry  String?
+  size      String?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  deals     Deal[]
+
+  @@map("companies")
+}
+
+model PipelineStage {
+  id                 String   @id @default(cuid())
+  name               String
+  order              Int
+  probabilityDefault Int      @default(0) @map("probability_default")
+  isWon              Boolean  @default(false) @map("is_won")
+  isLost             Boolean  @default(false) @map("is_lost")
+
+  deals              Deal[]
+
+  createdAt          DateTime @default(now()) @map("created_at")
+  updatedAt          DateTime @updatedAt @map("updated_at")
+
+  @@unique([order])
+  @@map("pipeline_stages")
+}
+
+model Deal {
+  id          String   @id @default(cuid())
+
+  leadId      String   @map("lead_id")
+  lead        Lead     @relation(fields: [leadId], references: [id])
+
+  companyId   String?  @map("company_id")
+  company     Company? @relation(fields: [companyId], references: [id])
+
+  stageId     String   @map("stage_id")
+  stage       PipelineStage @relation(fields: [stageId], references: [id])
+
+  value       Int      @default(0)
+  probability Int      @default(0)
+  probabilityManual Boolean @default(false) @map("probability_manual")
+
+  ownerId     String?  @map("owner_id")
+  owner       User?    @relation("DealOwner", fields: [ownerId], references: [id])
+
+  tasks       Task[]
+
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@index([leadId])
+  @@index([ownerId])
+  @@index([stageId])
+  @@map("deals")
+}
+
+model Task {
+  id          String   @id @default(cuid())
+
+  leadId      String?  @map("lead_id")
+  lead        Lead?    @relation(fields: [leadId], references: [id])
+
+  dealId      String?  @map("deal_id")
+  deal        Deal?    @relation(fields: [dealId], references: [id])
+
+  type        TaskType
+  dueDate     DateTime? @map("due_date")
+  completed   Boolean  @default(false)
+
+  assignedTo  String?  @map("assigned_to")
+  assignee    User?    @relation("TaskAssignee", fields: [assignedTo], references: [id])
+
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@index([assignedTo])
+  @@index([leadId])
+  @@index([dealId])
+  @@map("tasks")
+}
+
+model ActivityLog {
+  id         String   @id @default(cuid())
+  entityType String   @map("entity_type")
+  entityId   String   @map("entity_id")
+  action     String
+  metadata   Json?
+  timestamp  DateTime @default(now())
+
+  @@index([entityType, entityId])
+  @@map("activity_logs")
+}
+
+model AutomationEvent {
+  id         String   @id @default(cuid())
+  eventName  String   @map("event_name")
+  entityType String   @map("entity_type")
+  entityId   String   @map("entity_id")
+  payload    Json
+  status     AutomationEventStatus @default(pending)
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  @@index([status])
+  @@index([eventName])
+  @@index([entityType, entityId])
+  @@map("automation_events")
+}
+
+model ScoringRule {
+  id          String   @id @default(cuid())
+  active      Boolean  @default(true)
+  name        String
+  field       String
+  operator    String
+  value       String
+  weight      Int      @default(0)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("scoring_rules")
+}
+
+model ScoreThreshold {
+  id        String   @id @default(cuid())
+  name      String
+  minScore  Int      @map("min_score")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("score_thresholds")
+}
+
+model AutomationRule {
+  id          String   @id @default(cuid())
+  active      Boolean  @default(true)
+  eventName   String   @map("event_name")
+  description String
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@index([eventName])
+  @@map("automation_rules")
+}
+
+model SystemConfig {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("system_config")
+}
+
+model LoginAttempt {
+  id        String   @id @default(cuid())
+  email     String
+  ip        String?
+  success   Boolean
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([email])
+  @@index([createdAt])
+  @@map("login_attempts")
+}

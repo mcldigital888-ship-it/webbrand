@@ -1,4 +1,85 @@
+"use client";
+
+import { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { CONFIG } from "@/lib/integrations";
+import { submitIntegrationForm } from "@/lib/webhook";
+import { trackEvent } from "@/lib/tracking";
+
 export default function SolutionsPage() {
+  const router = useRouter();
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const startedAtRef = useRef<number | null>(null);
+  const [started, setStarted] = useState(false);
+  const [quote, setQuote] = useState({
+    objective: "",
+    budgetRange: "",
+    urgency: "",
+    notes: "",
+    consent: false,
+    hp: "",
+  });
+
+  function setQuoteField(name: keyof typeof quote, value: string | boolean) {
+    setQuote((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => {
+      if (!prev[name]) return prev;
+      const next = { ...prev };
+      delete next[name];
+      return next;
+    });
+  }
+
+  function validateQuote() {
+    const next: Record<string, string> = {};
+    if (!quote.objective) next.objective = "Select an objective.";
+    if (!quote.budgetRange) next.budgetRange = "Select a budget range.";
+    if (!quote.urgency) next.urgency = "Select urgency.";
+    if (!quote.consent) next.consent = "Consent is required.";
+    return next;
+  }
+
+  async function onQuickQuoteSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setSubmitError(null);
+
+    if (quote.hp) return;
+
+    const startedAt = startedAtRef.current;
+    if (startedAt && Date.now() - startedAt < 1200) {
+      setSubmitError("Please wait a moment and try again.");
+      return;
+    }
+
+    const next = validateQuote();
+    setErrors(next);
+    if (Object.keys(next).length > 0) {
+      trackEvent("form_error", { form_name: "quick_quote" });
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      await submitIntegrationForm({
+        formName: "quick_quote",
+        consent: quote.consent,
+        fields: {
+          objective: quote.objective,
+          budget_range: quote.budgetRange,
+          urgency: quote.urgency,
+          notes: quote.notes,
+        },
+      });
+      router.push("/thank-you");
+    } catch {
+      setSubmitError("Failed to submit. Payload saved locally.");
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
   return (
     <div className="space-y-10">
       <header className="space-y-4">
@@ -88,6 +169,148 @@ export default function SolutionsPage() {
             />
           </div>
         </div>
+      </section>
+
+      <section
+        id="quick-quote"
+        className="rounded-3xl border border-black/5 bg-[var(--color-surface)] p-6 sm:p-8"
+      >
+        <div className="space-y-4">
+          <div className="text-sm font-semibold tracking-wide text-[var(--color-cyan)]">
+            Quick Quote
+          </div>
+          <div className="max-w-3xl text-sm leading-6 text-[var(--color-slate)]">
+            No CRM, WhatsApp, email, or AI logic in the site. This form posts to your webhook.
+          </div>
+        </div>
+
+        <form
+          onSubmit={onQuickQuoteSubmit}
+          className="mt-6 space-y-6"
+          onFocusCapture={() => {
+            if (!started) {
+              setStarted(true);
+              startedAtRef.current = Date.now();
+              trackEvent("form_start", { form_name: "quick_quote" });
+            }
+          }}
+        >
+          <input
+            value={quote.hp}
+            onChange={(e) => setQuoteField("hp", e.target.value)}
+            className="hidden"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+          />
+
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <label className="block space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-semibold text-[var(--color-navy)]">Objective *</span>
+                {errors.objective ? (
+                  <span className="text-xs font-medium text-[var(--color-slate)]">{errors.objective}</span>
+                ) : null}
+              </div>
+              <select
+                value={quote.objective}
+                onChange={(e) => setQuoteField("objective", e.target.value)}
+                className={inputClassName(!!errors.objective)}
+              >
+                <option value="">Select</option>
+                <option value="Website">Website</option>
+                <option value="Landing">Landing</option>
+                <option value="CRM setup">CRM setup</option>
+                <option value="Integrations">Integrations</option>
+                <option value="AI automations">AI automations</option>
+              </select>
+            </label>
+
+            <label className="block space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-semibold text-[var(--color-navy)]">Budget range *</span>
+                {errors.budgetRange ? (
+                  <span className="text-xs font-medium text-[var(--color-slate)]">{errors.budgetRange}</span>
+                ) : null}
+              </div>
+              <select
+                value={quote.budgetRange}
+                onChange={(e) => setQuoteField("budgetRange", e.target.value)}
+                className={inputClassName(!!errors.budgetRange)}
+              >
+                <option value="">Select</option>
+                <option value="<5k">&lt;5k</option>
+                <option value="5-10k">5-10k</option>
+                <option value="10-25k">10-25k</option>
+                <option value="25k+">25k+</option>
+              </select>
+            </label>
+          </div>
+
+          <label className="block space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-semibold text-[var(--color-navy)]">Urgency *</span>
+              {errors.urgency ? (
+                <span className="text-xs font-medium text-[var(--color-slate)]">{errors.urgency}</span>
+              ) : null}
+            </div>
+            <select
+              value={quote.urgency}
+              onChange={(e) => setQuoteField("urgency", e.target.value)}
+              className={inputClassName(!!errors.urgency)}
+            >
+              <option value="">Select</option>
+              <option value="asap">ASAP</option>
+              <option value="30">Within 30 days</option>
+              <option value="60">Within 60 days</option>
+              <option value="90+">90+ days</option>
+            </select>
+          </label>
+
+          <label className="block space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-semibold text-[var(--color-navy)]">Notes</span>
+            </div>
+            <textarea
+              value={quote.notes}
+              onChange={(e) => setQuoteField("notes", e.target.value)}
+              className={[inputClassName(false), "h-28 py-3"].join(" ")}
+              placeholder="Context, constraints, current tools..."
+            />
+          </label>
+
+          <label className="flex items-start gap-2 text-xs text-[var(--color-slate)]">
+            <input
+              type="checkbox"
+              checked={quote.consent}
+              onChange={(e) => setQuoteField("consent", e.target.checked)}
+              className="mt-1"
+            />
+            <span>
+              I agree to be contacted and accept the Privacy policy.
+              {errors.consent ? <span className="block">{errors.consent}</span> : null}
+            </span>
+          </label>
+
+          {!CONFIG.WEBHOOK_URL ? (
+            <div className="text-xs text-[var(--color-slate)]">
+              Webhook not set: submissions are stored locally.
+            </div>
+          ) : null}
+
+          {submitError ? (
+            <div className="text-sm text-[var(--color-slate)]">{submitError}</div>
+          ) : null}
+
+          <button
+            type="submit"
+            disabled={submitting}
+            className="inline-flex w-fit rounded-full bg-[var(--color-blue)] px-6 py-3 text-sm font-semibold text-white hover:opacity-95"
+            data-cta="quick_quote_submit"
+          >
+            {submitting ? "Submitting..." : "Get quote"}
+          </button>
+        </form>
       </section>
 
       <TrackSection
@@ -1127,4 +1350,12 @@ function ToneGridCard({
       </div>
     </div>
   );
+}
+
+function inputClassName(isError: boolean) {
+  return [
+    "h-11 w-full rounded-xl border bg-white px-3 text-sm text-[var(--color-navy)] outline-none",
+    isError ? "border-[var(--color-cyan)]" : "border-black/10",
+    "focus:border-[var(--color-blue)]",
+  ].join(" ");
 }

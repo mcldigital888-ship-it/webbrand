@@ -1,11 +1,14 @@
 import Link from "next/link";
 
 const links = [
-  { href: "/services", label: "Services" },
-  { href: "/work", label: "Work" },
-  { href: "/insights", label: "Insights" },
-  { href: "/about", label: "About" },
+  { href: "/solutions", label: "Solutions" },
+  { href: "/crm-system", label: "CRM System" },
+  { href: "/ai-systems", label: "AI Systems" },
+  { href: "/integrations", label: "Integrations" },
+  { href: "/oracolo", label: "Oracolo" },
   { href: "/contact", label: "Contact" },
+  { href: "/privacy", label: "Privacy" },
+  { href: "/terms", label: "Terms" },
 ];
 
 export default function Footer() {

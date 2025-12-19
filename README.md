@@ -1,36 +1,133 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Webbrand — Website + Custom CRM
 
-## Getting Started
+This repository contains:
 
-First, run the development server:
+- Marketing website (public routes)
+- A fully custom first-party CRM under `/crm/*`
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+The CRM is **built in-app** (backend + UI + database + admin panel).
+
+## Principles
+
+- No external CRM
+- No third-party automation tools
+- No email/WhatsApp sending
+- No AI calls (placeholder only)
+
+Automation is implemented as: **events + logs + admin-configurable rules**.
+
+## Routes
+
+- `/` (Home)
+- `/solutions` (includes Quick Quote form)
+- `/crm-system` (marketing page explaining CRM logic)
+- `/ai-systems` (explains AI systems, no AI inside)
+- `/integrations`
+- `/oracolo` (multi-step smart brief)
+- `/contact` (book a call / contact)
+- `/privacy`, `/terms`, `/thank-you`
+
+### CRM routes
+
+- `/crm/login`
+- `/crm` (home)
+- `/crm/leads`
+- `/crm/deals`
+- `/crm/tasks`
+- `/crm/dashboard`
+- `/crm/admin` (admin-only)
+
+## Setup (CRITICAL)
+
+### 1) Set your integration config
+
+Edit:
+
+`config/integrations.js`
+
+```js
+export const CONFIG = {
+  WEBHOOK_URL: "",
+  GA4_ID: "",
+  META_PIXEL_ID: "",
+  CONSENT_REQUIRED: true,
+  DEBUG_MODE: false
+};
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- `WEBHOOK_URL`: Your Make/Zapier/n8n webhook URL.
+- `GA4_ID` and `META_PIXEL_ID`: placeholders. The site includes an event layer even if these are empty.
+- `CONSENT_REQUIRED`: If `true`, tracking is blocked until consent is given.
+- `DEBUG_MODE`: If `true`, logs events and webhook behavior to console.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 2) Webhook payload format
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+All forms submit the same payload shape:
 
-## Learn More
+```json
+{
+  "form_name": "",
+  "timestamp": "",
+  "page_url": "",
+  "utm": {},
+  "fields": {},
+  "consent": true
+}
+```
 
-To learn more about Next.js, take a look at the following resources:
+If `CONFIG.WEBHOOK_URL` is empty or the request fails, the payload is stored in `localStorage` (key: `failed_form_queue`).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 3) Tracking events
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Tracked events:
 
-## Deploy on Vercel
+- `page_view`
+- `scroll_25`, `scroll_50`, `scroll_75`, `scroll_90`
+- `cta_click`
+- `form_start`, `form_submit`, `form_error`
+- `outbound_click`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Enable debug logs per session with:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`?debug=1`
+
+## Running locally
+
+```bash
+npm install
+npx prisma generate
+npx prisma db push
+npm run crm:seed
+npm run dev
+```
+
+## CRM setup
+
+### Environment variables
+
+Copy `.env.example` to `.env` and set:
+
+- `DATABASE_URL` (SQLite by default)
+- `SESSION_SECRET` (min 16 chars)
+
+### Seeded admin user
+
+Default seed credentials:
+
+- Email: `admin@local`
+- Password: `admin1234`
+
+Override via:
+
+- `CRM_SEED_ADMIN_EMAIL`
+- `CRM_SEED_ADMIN_PASSWORD`
+
+## Notes
+
+- The CRM does **not** send emails, WhatsApp messages, or call GPT.
+- All automation is stored as `AutomationEvent` + `ActivityLog` and visible via UI.
+
+## Hosting
+
+Because CRM uses a database and server-side routes, this is a **dynamic Next.js app**.
+Deploy on a VPS or a Node hosting environment.

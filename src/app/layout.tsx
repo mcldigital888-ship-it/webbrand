@@ -4,6 +4,9 @@ import "./globals.css";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { LanguageProvider } from "@/components/LangToggle";
+import TrackingClient from "@/components/TrackingClient";
+import CookieBanner from "@/components/CookieBanner";
+import ChatWidget from "@/components/ChatWidget";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -39,11 +42,14 @@ export default function RootLayout({
         className={`${inter.variable} ${spaceGrotesk.variable} antialiased`}
       >
         <LanguageProvider>
+          <TrackingClient />
           <Navbar />
           <main className="mx-auto w-full max-w-6xl px-4 py-14">
             {children}
           </main>
           <Footer />
+          <CookieBanner />
+          <ChatWidget />
         </LanguageProvider>
       </body>
     </html>
