@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description:
     "Data-driven marketing systems focused on measurable growth.",
   openGraph: {
-    title: "Performance & Growth | Webbrand",
+    title: "Performance & Growth | Webrrand",
     description:
       "Data-driven marketing systems focused on measurable growth.",
     type: "website",

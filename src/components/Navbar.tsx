@@ -1,50 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { LangToggle } from "@/components/LangToggle";
 import Bilingual from "@/components/Bilingual";
 
 const navItems = [
-  { href: "/solutions", label: <Bilingual en="Solutions" it="Soluzioni" /> },
-  { href: "/crm-system", label: <Bilingual en="CRM System" it="CRM" /> },
-  { href: "/ai-systems", label: <Bilingual en="AI Systems" it="AI" /> },
-  { href: "/integrations", label: <Bilingual en="Integrations" it="Integrazioni" /> },
+  { href: "/", label: <Bilingual en="Home" it="Home" /> },
+  { href: "/about", label: <Bilingual en="About" it="Chi siamo" /> },
+  { href: "/services", label: <Bilingual en="Services" it="Servizi" /> },
+  { href: "/contact", label: <Bilingual en="Contact" it="Contatti" /> },
+  { href: "/privacy", label: <Bilingual en="Privacy" it="Privacy" /> },
+  { href: "/terms", label: <Bilingual en="Terms" it="Termini" /> },
 ];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-  const [adminCta, setAdminCta] = useState<
-    | { show: false }
-    | { show: true; href: string; label: string }
-    | null
-  >(null);
-
-  useEffect(() => {
-    let cancelled = false;
-    fetch("/admin/api/auth/status", { cache: "no-store" })
-      .then((r) => r.json())
-      .then((data: any) => {
-        if (cancelled) return;
-        if (!data || data.ok !== true) {
-          setAdminCta({ show: true, href: "/admin/login", label: "Admin Login" });
-          return;
-        }
-        if (data.show) {
-          setAdminCta({ show: true, href: data.href, label: data.label });
-          return;
-        }
-        setAdminCta({ show: false });
-      })
-      .catch(() => {
-        if (cancelled) return;
-        setAdminCta({ show: true, href: "/admin/login", label: "Admin Login" });
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, []);
 
   return (
     <header className="sticky top-0 z-50 border-b border-black/5 bg-[var(--color-surface)]/80 backdrop-blur">
@@ -54,7 +25,7 @@ export default function Navbar() {
           className="font-semibold tracking-tight text-[var(--color-navy)]"
           onClick={() => setOpen(false)}
         >
-          Webbrand
+          Webrrand
         </Link>
 
         <nav className="hidden items-center gap-6 md:flex">
@@ -67,31 +38,23 @@ export default function Navbar() {
               {item.label}
             </Link>
           ))}
+          <Link
+            href="/admin"
+            className="text-sm font-medium text-[var(--color-slate)] transition-colors hover:text-[var(--color-navy)]"
+          >
+            <Bilingual en="Admin Panel" it="Pannello admin" />
+          </Link>
         </nav>
 
         <div className="flex items-center gap-3">
           <div className="hidden md:block">
             <LangToggle />
           </div>
-          {adminCta && adminCta.show ? (
-            <Link
-              href={adminCta.href}
-              className="hidden rounded-full border border-[var(--color-navy)]/15 px-4 py-2 text-sm font-semibold text-[var(--color-navy)] transition-colors hover:border-[var(--color-navy)]/25 hover:bg-[var(--color-navy)]/[0.03] md:inline-flex"
-            >
-              {adminCta.label}
-            </Link>
-          ) : null}
           <Link
-            href="/oracolo"
+            href="/admin"
             className="hidden rounded-full border border-[var(--color-navy)]/15 px-4 py-2 text-sm font-semibold text-[var(--color-navy)] transition-colors hover:border-[var(--color-navy)]/25 hover:bg-[var(--color-navy)]/[0.03] md:inline-flex"
           >
-            <Bilingual en="Oracolo" it="Oracolo" />
-          </Link>
-          <Link
-            href="/contact"
-            className="hidden rounded-full bg-[var(--color-blue)] px-4 py-2 text-sm font-semibold text-white transition-opacity hover:opacity-95 md:inline-flex"
-          >
-            <Bilingual en="Book a Call" it="Prenota una call" />
+            <Bilingual en="Open Admin" it="Apri admin" />
           </Link>
 
           <button
@@ -123,28 +86,12 @@ export default function Navbar() {
                   {item.label}
                 </Link>
               ))}
-              {adminCta && adminCta.show ? (
-                <Link
-                  href={adminCta.href}
-                  onClick={() => setOpen(false)}
-                  className="mt-1 inline-flex w-fit rounded-full border border-[var(--color-navy)]/15 px-5 py-3 text-sm font-semibold text-[var(--color-navy)] transition-colors hover:border-[var(--color-navy)]/25 hover:bg-[var(--color-navy)]/[0.03]"
-                >
-                  {adminCta.label}
-                </Link>
-              ) : null}
               <Link
-                href="/oracolo"
-                onClick={() => setOpen(false)}
-                className="mt-1 inline-flex w-fit rounded-full border border-[var(--color-navy)]/15 px-5 py-3 text-sm font-semibold text-[var(--color-navy)] transition-colors hover:border-[var(--color-navy)]/25 hover:bg-[var(--color-navy)]/[0.03]"
-              >
-                <Bilingual en="Oracolo" it="Oracolo" />
-              </Link>
-              <Link
-                href="/contact"
+                href="/admin"
                 onClick={() => setOpen(false)}
                 className="mt-1 inline-flex w-fit rounded-full bg-[var(--color-blue)] px-5 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-95"
               >
-                <Bilingual en="Book a Call" it="Prenota una call" />
+                <Bilingual en="Open Admin Panel" it="Apri pannello admin" />
               </Link>
             </div>
           </div>

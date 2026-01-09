@@ -60,7 +60,7 @@ export default function InsightsExplorer({ items }: { items: InsightPost[] }) {
           {filtered.map((p) => (
             <Link
               key={p.slug}
-              href="#"
+              href={`/insights/${p.slug}`}
               className="group rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6 transition-transform duration-300 hover:-translate-y-0.5"
             >
               <div className="space-y-2">

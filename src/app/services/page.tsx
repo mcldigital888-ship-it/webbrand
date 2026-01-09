@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description:
     "Strategy, design, growth and AI—integrated into one clear system.",
   openGraph: {
-    title: "Services | Webbrand",
+    title: "Services | Webrrand",
     description:
       "Strategy, design, growth and AI—integrated into one clear system.",
     type: "website",

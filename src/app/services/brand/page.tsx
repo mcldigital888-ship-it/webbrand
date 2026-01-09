@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description:
     "Visual identity and messaging systems that define how brands look and speak.",
   openGraph: {
-    title: "Brand & Identity | Webbrand",
+    title: "Brand & Identity | Webrrand",
     description:
       "Visual identity and messaging systems that define how brands look and speak.",
     type: "website",

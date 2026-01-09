@@ -13,7 +13,7 @@ export function generateMetadata({
   params: { slug: string };
 }): Metadata {
   const c = caseStudies.find((x) => x.slug === params.slug);
-  const title = c ? `${c.client} | Work | Webbrand` : "Work | Webbrand";
+  const title = c ? `${c.client} | Work | Webrrand` : "Work | Webrrand";
   const description = c
     ? `${c.oneLiner} Outcome: ${c.outcome}.`
     : "Case study.";

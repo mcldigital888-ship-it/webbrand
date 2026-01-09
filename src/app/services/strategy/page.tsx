@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description:
     "Brand, growth and go-to-market strategies built on data and insight.",
   openGraph: {
-    title: "Strategy & Consulting | Webbrand",
+    title: "Strategy & Consulting | Webrrand",
     description:
       "Brand, growth and go-to-market strategies built on data and insight.",
     type: "website",

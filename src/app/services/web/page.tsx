@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description:
     "High-performance websites and digital products designed to convert.",
   openGraph: {
-    title: "Digital Experience / Web | Webbrand",
+    title: "Digital Experience / Web | Webrrand",
     description:
       "High-performance websites and digital products designed to convert.",
     type: "website",

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description:
     "Content and campaigns designed to attract, engage and retain.",
   openGraph: {
-    title: "Content & Media | Webbrand",
+    title: "Content & Media | Webrrand",
     description:
       "Content and campaigns designed to attract, engage and retain.",
     type: "website",

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description:
     "Automation, AI workflows and internal tools to scale marketing efforts—built for speed and smarter decisions.",
   openGraph: {
-    title: "AI & Technology | Webbrand",
+    title: "AI & Technology | Webrrand",
     description:
       "Automation, AI workflows and internal tools to scale marketing efforts—built for speed and smarter decisions.",
     type: "website",

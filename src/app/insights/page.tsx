@@ -5,11 +5,11 @@ import InsightsExplorer from "@/components/InsightsExplorer";
 import { insights } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Insights | Webbrand",
+  title: "Insights | Webrrand",
   description:
     "Short notes on strategy, brand, web, performance, and content—focused on measurable impact.",
   openGraph: {
-    title: "Insights | Webbrand",
+    title: "Insights | Webrrand",
     description:
       "Short notes on strategy, brand, web, performance, and content—focused on measurable impact.",
     type: "website",

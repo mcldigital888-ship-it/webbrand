@@ -5,11 +5,11 @@ import WorkGrid from "@/components/WorkGrid";
 import { caseStudies } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Work | Webbrand",
+  title: "Work | Webrrand",
   description:
     "Case studies focused on measurable outcomes: clarity, conversion, and growth systems.",
   openGraph: {
-    title: "Work | Webbrand",
+    title: "Work | Webrrand",
     description:
       "Case studies focused on measurable outcomes: clarity, conversion, and growth systems.",
     type: "website",

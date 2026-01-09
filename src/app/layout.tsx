@@ -20,12 +20,12 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   title: {
-    default: "Webbrand",
-    template: "%s | Webbrand",
+    default: "Webrrand",
+    template: "%s | Webrrand",
   },
   description: "AI + data + craft. Built for measurable growth.",
   openGraph: {
-    title: "Webbrand",
+    title: "Webrrand",
     description: "AI + data + craft. Built for measurable growth.",
     type: "website",
   },

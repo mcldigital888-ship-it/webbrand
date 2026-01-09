@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import PageShell from "@/components/PageShell";
 import CTASection from "@/components/CTASection";
+import Bilingual from "@/components/Bilingual";
 
 export const metadata: Metadata = {
-  title: "About | Webbrand",
+  title: "About | Webrrand",
   description:
     "A premium studio built to ship strategy, brand, and web systems with measurable impact.",
   openGraph: {
-    title: "About | Webbrand",
+    title: "About | Webrrand",
     description:
       "A premium studio built to ship strategy, brand, and web systems with measurable impact.",
     type: "website",
@@ -16,16 +17,25 @@ export const metadata: Metadata = {
 
 const values = [
   {
-    title: "Clarity",
-    desc: "Short words. Sharp structure. Fewer decisions—better ones.",
+    title: { en: "Clarity", it: "Chiarezza" },
+    desc: {
+      en: "Short words. Sharp structure. Fewer decisions—better ones.",
+      it: "Poche parole. Struttura netta. Meno decisioni — migliori.",
+    },
   },
   {
-    title: "Craft",
-    desc: "Premium doesn’t mean loud. It means disciplined.",
+    title: { en: "Craft", it: "Qualità" },
+    desc: {
+      en: "Premium doesn’t mean loud. It means disciplined.",
+      it: "Premium non vuol dire rumoroso. Vuol dire disciplina.",
+    },
   },
   {
-    title: "Measurable impact",
-    desc: "We optimize for outcomes, not opinions.",
+    title: { en: "Measurable impact", it: "Impatto misurabile" },
+    desc: {
+      en: "We optimize for outcomes, not opinions.",
+      it: "Ottimizziamo per risultati, non opinioni.",
+    },
   },
 ];
 
@@ -34,20 +44,29 @@ const steps = ["Discover", "Design", "Build", "Launch", "Optimize"];
 export default function AboutPage() {
   return (
     <PageShell
-      kicker="About"
-      title="Built to ship the signal"
-      subtitle="We combine AI speed with human judgment to create systems that drive measurable growth."
-      primaryCta={{ href: "/contact", label: "Book a Call" }}
+      kicker={<Bilingual en="About" it="Chi siamo" />}
+      title={<Bilingual en="Built to ship the signal" it="Costruito per far arrivare il messaggio" />}
+      subtitle={
+        <Bilingual
+          en="We combine speed with judgment to create systems that drive measurable growth."
+          it="Uniamo velocità e giudizio per creare sistemi che portano crescita misurabile."
+        />
+      }
+      primaryCta={{ href: "/contact", label: <Bilingual en="Contact" it="Contatti" /> }}
     >
       <section className="grid grid-cols-1 gap-4 md:grid-cols-3">
         {values.map((v) => (
           <div
-            key={v.title}
+            key={v.title.en}
             className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6"
           >
             <div className="space-y-2">
-              <div className="text-sm font-semibold text-[var(--color-navy)]">{v.title}</div>
-              <div className="text-sm leading-6 text-[var(--color-slate)]">{v.desc}</div>
+              <div className="text-sm font-semibold text-[var(--color-navy)]">
+                <Bilingual en={v.title.en} it={v.title.it} />
+              </div>
+              <div className="text-sm leading-6 text-[var(--color-slate)]">
+                <Bilingual en={v.desc.en} it={v.desc.it} />
+              </div>
             </div>
           </div>
         ))}
@@ -56,10 +75,13 @@ export default function AboutPage() {
       <section className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-8">
         <div className="space-y-2">
           <h2 className="font-[var(--font-display)] text-2xl font-semibold text-[var(--color-navy)]">
-            Our process
+            <Bilingual en="Our process" it="Il processo" />
           </h2>
           <p className="max-w-2xl text-sm leading-6 text-[var(--color-slate)]">
-            A simple five-step loop designed for speed, clarity, and continuous improvement.
+            <Bilingual
+              en="A simple five-step loop designed for speed, clarity, and continuous improvement."
+              it="Un ciclo semplice in 5 step progettato per velocità, chiarezza e miglioramento continuo."
+            />
           </p>
         </div>
         <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-5">
@@ -77,27 +99,38 @@ export default function AboutPage() {
       <section className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6">
           <h2 className="font-[var(--font-display)] text-2xl font-semibold text-[var(--color-navy)]">
-            Team
+            <Bilingual en="Team" it="Team" />
           </h2>
           <p className="mt-3 text-sm leading-6 text-[var(--color-slate)]">
-            Small, senior, and fast. We partner with specialists when needed—but keep the core tight.
+            <Bilingual
+              en="Small, senior, and fast. We partner with specialists when needed—but keep the core tight."
+              it="Piccolo, senior e veloce. Collaboriamo con specialisti quando serve, mantenendo il core essenziale."
+            />
           </p>
         </div>
         <div className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6">
           <h2 className="font-[var(--font-display)] text-2xl font-semibold text-[var(--color-navy)]">
-            Mission
+            <Bilingual en="Mission" it="Mission" />
           </h2>
           <p className="mt-3 text-sm leading-6 text-[var(--color-slate)]">
-            Help modern teams ship premium digital systems that turn attention into action.
+            <Bilingual
+              en="Help modern teams ship premium digital systems that turn attention into action."
+              it="Aiutare team moderni a costruire sistemi digitali che trasformano attenzione in azione."
+            />
           </p>
         </div>
       </section>
 
       <CTASection
-        title="Ready to build together?"
-        subtitle="If you value clarity, speed, and measurable impact—let’s talk."
-        primary={{ href: "/contact", label: "Book a Call" }}
-        secondary={{ href: "/work", label: "View Work" }}
+        title={<Bilingual en="Ready to build together?" it="Pronto a costruire insieme?" />}
+        subtitle={
+          <Bilingual
+            en="If you value clarity, speed, and measurable impact—let’s talk."
+            it="Se cerchi chiarezza, velocità e impatto misurabile, parliamone."
+          />
+        }
+        primary={{ href: "/contact", label: <Bilingual en="Contact" it="Contatti" /> }}
+        secondary={{ href: "/services", label: <Bilingual en="View Services" it="Vedi servizi" /> }}
       />
     </PageShell>
   );
