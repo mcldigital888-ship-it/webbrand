@@ -21,9 +21,20 @@ jobs:
           key: ${{ secrets.DEPLOY_KEY }}
           script: |
             cd /var/www/webbrand
+            git config --global --add safe.directory /var/www/webbrand
             git pull origin main
+
+            # Ensure current user can write build artifacts
+            sudo chown -R $(whoami):$(whoami) /var/www/webbrand/node_modules /var/www/webbrand/.next /var/www/webbrand/node_modules/.prisma 2>/dev/null || true
+
+            # Load env vars for Prisma (DATABASE_URL etc.)
+            set -a
+            [ -f .env ] && . ./.env
+            [ -f .env.local ] && . ./.env.local
+            set +a
+
             npm install --legacy-peer-deps
             npx prisma db push
             npx prisma generate
             npm run build
-            sudo systemctl restart webbrand
+            sudo systemctl restart webbrand || sudo systemctl restart webbrand.service || true
