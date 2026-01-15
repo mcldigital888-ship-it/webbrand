@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/db";
 import { getCrmSession } from "@/lib/crm/session";
+import type { Prisma } from "@prisma/client";
 
 const CreateSchema = z.object({
   eventName: z.string().min(1),
@@ -36,7 +37,7 @@ export async function POST(req: Request) {
   const rule = await prisma.automationRule.create({
     data: {
       eventName: parsed.eventName,
-      conditionJson: parsed.conditionJson,
+      conditionJson: parsed.conditionJson as Prisma.InputJsonValue,
       description: parsed.description,
       active: parsed.active,
     },

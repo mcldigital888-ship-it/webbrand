@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/db";
 import { getCrmSession } from "@/lib/crm/session";
+import type { Prisma } from "@prisma/client";
 
 const PatchSchema = z
   .object({
@@ -35,14 +36,19 @@ export async function PATCH(
     return NextResponse.json({ ok: false, error: "Not found" }, { status: 404 });
   }
 
+  const data: Prisma.AutomationRuleUpdateInput = {
+    eventName: parsed.eventName,
+    description: parsed.description === null ? null : parsed.description,
+    active: parsed.active,
+  };
+
+  if (typeof parsed.conditionJson !== "undefined") {
+    data.conditionJson = parsed.conditionJson as Prisma.InputJsonValue;
+  }
+
   const updated = await prisma.automationRule.update({
     where: { id },
-    data: {
-      eventName: parsed.eventName,
-      conditionJson: parsed.conditionJson,
-      description: parsed.description === null ? null : parsed.description,
-      active: parsed.active,
-    },
+    data,
   });
 
   const action =

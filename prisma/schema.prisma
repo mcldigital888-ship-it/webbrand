@@ -24,6 +24,12 @@ enum AutomationEventStatus {
   failed
 }
 
+enum AuditSubmissionStatus {
+  RECEIVED
+  GENERATED
+  FAILED
+}
+
 model User {
   id           String   @id @default(cuid())
   email        String   @unique
@@ -210,6 +216,41 @@ model AutomationRule {
 
   @@index([eventName])
   @@map("automation_rules")
+}
+
+model AuditSubmission {
+  id            String   @id @default(cuid())
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  goal          String
+  businessType  String   @map("business_type")
+  industry      String
+  teamSize      String   @map("team_size")
+  revenueRange  String   @map("revenue_range")
+  offer         String?  @map("offer")
+  avgTicketRange String? @map("avg_ticket_range")
+  monthlyLeadsRange String? @map("monthly_leads_range")
+
+  painPoints    Json     @map("pain_points")
+  biggestBottleneck String? @map("biggest_bottleneck")
+  toolsUsed     Json?    @map("tools_used")
+  targetMarket  String?  @map("target_market")
+
+  name          String
+  email         String
+  company       String
+  whatsapp      String?
+
+  proposalJson  Json?    @map("proposal_json")
+  pdfPath       String?  @map("pdf_path")
+  status        AuditSubmissionStatus @default(RECEIVED)
+  attemptCount  Int      @default(0) @map("attempt_count")
+  lastError     String?  @map("last_error")
+
+  @@index([status])
+  @@index([createdAt])
+  @@map("audit_submissions")
 }
 
 model SystemConfig {
