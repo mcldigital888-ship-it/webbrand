@@ -34,28 +34,28 @@ export default function WorkGrid({ items }: { items: CaseStudy[] }) {
             <Link
               key={c.slug}
               href={`/work/${c.slug}`}
-              className="group relative overflow-hidden rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-black/10"
+              className="group ds-glass ds-lift relative overflow-hidden rounded-2xl p-6"
             >
               <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-[var(--color-cyan)]/15 blur-2xl" />
+                <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-[var(--ds-accent2)]/15 blur-2xl" />
               </div>
               <div className="relative space-y-3">
                 <div className="flex items-center justify-between gap-3">
-                  <div className="text-xs font-semibold uppercase tracking-wide text-[var(--color-slate)]">
+                  <div className="text-xs font-semibold uppercase tracking-wide text-[var(--ds-muted)]">
                     {c.client}
                   </div>
-                  <div className="text-xs font-semibold text-[var(--color-navy)]">
+                  <div className="text-xs font-semibold text-[var(--ds-text)]">
                     {c.outcome}
                   </div>
                 </div>
-                <div className="font-[var(--font-display)] text-xl font-semibold tracking-tight text-[var(--color-navy)]">
+                <div className="font-[var(--font-display)] text-xl font-semibold tracking-tight text-[var(--ds-text)]">
                   {c.oneLiner}
                 </div>
                 <div className="flex flex-wrap gap-2 pt-2">
                   {c.tags.map((t) => (
                     <span
                       key={t}
-                      className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs font-semibold text-[var(--color-slate)]"
+                      className="ds-badge"
                     >
                       {t}
                     </span>
@@ -84,10 +84,10 @@ function FilterChip({
       type="button"
       onClick={onClick}
       className={[
-        "rounded-full px-4 py-2 text-xs font-semibold transition-colors",
+        "rounded-full px-4 py-2 text-xs font-semibold transition-colors duration-150",
         active
-          ? "bg-[var(--color-navy)] text-white"
-          : "border border-[var(--color-navy)]/15 text-[var(--color-navy)] hover:bg-[var(--color-navy)]/[0.03]",
+          ? "bg-[var(--ds-text)] text-[var(--ds-bg)]"
+          : "border border-white/10 bg-white/[0.02] text-[var(--ds-text)] hover:bg-white/[0.04]",
       ].join(" ")}
     >
       {children}

@@ -1,24 +1,163 @@
 @import "tailwindcss";
 
 :root {
-  --background: #F8FAFC;
-  --foreground: #0B1C2D;
+  --ds-bg: #0A0A0C;
+  --ds-surface: rgba(255, 255, 255, 0.05);
+  --ds-border: rgba(255, 255, 255, 0.10);
+  --ds-text: #F5F5FA;
+  --ds-muted: #A8A8B8;
+  --ds-accent: #7C7CFF;
+  --ds-accent2: #3FD0C9;
 
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-surface: #FFFFFF;
-  --color-navy: #0B1C2D;
-  --color-blue: #2563EB;
-  --color-slate: #64748B;
-  --color-cyan: #22D3EE;
-  --color-success: #22C55E;
+  --ds-line: rgba(255, 255, 255, 0.08);
+  --ds-focus: rgba(124, 124, 255, 0.60);
+
+  --ds-radius: 20px;
+  --ds-radius-lg: 24px;
+
+  --ds-blur: 16px;
+  --ds-shadow: 0 0 0 1px rgba(255,255,255,0.08) inset, 0 16px 50px rgba(0,0,0,0.55);
+  --ds-shadow-lift: 0 0 0 1px rgba(255,255,255,0.10) inset, 0 22px 70px rgba(0,0,0,0.65);
+
+  --ds-anim: 180ms;
+  --ds-ease: cubic-bezier(0.22, 1, 0.36, 1);
 
   --font-sans: var(--font-inter);
   --font-display: var(--font-space-grotesk);
+
+  --background: var(--ds-bg);
+  --foreground: var(--ds-text);
+
+  --color-background: var(--ds-bg);
+  --color-foreground: var(--ds-text);
+  --color-surface: var(--ds-surface);
+  --color-navy: var(--ds-text);
+  --color-blue: var(--ds-accent);
+  --color-slate: var(--ds-muted);
+  --color-cyan: var(--ds-accent2);
+  --color-success: #22C55E;
 }
 
 body {
-  background: var(--background);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 600px at 20% 0%, rgba(124,124,255,.18), transparent 60%),
+    radial-gradient(900px 500px at 80% 10%, rgba(63,208,201,.14), transparent 55%),
+    radial-gradient(900px 520px at 50% 115%, rgba(124,124,255,.08), transparent 60%),
+    var(--ds-bg);
   color: var(--foreground);
   font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--ds-focus);
+}
+
+::selection {
+  background: rgba(124, 124, 255, 0.25);
+}
+
+.ds-glass {
+  background: var(--ds-surface);
+  border: 1px solid var(--ds-border);
+  border-radius: var(--ds-radius-lg);
+  backdrop-filter: blur(var(--ds-blur));
+  box-shadow: var(--ds-shadow);
+}
+
+.ds-lift {
+  transition:
+    transform var(--ds-anim) var(--ds-ease),
+    filter var(--ds-anim) var(--ds-ease),
+    box-shadow var(--ds-anim) var(--ds-ease),
+    border-color var(--ds-anim) var(--ds-ease);
+}
+
+.ds-lift:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.04);
+  box-shadow: var(--ds-shadow-lift);
+}
+
+.ds-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition:
+    transform var(--ds-anim) var(--ds-ease),
+    filter var(--ds-anim) var(--ds-ease),
+    background-color var(--ds-anim) var(--ds-ease),
+    border-color var(--ds-anim) var(--ds-ease);
+}
+
+.ds-btn-primary {
+  background: var(--ds-accent);
+  color: #fff;
+}
+
+.ds-btn-primary:hover {
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+}
+
+.ds-btn-ghost {
+  border: 1px solid var(--ds-border);
+  background: rgba(255,255,255,0.02);
+  color: var(--ds-text);
+  backdrop-filter: blur(var(--ds-blur));
+}
+
+.ds-btn-ghost:hover {
+  border-color: rgba(255,255,255,0.16);
+  background: rgba(255,255,255,0.04);
+  transform: translateY(-1px);
+}
+
+.ds-link {
+  color: var(--ds-text);
+  text-decoration: none;
+  transition: color var(--ds-anim) var(--ds-ease);
+}
+
+.ds-link:hover {
+  color: var(--ds-accent2);
+}
+
+.ds-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  padding: 0.25rem 0.625rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ds-muted);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.10);
+}
+
+.ds-input {
+  width: 100%;
+  border-radius: 16px;
+  border: 1px solid var(--ds-border);
+  background: rgba(255,255,255,0.03);
+  color: var(--ds-text);
+  padding: 0.75rem 1rem;
+  transition: border-color var(--ds-anim) var(--ds-ease);
+}
+
+.ds-input::placeholder {
+  color: rgba(168, 168, 184, 0.75);
+}
+
+.ds-input:hover {
+  border-color: rgba(255,255,255,0.14);
 }

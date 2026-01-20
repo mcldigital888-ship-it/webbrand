@@ -18,11 +18,11 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-black/5 bg-[var(--color-surface)]/80 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-[rgba(10,10,12,0.55)] backdrop-blur">
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-4">
         <Link
           href="/"
-          className="font-semibold tracking-tight text-[var(--color-navy)]"
+          className="font-semibold tracking-tight text-[var(--ds-text)]"
           onClick={() => setOpen(false)}
         >
           Webrrand
@@ -33,14 +33,14 @@ export default function Navbar() {
             <Link
               key={item.href}
               href={item.href}
-              className="text-sm font-medium text-[var(--color-slate)] transition-colors hover:text-[var(--color-navy)]"
+              className="text-sm font-medium text-[var(--ds-muted)] transition-colors duration-150 hover:text-[var(--ds-text)]"
             >
               {item.label}
             </Link>
           ))}
           <Link
             href="/admin"
-            className="text-sm font-medium text-[var(--color-slate)] transition-colors hover:text-[var(--color-navy)]"
+            className="text-sm font-medium text-[var(--ds-muted)] transition-colors duration-150 hover:text-[var(--ds-text)]"
           >
             <Bilingual en="Admin Panel" it="Pannello admin" />
           </Link>
@@ -52,7 +52,7 @@ export default function Navbar() {
           </div>
           <Link
             href="/admin"
-            className="hidden rounded-full border border-[var(--color-navy)]/15 px-4 py-2 text-sm font-semibold text-[var(--color-navy)] transition-colors hover:border-[var(--color-navy)]/25 hover:bg-[var(--color-navy)]/[0.03] md:inline-flex"
+            className="hidden rounded-full border border-white/10 bg-white/[0.02] px-4 py-2 text-sm font-semibold text-[var(--ds-text)] backdrop-blur transition-colors duration-150 hover:border-white/15 hover:bg-white/[0.04] md:inline-flex"
           >
             <Bilingual en="Open Admin" it="Apri admin" />
           </Link>
@@ -60,7 +60,7 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
-            className="inline-flex h-10 items-center justify-center rounded-full border border-[var(--color-navy)]/15 px-4 text-sm font-semibold text-[var(--color-navy)] hover:border-[var(--color-navy)]/25 hover:bg-[var(--color-navy)]/[0.03] md:hidden"
+            className="inline-flex h-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.02] px-4 text-sm font-semibold text-[var(--ds-text)] backdrop-blur transition-colors duration-150 hover:border-white/15 hover:bg-white/[0.04] md:hidden"
             aria-expanded={open}
             aria-label="Toggle menu"
           >
@@ -70,7 +70,7 @@ export default function Navbar() {
       </div>
 
       {open ? (
-        <div className="border-t border-black/5 bg-[var(--color-surface)] md:hidden">
+        <div className="border-t border-white/10 bg-[rgba(10,10,12,0.70)] backdrop-blur md:hidden">
           <div className="mx-auto w-full max-w-6xl px-4 py-4">
             <div className="flex flex-col gap-3">
               <div className="w-fit">
@@ -81,7 +81,7 @@ export default function Navbar() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="rounded-xl px-3 py-2 text-sm font-semibold text-[var(--color-navy)] hover:bg-black/[0.03]"
+                  className="rounded-xl px-3 py-2 text-sm font-semibold text-[var(--ds-text)] transition-colors duration-150 hover:bg-white/[0.04]"
                 >
                   {item.label}
                 </Link>
@@ -89,7 +89,7 @@ export default function Navbar() {
               <Link
                 href="/admin"
                 onClick={() => setOpen(false)}
-                className="mt-1 inline-flex w-fit rounded-full bg-[var(--color-blue)] px-5 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-95"
+                className="mt-1 ds-btn ds-btn-primary"
               >
                 <Bilingual en="Open Admin Panel" it="Apri pannello admin" />
               </Link>

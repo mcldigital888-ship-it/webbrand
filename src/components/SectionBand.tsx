@@ -9,12 +9,12 @@ export default function SectionBand({
   tone?: "light" | "muted" | "accent";
   className?: string;
 }) {
-  const base = "rounded-3xl border border-black/5 px-6 py-10 sm:px-10";
+  const base = "rounded-3xl border border-white/10 px-6 py-10 backdrop-blur sm:px-10";
   const tones: Record<typeof tone, string> = {
-    light: "bg-[var(--color-surface)]",
-    muted: "bg-[var(--color-background)]",
+    light: "bg-[var(--ds-surface)]",
+    muted: "bg-white/[0.02]",
     accent:
-      "bg-gradient-to-br from-[rgba(88,101,242,0.10)] via-[rgba(41,208,227,0.08)] to-[rgba(88,101,242,0.06)]",
+      "bg-gradient-to-br from-[rgba(124,124,255,0.16)] via-[rgba(63,208,201,0.10)] to-[rgba(124,124,255,0.08)]",
   };
 
   return <section className={[base, tones[tone], className].join(" ")}>{children}</section>;

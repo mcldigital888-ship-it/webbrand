@@ -21,16 +21,16 @@ export default function Home() {
       <SectionBand tone="accent" className="overflow-hidden">
         <div className="space-y-8">
           <div className="space-y-3">
-            <div className="text-sm font-semibold tracking-wide text-[var(--color-navy)]/70">
+            <div className="text-sm font-semibold tracking-wide text-[var(--ds-muted)]">
               <Bilingual en="WEBRRAND" it="WEBRRAND" />
             </div>
-            <h1 className="max-w-4xl font-[var(--font-display)] text-5xl font-semibold tracking-tight text-[var(--color-navy)] sm:text-6xl">
+            <h1 className="max-w-4xl font-[var(--font-display)] text-5xl font-semibold tracking-tight text-[var(--ds-text)] sm:text-6xl">
               <Bilingual
                 en={<>Turn website visitors into paying customers — automatically.</>}
                 it={<>Turn website visitors into paying customers — automatically.</>}
               />
             </h1>
-            <p className="max-w-3xl text-lg leading-8 text-[var(--color-slate)]">
+            <p className="max-w-3xl text-lg leading-8 text-[var(--ds-muted)]">
               <Bilingual
                 en="Webrrand builds websites, funnels, CRM and AI that work together to generate, qualify and close leads for you."
                 it="Webrrand builds websites, funnels, CRM and AI that work together to generate, qualify and close leads for you."
@@ -39,18 +39,18 @@ export default function Home() {
             <div className="flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/audit"
-                className="inline-flex w-fit rounded-full bg-[var(--color-blue)] px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-95"
+                className="ds-btn ds-btn-primary"
               >
                 <Bilingual en="Get a Free System Audit" it="Get a Free System Audit" />
               </Link>
               <Link
                 href="#how-it-works"
-                className="inline-flex w-fit rounded-full border border-[var(--color-navy)]/15 bg-white/60 px-6 py-3 text-sm font-semibold text-[var(--color-navy)] transition-colors hover:border-[var(--color-navy)]/25 hover:bg-white"
+                className="ds-btn ds-btn-ghost"
               >
                 <Bilingual en="See How It Works" it="See How It Works" />
               </Link>
             </div>
-            <p className="text-sm font-medium text-[var(--color-slate)]">
+            <p className="text-sm font-medium text-[var(--ds-muted)]">
               <Bilingual
                 en="WEBRRAND builds revenue systems, not websites."
                 it="WEBRRAND builds revenue systems, not websites."
@@ -59,33 +59,33 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-            <div className="rounded-2xl border border-black/5 bg-white/70 p-6">
-              <div className="text-sm font-semibold text-[var(--color-navy)]">
+            <div className="ds-glass ds-lift rounded-2xl p-6">
+              <div className="text-sm font-semibold text-[var(--ds-text)]">
                 <Bilingual en="More leads" it="More leads" />
               </div>
-              <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">
+              <div className="mt-2 text-sm leading-6 text-[var(--ds-muted)]">
                 <Bilingual
                   en="Convert traffic with landing pages built for response."
                   it="Convert traffic with landing pages built for response."
                 />
               </div>
             </div>
-            <div className="rounded-2xl border border-black/5 bg-white/70 p-6">
-              <div className="text-sm font-semibold text-[var(--color-navy)]">
+            <div className="ds-glass ds-lift rounded-2xl p-6">
+              <div className="text-sm font-semibold text-[var(--ds-text)]">
                 <Bilingual en="Automatic follow-up" it="Automatic follow-up" />
               </div>
-              <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">
+              <div className="mt-2 text-sm leading-6 text-[var(--ds-muted)]">
                 <Bilingual
                   en="CRM + automation that responds in minutes, not days."
                   it="CRM + automation that responds in minutes, not days."
                 />
               </div>
             </div>
-            <div className="rounded-2xl border border-black/5 bg-white/70 p-6 md:col-span-3">
-              <div className="text-sm font-semibold text-[var(--color-navy)]">
+            <div className="ds-glass ds-lift rounded-2xl p-6 md:col-span-3">
+              <div className="text-sm font-semibold text-[var(--ds-text)]">
                 <Bilingual en="Sales clarity" it="Sales clarity" />
               </div>
-              <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">
+              <div className="mt-2 text-sm leading-6 text-[var(--ds-muted)]">
                 <Bilingual
                   en="Pipeline + dashboards so you know what’s working (and what’s leaking)."
                   it="Pipeline + dashboards so you know what’s working (and what’s leaking)."

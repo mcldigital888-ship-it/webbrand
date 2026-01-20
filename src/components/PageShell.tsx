@@ -18,14 +18,14 @@ export default function PageShell({
     <div className="space-y-14">
       <header className="space-y-5">
         {kicker ? (
-          <p className="text-sm font-semibold tracking-wide text-[var(--color-cyan)]">
+          <p className="text-sm font-semibold tracking-wide text-[var(--ds-accent2)]">
             {kicker}
           </p>
         ) : null}
-        <h1 className="max-w-4xl font-[var(--font-display)] text-4xl font-semibold tracking-tight text-[var(--color-navy)] sm:text-5xl">
+        <h1 className="max-w-4xl font-[var(--font-display)] text-4xl font-semibold tracking-tight text-[var(--ds-text)] sm:text-5xl">
           {title}
         </h1>
-        <div className="max-w-2xl text-lg leading-8 text-[var(--color-slate)]">
+        <div className="max-w-2xl text-lg leading-8 text-[var(--ds-muted)]">
           {subtitle}
         </div>
         {primaryCta ? (
