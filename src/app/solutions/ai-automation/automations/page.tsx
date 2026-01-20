@@ -1,105 +1,92 @@
 import PageShell from "@/components/PageShell";
 import type { ReactNode } from "react";
+import Bilingual from "@/components/Bilingual";
 
 export default function AiAutomationsPage() {
   return (
     <PageShell
-      kicker={
-        <>
-          AI & automazione
-          <br />
-          AI & automation
-        </>
-      }
+      kicker={<Bilingual it="AI & automazione" en="AI & automation" />}
       title={
-        <>
-          Automazioni che riducono ritardi e lead persi
-          <br />
-          Automations that reduce delays and lost leads
-        </>
+        <Bilingual
+          it="Automazioni che riducono ritardi e lead persi"
+          en="Automations that reduce delays and lost leads"
+        />
       }
       subtitle={
-        <>
-          Automazioni che riducono ritardi e impediscono ai lead di perdersi.
-          <br />
-          Automations that reduce delays and keep leads from slipping.
-        </>
+        <Bilingual
+          it="Automazioni che riducono ritardi e impediscono ai lead di perdersi."
+          en="Automations that reduce delays and keep leads from slipping."
+        />
       }
       primaryCta={{
         href: "/contact",
-        label: (
-          <>
-            Richiedi demo AI
-            <br />
-            Request AI demo
-          </>
-        ),
+        label: <Bilingual it="Richiedi demo AI" en="Request AI demo" />,
       }}
     >
       <section className="grid grid-cols-1 gap-4 md:grid-cols-3">
         <Card
-          title="Casi d’uso / Use cases"
+          title={<Bilingual it="Casi d’uso" en="Use cases" />}
           bullets={[
-            <>
-              Routing lead immediato (form → owner)
-              <br />
-              Instant lead routing (form → owner)
-            </>,
-            <>
-              Follow-up in pochi minuti (task/email)
-              <br />
-              Follow-up within minutes (tasks/email)
-            </>,
-            <>
-              Aggiornamenti stato lead e reminder
-              <br />
-              Lead status updates and reminders
-            </>,
-            <>
-              Promemoria operativi (SLA, checklist, handoff)
-              <br />
-              Ops reminders (SLA, checklists, handoffs)
-            </>,
+            <Bilingual
+              key="1"
+              it="Routing lead immediato (form → owner)"
+              en="Instant lead routing (form → owner)"
+            />,
+            <Bilingual
+              key="2"
+              it="Follow-up in pochi minuti (task/email)"
+              en="Follow-up within minutes (tasks/email)"
+            />,
+            <Bilingual
+              key="3"
+              it="Aggiornamenti stato lead e reminder"
+              en="Lead status updates and reminders"
+            />,
+            <Bilingual
+              key="4"
+              it="Promemoria operativi (SLA, checklist, handoff)"
+              en="Ops reminders (SLA, checklists, handoffs)"
+            />,
           ]}
         />
         <Card
-          title="Per chi è / Who it’s for"
+          title={<Bilingual it="Per chi è" en="Who it’s for" />}
           bullets={[
-            <>
-              Team con tempi di risposta lenti
-              <br />
-              Teams with slow response times
-            </>,
-            <>
-              Sales team con follow-up manuale
-              <br />
-              Sales teams doing manual follow-up
-            </>,
-            <>
-              Aziende che vogliono esecuzione consistente
-              <br />
-              Businesses needing consistent execution
-            </>,
+            <Bilingual
+              key="1"
+              it="Team con tempi di risposta lenti"
+              en="Teams with slow response times"
+            />,
+            <Bilingual
+              key="2"
+              it="Sales team con follow-up manuale"
+              en="Sales teams doing manual follow-up"
+            />,
+            <Bilingual
+              key="3"
+              it="Aziende che vogliono esecuzione consistente"
+              en="Businesses needing consistent execution"
+            />,
           ]}
         />
         <Card
-          title="Non è per / Not for"
+          title={<Bilingual it="Non è per" en="Not for" />}
           bullets={[
-            <>
-              Team senza processo minimo
-              <br />
-              Teams without a basic process
-            </>,
-            <>
-              Progetti complessi senza owner
-              <br />
-              Complex projects with no owner
-            </>,
-            <>
-              Automazione senza outcome misurabile
-              <br />
-              Automation without measurable outcome
-            </>,
+            <Bilingual
+              key="1"
+              it="Team senza processo minimo"
+              en="Teams without a basic process"
+            />,
+            <Bilingual
+              key="2"
+              it="Progetti complessi senza owner"
+              en="Complex projects with no owner"
+            />,
+            <Bilingual
+              key="3"
+              it="Automazione senza outcome misurabile"
+              en="Automation without measurable outcome"
+            />,
           ]}
         />
       </section>
@@ -107,27 +94,25 @@ export default function AiAutomationsPage() {
       <section className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-8">
         <div className="space-y-3">
           <div className="text-sm font-semibold text-[var(--color-navy)]">
-            Cosa ricevi
-            <span className="text-[var(--color-slate)]"> / </span>
-            What you receive
+            <Bilingual it="Cosa ricevi" en="What you receive" />
           </div>
           <ul className="space-y-2 text-sm text-[var(--color-slate)]">
             {[
-              <>
-                Mappa automazioni: trigger → azione → output
-                <br />
-                Automation map: trigger → action → output
-              </>,
-              <>
-                Routing e regole: owner, SLA, escalation
-                <br />
-                Routing and rules: owner, SLA, escalation
-              </>,
-              <>
-                Logging e controlli minimi per affidabilità
-                <br />
-                Basic logging and checks for reliability
-              </>,
+              <Bilingual
+                key="1"
+                it="Mappa automazioni: trigger → azione → output"
+                en="Automation map: trigger → action → output"
+              />,
+              <Bilingual
+                key="2"
+                it="Routing e regole: owner, SLA, escalation"
+                en="Routing and rules: owner, SLA, escalation"
+              />,
+              <Bilingual
+                key="3"
+                it="Logging e controlli minimi per affidabilità"
+                en="Basic logging and checks for reliability"
+              />,
             ].map((b, idx) => (
               <li key={idx} className="flex gap-2">
                 <span className="mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-cyan)]" />
@@ -141,7 +126,7 @@ export default function AiAutomationsPage() {
   );
 }
 
-function Card({ title, bullets }: { title: string; bullets: ReactNode[] }) {
+function Card({ title, bullets }: { title: ReactNode; bullets: ReactNode[] }) {
   return (
     <div className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6">
       <div className="space-y-3">

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { CONFIG } from "@/lib/integrations";
 import { submitIntegrationForm } from "@/lib/webhook";
 import { trackEvent } from "@/lib/tracking";
+import Bilingual from "@/components/Bilingual";
 
 export default function SolutionsPage() {
   const router = useRouter();
@@ -84,19 +85,19 @@ export default function SolutionsPage() {
     <div className="space-y-10">
       <header className="space-y-4">
         <div className="text-sm font-semibold tracking-wide text-[var(--color-cyan)]">
-          Soluzioni
-          <span className="text-[var(--color-slate)]"> / </span>
-          Solutions
+          <Bilingual it="Soluzioni" en="Solutions" />
         </div>
         <h1 className="max-w-4xl font-[var(--font-display)] text-5xl font-semibold tracking-tight text-[var(--color-navy)] sm:text-6xl">
-          Sei qui per una di queste cose. Clicca e vai dritto.
-          <br />
-          You’re here for one of these. Click and go straight.
+          <Bilingual
+            it="Sei qui per una di queste cose. Clicca e vai dritto."
+            en="You’re here for one of these. Click and go straight."
+          />
         </h1>
         <p className="max-w-3xl text-sm leading-6 text-[var(--color-slate)]">
-          Ogni percorso è progettato per un obiettivo specifico, con KPI e deliverable chiari.
-          <br />
-          Each track is built around one goal, with clear KPIs and deliverables.
+          <Bilingual
+            it="Ogni percorso è progettato per un obiettivo specifico, con KPI e deliverable chiari."
+            en="Each track is built around one goal, with clear KPIs and deliverables."
+          />
         </p>
       </header>
 
@@ -1003,9 +1004,10 @@ export default function SolutionsPage() {
         <div className="space-y-6">
           <div className="space-y-2">
             <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--color-navy)]">
-              Soluzioni verticali per settori
-              <br />
-              Vertical solutions by sector
+              <Bilingual
+                it="Soluzioni verticali per settori"
+                en="Vertical solutions by sector"
+              />
             </h2>
             <p className="max-w-3xl text-sm leading-6 text-[var(--color-slate)]">
               Ogni settore ha problemi e KPI diversi. Costruiamo pacchetti verticali con moduli ottimizzati per il tuo
@@ -1200,12 +1202,10 @@ function TrackSection({
       <div className="space-y-6">
         <div className="space-y-2">
           <div className={["text-xs font-semibold uppercase tracking-wide", mutedText].join(" ")}>
-            {kickerIt} / {kickerEn}
+            <Bilingual it={kickerIt} en={kickerEn} />
           </div>
           <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight">
-            {problemIt}
-            <br />
-            {problemEn}
+            <Bilingual it={problemIt} en={problemEn} />
           </h2>
         </div>
 

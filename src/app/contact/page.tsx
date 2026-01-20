@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import PageShell from "@/components/PageShell";
+import Bilingual from "@/components/Bilingual";
 import { CONFIG } from "@/lib/integrations";
 import { submitIntegrationForm } from "@/lib/webhook";
 import { trackEvent } from "@/lib/tracking";
@@ -96,12 +97,17 @@ export default function ContactPage() {
 
   return (
     <PageShell
-      kicker="Contact"
-      title="Book a call or send the brief"
-      subtitle="Share your goal, constraints, and timeline. We’ll reply with a clear next step."
+      kicker={<Bilingual en="Contact" it="Contatti" />}
+      title={<Bilingual en="Book a call or send the brief" it="Prenota una call o invia il brief" />}
+      subtitle={
+        <Bilingual
+          en="Share your goal, constraints, and timeline. We’ll reply with a clear next step."
+          it="Condividi obiettivo, vincoli e tempistiche. Rispondiamo con un prossimo step chiaro."
+        />
+      }
     >
       <section className="grid grid-cols-1 gap-4 md:grid-cols-3">
-        <div className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6 md:col-span-2">
+        <div className="ds-glass rounded-2xl p-6 md:col-span-2">
           <form
             onSubmit={onSubmit}
             className="space-y-6"
@@ -167,7 +173,7 @@ export default function ContactPage() {
                 </Field>
               </div>
 
-              <label className="flex items-start gap-2 text-xs text-[var(--color-slate)]">
+              <label className="flex items-start gap-2 text-xs text-[var(--ds-muted)]">
                 <input
                   type="checkbox"
                   checked={form.consent}
@@ -182,8 +188,8 @@ export default function ContactPage() {
                 </span>
               </label>
 
-              <div className="flex flex-col gap-2 text-xs text-[var(--color-slate)]">
-                <div>Response time: 24–48 hours.</div>
+              <div className="flex flex-col gap-2 text-xs text-[var(--ds-muted)]">
+                <div>Response time: within 24 hours.</div>
                 <div>Privacy-first. No spam.</div>
                 {!CONFIG.WEBHOOK_URL ? (
                   <div>Webhook not set: submissions are stored locally.</div>
@@ -194,36 +200,34 @@ export default function ContactPage() {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="inline-flex w-fit rounded-full bg-[var(--color-blue)] px-5 py-3 text-sm font-semibold text-white hover:opacity-95"
+                  className="ds-btn ds-btn-primary ds-btn-lg"
                 >
                   {submitting ? "Submitting..." : "Send"}
                 </button>
                 <a
                   href="mailto:hello@webbrand.studio"
-                  className="inline-flex w-fit rounded-full border border-[var(--color-navy)]/15 px-5 py-3 text-sm font-semibold text-[var(--color-navy)] hover:border-[var(--color-navy)]/25 hover:bg-[var(--color-navy)]/[0.03]"
+                  className="ds-btn ds-btn-ghost ds-btn-lg"
                 >
                   Email us
                 </a>
                 <a
                   href="#book"
-                  className="inline-flex w-fit rounded-full border border-[var(--color-navy)]/15 px-5 py-3 text-sm font-semibold text-[var(--color-navy)] hover:border-[var(--color-navy)]/25 hover:bg-[var(--color-navy)]/[0.03]"
+                  className="ds-btn ds-btn-ghost ds-btn-lg"
                 >
                   Book a Call
                 </a>
               </div>
 
               {submitError ? (
-                <div className="text-sm text-[var(--color-slate)]">
-                  {submitError}
-                </div>
+                <div className="text-sm text-[var(--ds-muted)]">{submitError}</div>
               ) : null}
           </form>
         </div>
 
-        <div className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6">
+        <div className="ds-glass rounded-2xl p-6">
           <div className="space-y-3">
-            <div className="text-sm font-semibold text-[var(--color-navy)]">What happens next?</div>
-            <ul className="space-y-2 text-sm text-[var(--color-slate)]">
+            <div className="text-sm font-semibold text-[var(--ds-text)]">What happens next?</div>
+            <ul className="space-y-2 text-sm text-[var(--ds-muted)]">
               <li className="flex gap-2">
                 <span className="mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-cyan)]" />
                 <span>We review your message</span>
@@ -242,36 +246,36 @@ export default function ContactPage() {
       </section>
 
       <section className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <div className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6">
-          <div className="text-sm font-semibold text-[var(--color-navy)]">Mini FAQ</div>
-          <div className="mt-4 space-y-4 text-sm leading-6 text-[var(--color-slate)]">
+        <div className="ds-glass rounded-2xl p-6">
+          <div className="text-sm font-semibold text-[var(--ds-text)]">Mini FAQ</div>
+          <div className="mt-4 space-y-4 text-sm leading-relaxed text-[var(--ds-muted)]">
             <div>
-              <div className="font-semibold text-[var(--color-navy)]">Do you work with small teams?</div>
+              <div className="font-semibold text-[var(--ds-text)]">Do you work with small teams?</div>
               <div>Yes. If the goal is clear and the decision-making is fast.</div>
             </div>
             <div>
-              <div className="font-semibold text-[var(--color-navy)]">What’s the usual timeline?</div>
+              <div className="font-semibold text-[var(--ds-text)]">What’s the usual timeline?</div>
               <div>Most launches ship in weeks, not months. Scope defines speed.</div>
             </div>
             <div>
-              <div className="font-semibold text-[var(--color-navy)]">Do you use AI?</div>
+              <div className="font-semibold text-[var(--ds-text)]">Do you use AI?</div>
               <div>Yes. AI accelerates cycles. Humans decide what ships.</div>
             </div>
             <div>
-              <div className="font-semibold text-[var(--color-navy)]">Can we start with a small sprint?</div>
+              <div className="font-semibold text-[var(--ds-text)]">Can we start with a small sprint?</div>
               <div>Yes. We can begin with a strategy + structure sprint, then build.</div>
             </div>
           </div>
         </div>
         <div
           id="book"
-          className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6"
+          className="ds-glass rounded-2xl p-6"
         >
-          <div className="text-sm font-semibold text-[var(--color-navy)]">Book a call</div>
-          <div className="mt-3 text-sm leading-6 text-[var(--color-slate)]">
+          <div className="text-sm font-semibold text-[var(--ds-text)]">Book a call</div>
+          <div className="mt-3 text-sm leading-relaxed text-[var(--ds-muted)]">
             Add your calendar link here (Calendly, Cal.com, etc.).
           </div>
-          <div className="mt-5 inline-flex w-fit rounded-full bg-[var(--color-blue)] px-5 py-3 text-sm font-semibold text-white">
+          <div className="mt-5 inline-flex w-fit rounded-full bg-[var(--ds-accent)] px-5 py-3 text-sm font-semibold text-white">
             Calendar CTA
           </div>
         </div>
@@ -294,12 +298,12 @@ function Field({
   return (
     <label className="block space-y-2">
       <div className="flex items-center justify-between">
-        <span className="text-sm font-semibold text-[var(--color-navy)]">
+        <span className="text-sm font-semibold text-[var(--ds-text)]">
           {label}
-          {required ? <span className="text-[var(--color-slate)]"> *</span> : null}
+          {required ? <span className="text-[var(--ds-muted)]"> *</span> : null}
         </span>
         {error ? (
-          <span className="text-xs font-medium text-[var(--color-slate)]">
+          <span className="text-xs font-medium text-[var(--ds-muted)]">
             {error}
           </span>
         ) : null}
@@ -311,8 +315,8 @@ function Field({
 
 function inputClassName(isError: boolean) {
   return [
-    "h-11 w-full rounded-xl border bg-white px-3 text-sm text-[var(--color-navy)] outline-none",
-    isError ? "border-[var(--color-cyan)]" : "border-black/10",
-    "focus:border-[var(--color-blue)]",
+    "ds-input h-11",
+    isError ? "border-[var(--ds-accent2)]" : "border-white/10",
+    "focus:border-[var(--ds-accent)]",
   ].join(" ");
 }

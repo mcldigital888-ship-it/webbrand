@@ -5,7 +5,7 @@
   --ds-surface: rgba(255, 255, 255, 0.05);
   --ds-border: rgba(255, 255, 255, 0.10);
   --ds-text: #F5F5FA;
-  --ds-muted: #A8A8B8;
+  --ds-muted: #B8B8C8;
   --ds-accent: #7C7CFF;
   --ds-accent2: #3FD0C9;
 
@@ -97,6 +97,16 @@ body {
     filter var(--ds-anim) var(--ds-ease),
     background-color var(--ds-anim) var(--ds-ease),
     border-color var(--ds-anim) var(--ds-ease);
+}
+
+.ds-btn-lg {
+  padding: 0.9rem 1.4rem;
+  font-size: 0.95rem;
+}
+
+.ds-btn-sm {
+  padding: 0.55rem 1rem;
+  font-size: 0.85rem;
 }
 
 .ds-btn-primary {

@@ -3,6 +3,7 @@ import Link from "next/link";
 import PageShell from "@/components/PageShell";
 import CTASection from "@/components/CTASection";
 import { insights } from "@/lib/content";
+import Bilingual from "@/components/Bilingual";
 
 export function generateStaticParams() {
   return insights.map((p) => ({ slug: p.slug }));
@@ -30,11 +31,11 @@ export default function InsightDetailPage({ params }: { params: { slug: string }
   if (!post) {
     return (
       <div className="space-y-4">
-        <h1 className="font-[var(--font-display)] text-3xl font-semibold text-[var(--color-navy)]">
-          Insight not found
+        <h1 className="font-[var(--font-display)] text-3xl font-semibold text-[var(--ds-text)]">
+          <Bilingual en="Insight not found" it="Insight non trovato" />
         </h1>
-        <Link className="text-sm font-semibold text-[var(--color-blue)]" href="/insights">
-          Back to Insights
+        <Link className="text-sm font-semibold text-[var(--ds-accent)]" href="/insights">
+          <Bilingual en="Back to Insights" it="Torna agli insight" />
         </Link>
       </div>
     );
@@ -42,10 +43,10 @@ export default function InsightDetailPage({ params }: { params: { slug: string }
 
   return (
     <PageShell
-      kicker="Insights"
+      kicker={<Bilingual en="Insights" it="Insight" />}
       title={post.title}
       subtitle={post.excerpt}
-      primaryCta={{ href: "/contact", label: "Book a Call" }}
+      primaryCta={{ href: "/contact", label: <Bilingual en="Book a Call" it="Prenota una call" /> }}
     >
       <section className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6">
         <div className="space-y-4">
@@ -76,10 +77,15 @@ export default function InsightDetailPage({ params }: { params: { slug: string }
       </section>
 
       <CTASection
-        title="Want the playbook for your case?"
-        subtitle="Share your context. We’ll reply with a relevant insight and a practical next step."
-        primary={{ href: "/contact", label: "Book a Call" }}
-        secondary={{ href: "/work", label: "View Work" }}
+        title={<Bilingual en="Want the playbook for your case?" it="Vuoi il playbook per il tuo caso?" />}
+        subtitle={
+          <Bilingual
+            en="Share your context. We’ll reply with a relevant insight and a practical next step."
+            it="Condividi il contesto. Rispondiamo con un insight rilevante e un prossimo step pratico."
+          />
+        }
+        primary={{ href: "/contact", label: <Bilingual en="Book a Call" it="Prenota una call" /> }}
+        secondary={{ href: "/work", label: <Bilingual en="View Work" it="Vedi lavori" /> }}
       />
     </PageShell>
   );

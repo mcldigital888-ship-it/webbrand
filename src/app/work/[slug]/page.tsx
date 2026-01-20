@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { caseStudies } from "@/lib/content";
 import CTASection from "@/components/CTASection";
+import Bilingual from "@/components/Bilingual";
 
 export function generateStaticParams() {
   return caseStudies.map((c) => ({ slug: c.slug }));
@@ -31,11 +32,11 @@ export default function CaseStudyPage({ params }: { params: { slug: string } }) 
   if (!c) {
     return (
       <div className="space-y-4">
-        <h1 className="font-[var(--font-display)] text-3xl font-semibold text-[var(--color-navy)]">
-          Case not found
+        <h1 className="font-[var(--font-display)] text-3xl font-semibold text-[var(--ds-text)]">
+          <Bilingual en="Case not found" it="Caso non trovato" />
         </h1>
-        <Link className="text-sm font-semibold text-[var(--color-blue)]" href="/work">
-          Back to Work
+        <Link className="text-sm font-semibold text-[var(--ds-accent)]" href="/work">
+          <Bilingual en="Back to Work" it="Torna ai lavori" />
         </Link>
       </div>
     );
@@ -114,21 +115,26 @@ export default function CaseStudyPage({ params }: { params: { slug: string } }) 
       </section>
 
       <CTASection
-        title="Ready to build your next wave?"
-        subtitle="We’ll turn your goal into a clear plan—then ship the system."
-        primary={{ href: "/contact", label: "Book a Call" }}
-        secondary={{ href: "/work", label: "Back to Work" }}
+        title={<Bilingual en="Ready to build your next wave?" it="Pronto a costruire la tua prossima crescita?" />}
+        subtitle={
+          <Bilingual
+            en="We’ll turn your goal into a clear plan—then ship the system."
+            it="Trasformiamo l’obiettivo in un piano chiaro—poi realizziamo il sistema."
+          />
+        }
+        primary={{ href: "/contact", label: <Bilingual en="Book a Call" it="Prenota una call" /> }}
+        secondary={{ href: "/work", label: <Bilingual en="Back to Work" it="Torna ai lavori" /> }}
       />
 
       <div className="flex items-center justify-between">
-        <Link className="text-sm font-semibold text-[var(--color-blue)]" href="/work">
-          All cases
+        <Link className="text-sm font-semibold text-[var(--ds-accent)]" href="/work">
+          <Bilingual en="All cases" it="Tutti i casi" />
         </Link>
         <Link
-          className="text-sm font-semibold text-[var(--color-blue)]"
+          className="text-sm font-semibold text-[var(--ds-accent)]"
           href={`/work/${next.slug}`}
         >
-          Next case
+          <Bilingual en="Next case" it="Caso successivo" />
         </Link>
       </div>
     </div>

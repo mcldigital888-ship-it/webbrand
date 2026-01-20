@@ -1,105 +1,84 @@
 import PageShell from "@/components/PageShell";
 import type { ReactNode } from "react";
+import Bilingual from "@/components/Bilingual";
 
 export default function AiAssistantsPage() {
   return (
     <PageShell
-      kicker={
-        <>
-          AI & automazione
-          <br />
-          AI & automation
-        </>
-      }
+      kicker={<Bilingual it="AI & automazione" en="AI & automation" />}
       title={
-        <>
-          Assistenti AI per task ripetitivi
-          <br />
-          AI assistants for repetitive tasks
-        </>
+        <Bilingual
+          it="Assistenti AI per task ripetitivi"
+          en="AI assistants for repetitive tasks"
+        />
       }
       subtitle={
-        <>
-          Assistenti che riducono i tempi di risposta e tolgono lavoro ripetitivo.
-          <br />
-          Assistants that reduce response time and remove repetitive work.
-        </>
+        <Bilingual
+          it="Assistenti che riducono i tempi di risposta e tolgono lavoro ripetitivo."
+          en="Assistants that reduce response time and remove repetitive work."
+        />
       }
       primaryCta={{
         href: "/contact",
-        label: (
-          <>
-            Richiedi demo AI
-            <br />
-            Request AI demo
-          </>
-        ),
+        label: <Bilingual it="Richiedi demo AI" en="Request AI demo" />,
       }}
     >
       <section className="grid grid-cols-1 gap-4 md:grid-cols-3">
         <Card
-          title="Casi d’uso / Use cases"
+          title={<Bilingual it="Casi d’uso" en="Use cases" />}
           bullets={[
-            <>
-              Qualifica lead e routing
-              <br />
-              Lead qualification and routing
-            </>,
-            <>
-              FAQ e supporto (riduzione tempi risposta)
-              <br />
-              FAQ and support (faster response)
-            </>,
-            <>
-              Knowledge interno (ricerca e sintesi)
-              <br />
-              Internal knowledge (search and synthesis)
-            </>,
-            <>
-              Supporto follow-up vendite
-              <br />
-              Sales follow-up support
-            </>,
+            <Bilingual key="1" it="Qualifica lead e routing" en="Lead qualification and routing" />,
+            <Bilingual
+              key="2"
+              it="FAQ e supporto (riduzione tempi risposta)"
+              en="FAQ and support (faster response)"
+            />,
+            <Bilingual
+              key="3"
+              it="Knowledge interno (ricerca e sintesi)"
+              en="Internal knowledge (search and synthesis)"
+            />,
+            <Bilingual key="4" it="Supporto follow-up vendite" en="Sales follow-up support" />,
           ]}
         />
         <Card
-          title="Per chi è / Who it’s for"
+          title={<Bilingual it="Per chi è" en="Who it’s for" />}
           bullets={[
-            <>
-              Team con domande ricorrenti e backlog
-              <br />
-              Teams with recurring questions and backlog
-            </>,
-            <>
-              Aziende che vogliono tempi di risposta più rapidi
-              <br />
-              Businesses needing faster replies
-            </>,
-            <>
-              Workflow operativi con passaggi ripetitivi
-              <br />
-              Ops-heavy workflows with repetitive steps
-            </>,
+            <Bilingual
+              key="1"
+              it="Team con domande ricorrenti e backlog"
+              en="Teams with recurring questions and backlog"
+            />,
+            <Bilingual
+              key="2"
+              it="Aziende che vogliono tempi di risposta più rapidi"
+              en="Businesses needing faster replies"
+            />,
+            <Bilingual
+              key="3"
+              it="Workflow operativi con passaggi ripetitivi"
+              en="Ops-heavy workflows with repetitive steps"
+            />,
           ]}
         />
         <Card
-          title="Non è per / Not for"
+          title={<Bilingual it="Non è per" en="Not for" />}
           bullets={[
-            <>
-              Esperimenti one-off senza ownership
-              <br />
-              One-off experiments without ownership
-            </>,
-            <>
-              Team che non vogliono seguire un processo minimo
-              <br />
-              Teams unwilling to follow a simple process
-            </>,
-            <>
-              Casi che richiedono zero supervisione umana
-              <br />
-              Use cases requiring zero human oversight
-            </>,
+            <Bilingual
+              key="1"
+              it="Esperimenti one-off senza ownership"
+              en="One-off experiments without ownership"
+            />,
+            <Bilingual
+              key="2"
+              it="Team che non vogliono seguire un processo minimo"
+              en="Teams unwilling to follow a simple process"
+            />,
+            <Bilingual
+              key="3"
+              it="Casi che richiedono zero supervisione umana"
+              en="Use cases requiring zero human oversight"
+            />,
           ]}
         />
       </section>
@@ -107,27 +86,25 @@ export default function AiAssistantsPage() {
       <section className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-8">
         <div className="space-y-3">
           <div className="text-sm font-semibold text-[var(--color-navy)]">
-            Cosa ricevi
-            <span className="text-[var(--color-slate)]"> / </span>
-            What you receive
+            <Bilingual it="Cosa ricevi" en="What you receive" />
           </div>
           <ul className="space-y-2 text-sm text-[var(--color-slate)]">
             {[
-              <>
-                Definizione input/output e criteri di qualità
-                <br />
-                Input/output definition and quality criteria
-              </>,
-              <>
-                Setup workflow + handoff (quando escalare a umano)
-                <br />
-                Workflow setup + handoff (when to escalate to a human)
-              </>,
-              <>
-                Logging minimo e misurazione (tempo risparmiato, SLA)
-                <br />
-                Basic logging and measurement (time saved, SLA)
-              </>,
+              <Bilingual
+                key="1"
+                it="Definizione input/output e criteri di qualità"
+                en="Input/output definition and quality criteria"
+              />,
+              <Bilingual
+                key="2"
+                it="Setup workflow + handoff (quando escalare a umano)"
+                en="Workflow setup + handoff (when to escalate to a human)"
+              />,
+              <Bilingual
+                key="3"
+                it="Logging minimo e misurazione (tempo risparmiato, SLA)"
+                en="Basic logging and measurement (time saved, SLA)"
+              />,
             ].map((b, idx) => (
               <li key={idx} className="flex gap-2">
                 <span className="mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-cyan)]" />
@@ -141,7 +118,7 @@ export default function AiAssistantsPage() {
   );
 }
 
-function Card({ title, bullets }: { title: string; bullets: ReactNode[] }) {
+function Card({ title, bullets }: { title: ReactNode; bullets: ReactNode[] }) {
   return (
     <div className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6">
       <div className="space-y-3">

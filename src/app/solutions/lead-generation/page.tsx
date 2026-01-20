@@ -1,100 +1,82 @@
 import PageShell from "@/components/PageShell";
 import type { ReactNode } from "react";
+import Bilingual from "@/components/Bilingual";
 
 export default function LeadGenerationPage() {
   return (
     <PageShell
-      kicker={
-        <>
-          Sistema lead
-          <br />
-          Lead system
-        </>
-      }
-      title={
-        <>
-          Funnel + CRM + follow-up automatico
-          <br />
-          Funnel + CRM + automated follow-up
-        </>
-      }
+      kicker={<Bilingual it="Sistema lead" en="Lead system" />}
+      title={<Bilingual it="Funnel + CRM + follow-up automatico" en="Funnel + CRM + automated follow-up" />}
       subtitle={
-        <>
-          Se vuoi lead prevedibili, ti serve un sistema—non campagne casuali.
-          <br />
-          If you want predictable leads, you need a system—not random campaigns.
-        </>
+        <Bilingual
+          it="Se vuoi lead prevedibili, ti serve un sistema—non campagne casuali."
+          en="If you want predictable leads, you need a system—not random campaigns."
+        />
       }
       primaryCta={{
         href: "/contact",
-        label: (
-          <>
-            Richiedi sistema lead
-            <br />
-            Request lead system
-          </>
-        ),
+        label: <Bilingual it="Richiedi sistema lead" en="Request lead system" />,
       }}
     >
       <section className="grid grid-cols-1 gap-4 md:grid-cols-3">
         <Card
-          title="Casi d’uso / Use cases"
+          title={<Bilingual it="Casi d’uso" en="Use cases" />}
           bullets={[
-            <>
-              Lead da ads o outbound senza follow-up
-              <br />
-              Leads from ads or outbound with no follow-up
-            </>,
-            <>
-              Pipeline non chiara e nessun next step
-              <br />
-              Unclear pipeline and no next steps
-            </>,
-            <>
-              Nurture manuale e tempi di risposta lenti
-              <br />
-              Manual nurture and slow response times
-            </>,
+            <Bilingual
+              key="1"
+              it="Lead da ads o outbound senza follow-up"
+              en="Leads from ads or outbound with no follow-up"
+            />,
+            <Bilingual
+              key="2"
+              it="Pipeline non chiara e nessun next step"
+              en="Unclear pipeline and no next steps"
+            />,
+            <Bilingual
+              key="3"
+              it="Nurture manuale e tempi di risposta lenti"
+              en="Manual nurture and slow response times"
+            />,
           ]}
         />
         <Card
-          title="Per chi è / Who it’s for"
+          title={<Bilingual it="Per chi è" en="Who it’s for" />}
           bullets={[
-            <>
-              B2B con ciclo di vendita e lead da qualificare
-              <br />
-              B2B with a sales cycle and leads to qualify
-            </>,
-            <>
-              Service business con richieste da gestire
-              <br />
-              Service businesses managing inbound requests
-            </>,
-            <>
-              Team che vogliono consistenza (non campagne random)
-              <br />
-              Teams that want consistency (not random campaigns)
-            </>,
+            <Bilingual
+              key="1"
+              it="B2B con ciclo di vendita e lead da qualificare"
+              en="B2B with a sales cycle and leads to qualify"
+            />,
+            <Bilingual
+              key="2"
+              it="Service business con richieste da gestire"
+              en="Service businesses managing inbound requests"
+            />,
+            <Bilingual
+              key="3"
+              it="Team che vogliono consistenza (non campagne random)"
+              en="Teams that want consistency (not random campaigns)"
+            />,
           ]}
         />
         <Card
-          title="Non è per / Not for"
+          title={<Bilingual it="Non è per" en="Not for" />}
           bullets={[
-            <>
-              Chi vuole solo “più lead” senza definire qualità
-              <br />
-              Teams wanting “more leads” without defining quality
-            </>,
-            <>
-              Team senza un minimo processo commerciale
-              <br />
-              Teams without a basic sales process
-            </>,
-            <>
-              Progetti senza owner per CRM e follow-up
-              <br />
-              Projects with no owner for CRM and follow-up
-            </>,
+            <Bilingual
+              key="1"
+              it="Chi vuole solo “più lead” senza definire qualità"
+              en="Teams wanting “more leads” without defining quality"
+            />,
+            <Bilingual
+              key="2"
+              it="Team senza un minimo processo commerciale"
+              en="Teams without a basic sales process"
+            />,
+            <Bilingual
+              key="3"
+              it="Progetti senza owner per CRM e follow-up"
+              en="Projects with no owner for CRM and follow-up"
+            />,
           ]}
         />
       </section>
@@ -102,27 +84,25 @@ export default function LeadGenerationPage() {
       <section className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-8">
         <div className="space-y-3">
           <div className="text-sm font-semibold text-[var(--color-navy)]">
-            Cosa ricevi
-            <span className="text-[var(--color-slate)]"> / </span>
-            What you receive
+            <Bilingual it="Cosa ricevi" en="What you receive" />
           </div>
           <ul className="space-y-2 text-sm text-[var(--color-slate)]">
             {[
-              <>
-                Mappa funnel (touchpoint → next action)
-                <br />
-                Funnel map (touchpoint → next action)
-              </>,
-              <>
-                Pipeline CRM con stage, regole, e ownership
-                <br />
-                CRM pipeline with stages, rules, and ownership
-              </>,
-              <>
-                Workflow follow-up (email/task) con tempi e trigger
-                <br />
-                Follow-up workflows (email/tasks) with timings and triggers
-              </>,
+              <Bilingual
+                key="1"
+                it="Mappa funnel (touchpoint → next action)"
+                en="Funnel map (touchpoint → next action)"
+              />,
+              <Bilingual
+                key="2"
+                it="Pipeline CRM con stage, regole, e ownership"
+                en="CRM pipeline with stages, rules, and ownership"
+              />,
+              <Bilingual
+                key="3"
+                it="Workflow follow-up (email/task) con tempi e trigger"
+                en="Follow-up workflows (email/tasks) with timings and triggers"
+              />,
             ].map((b, idx) => (
               <li key={idx} className="flex gap-2">
                 <span className="mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-cyan)]" />
@@ -136,7 +116,7 @@ export default function LeadGenerationPage() {
   );
 }
 
-function Card({ title, bullets }: { title: string; bullets: ReactNode[] }) {
+function Card({ title, bullets }: { title: ReactNode; bullets: ReactNode[] }) {
   return (
     <div className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6">
       <div className="space-y-3">

@@ -39,7 +39,7 @@ export default function Home() {
             <div className="flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/audit"
-                className="ds-btn ds-btn-primary"
+                className="ds-btn ds-btn-primary ds-btn-lg"
               >
                 <Bilingual en="Get a Free System Audit" it="Get a Free System Audit" />
               </Link>
@@ -96,13 +96,37 @@ export default function Home() {
         </div>
       </SectionBand>
 
+      <SectionBand tone="muted">
+        <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+          <div className="space-y-2">
+            <h2 className="font-[var(--font-display)] text-2xl font-semibold tracking-tight text-[var(--ds-text)] sm:text-3xl">
+              <Bilingual en="Get clarity in one audit." it="Get clarity in one audit." />
+            </h2>
+            <p className="max-w-2xl text-sm leading-6 text-[var(--ds-muted)]">
+              <Bilingual
+                en="We review your funnel, follow-up, and tracking — then send a clear next step."
+                it="We review your funnel, follow-up, and tracking — then send a clear next step."
+              />
+            </p>
+          </div>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <Link href="/audit" className="ds-btn ds-btn-primary ds-btn-lg">
+              <Bilingual en="Get a Free System Audit" it="Get a Free System Audit" />
+            </Link>
+            <Link href="/contact" className="ds-btn ds-btn-ghost ds-btn-lg">
+              <Bilingual en="Contact" it="Contact" />
+            </Link>
+          </div>
+        </div>
+      </SectionBand>
+
       <SectionBand tone="light">
         <div className="space-y-6">
           <div className="space-y-2">
-            <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--color-navy)]">
+            <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--ds-text)]">
               <Bilingual en="Built for your industry" it="Built for your industry" />
             </h2>
-            <p className="max-w-3xl text-sm leading-6 text-[var(--color-slate)]">
+            <p className="max-w-3xl text-sm leading-6 text-[var(--ds-muted)]">
               <Bilingual
                 en="Each system is pre-optimized for your sector with proven KPIs — so you launch faster and scale with clarity."
                 it="Each system is pre-optimized for your sector with proven KPIs — so you launch faster and scale with clarity."
@@ -120,7 +144,7 @@ export default function Home() {
             ].map((t) => (
               <div
                 key={t}
-                className="rounded-2xl border border-black/5 bg-white p-5 text-sm font-semibold text-[var(--color-navy)]"
+                className="ds-glass rounded-2xl p-5 text-sm font-semibold text-[var(--ds-text)]"
               >
                 {t}
               </div>
@@ -132,10 +156,10 @@ export default function Home() {
       <SectionBand tone="muted">
         <div className="space-y-6">
           <div className="space-y-2">
-            <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--color-navy)]">
+            <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--ds-text)]">
               <Bilingual en="Your growth is leaking." it="Your growth is leaking." />
             </h2>
-            <p className="max-w-3xl text-sm leading-6 text-[var(--color-slate)]">
+            <p className="max-w-3xl text-sm leading-relaxed text-[var(--ds-muted)]">
               <Bilingual
                 en="Most businesses don’t have a lead generation problem — they have a follow-up and conversion problem."
                 it="Most businesses don’t have a lead generation problem — they have a follow-up and conversion problem."
@@ -144,49 +168,49 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <div className="rounded-2xl border border-black/5 bg-white p-6">
-              <div className="text-sm font-semibold text-[var(--color-navy)]">
+            <div className="ds-glass ds-lift rounded-2xl p-6">
+              <div className="text-sm font-semibold text-[var(--ds-text)]">
                 <Bilingual en="What’s happening today" it="What’s happening today" />
               </div>
-              <div className="mt-3 space-y-2 text-sm leading-6 text-[var(--color-slate)]">
+              <div className="mt-3 space-y-2 text-sm leading-relaxed text-[var(--ds-muted)]">
                 <div className="flex gap-3">
-                  <div className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-blue)]" />
+                  <div className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--ds-accent)]" />
                   <Bilingual en="Leads are lost after the first visit." it="Leads are lost after the first visit." />
                 </div>
                 <div className="flex gap-3">
-                  <div className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-blue)]" />
+                  <div className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--ds-accent)]" />
                   <Bilingual en="Sales doesn’t follow up consistently." it="Sales doesn’t follow up consistently." />
                 </div>
                 <div className="flex gap-3">
-                  <div className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-blue)]" />
+                  <div className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--ds-accent)]" />
                   <Bilingual en="Your website doesn’t convert." it="Your website doesn’t convert." />
                 </div>
                 <div className="flex gap-3">
-                  <div className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-blue)]" />
+                  <div className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--ds-accent)]" />
                   <Bilingual en="Ads waste budget on low-quality leads." it="Ads waste budget on low-quality leads." />
                 </div>
                 <div className="flex gap-3">
-                  <div className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-blue)]" />
+                  <div className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--ds-accent)]" />
                   <Bilingual en="No visibility into what’s working." it="No visibility into what’s working." />
                 </div>
               </div>
             </div>
 
-            <div className="rounded-2xl border border-black/5 bg-white p-6">
-              <div className="text-sm font-semibold text-[var(--color-navy)]">
+            <div className="ds-glass ds-lift rounded-2xl p-6">
+              <div className="text-sm font-semibold text-[var(--ds-text)]">
                 <Bilingual en="The cost" it="The cost" />
               </div>
-              <p className="mt-3 text-sm leading-6 text-[var(--color-slate)]">
+              <p className="mt-3 text-sm leading-relaxed text-[var(--ds-muted)]">
                 <Bilingual
                   en="You pay for traffic… then lose the sale because the system can’t capture, qualify, and follow up fast enough."
                   it="You pay for traffic… then lose the sale because the system can’t capture, qualify, and follow up fast enough."
                 />
               </p>
-              <div className="mt-5 rounded-2xl border border-black/5 bg-[var(--color-background)] p-4">
-                <div className="text-xs font-semibold tracking-wide text-[var(--color-navy)]/70">
+              <div className="mt-5 rounded-2xl border border-white/10 bg-white/[0.02] p-4">
+                <div className="text-xs font-semibold tracking-wide text-[var(--ds-muted)]">
                   <Bilingual en="Simple fix" it="Simple fix" />
                 </div>
-                <div className="mt-2 text-sm font-semibold text-[var(--color-navy)]">
+                <div className="mt-2 text-sm font-semibold text-[var(--ds-text)]">
                   <Bilingual
                     en="Replace disconnected tools with one revenue system."
                     it="Replace disconnected tools with one revenue system."
@@ -201,10 +225,10 @@ export default function Home() {
       <SectionBand tone="light">
         <div id="how-it-works" className="scroll-mt-24 space-y-6">
           <div className="space-y-2">
-            <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--color-navy)]">
+            <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--ds-text)]">
               <Bilingual en="One system. One flow." it="One system. One flow." />
             </h2>
-            <p className="max-w-3xl text-sm leading-6 text-[var(--color-slate)]">
+            <p className="max-w-3xl text-sm leading-relaxed text-[var(--ds-muted)]">
               <Bilingual
                 en="Traffic is useless without a path to revenue. Webrrand connects every step — from first click to closed deal."
                 it="Traffic is useless without a path to revenue. Webrrand connects every step — from first click to closed deal."
@@ -212,37 +236,37 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-black/5 bg-white p-6">
+          <div className="ds-glass rounded-2xl p-6">
             <div className="grid grid-cols-1 gap-3 md:grid-cols-6">
-              <div className="rounded-xl border border-black/5 bg-[var(--color-background)] px-4 py-3 text-sm font-semibold text-[var(--color-navy)]">
+              <div className="rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm font-semibold text-[var(--ds-text)]">
                 <Bilingual en="Traffic" it="Traffic" />
               </div>
-              <div className="hidden items-center justify-center text-[var(--color-slate)] md:flex">→</div>
-              <div className="rounded-xl border border-black/5 bg-[var(--color-background)] px-4 py-3 text-sm font-semibold text-[var(--color-navy)]">
+              <div className="hidden items-center justify-center text-[var(--ds-muted)] md:flex">→</div>
+              <div className="rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm font-semibold text-[var(--ds-text)]">
                 <Bilingual en="Landing" it="Landing" />
               </div>
-              <div className="hidden items-center justify-center text-[var(--color-slate)] md:flex">→</div>
-              <div className="rounded-xl border border-black/5 bg-[var(--color-background)] px-4 py-3 text-sm font-semibold text-[var(--color-navy)]">
+              <div className="hidden items-center justify-center text-[var(--ds-muted)] md:flex">→</div>
+              <div className="rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm font-semibold text-[var(--ds-text)]">
                 <Bilingual en="CRM" it="CRM" />
               </div>
-              <div className="hidden items-center justify-center text-[var(--color-slate)] md:flex">→</div>
+              <div className="hidden items-center justify-center text-[var(--ds-muted)] md:flex">→</div>
             </div>
 
             <div className="mt-3 grid grid-cols-1 gap-3 md:grid-cols-6">
-              <div className="rounded-xl border border-black/5 bg-[var(--color-background)] px-4 py-3 text-sm font-semibold text-[var(--color-navy)]">
+              <div className="rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm font-semibold text-[var(--ds-text)]">
                 <Bilingual en="Automation" it="Automation" />
               </div>
-              <div className="hidden items-center justify-center text-[var(--color-slate)] md:flex">→</div>
-              <div className="rounded-xl border border-black/5 bg-[var(--color-background)] px-4 py-3 text-sm font-semibold text-[var(--color-navy)]">
+              <div className="hidden items-center justify-center text-[var(--ds-muted)] md:flex">→</div>
+              <div className="rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm font-semibold text-[var(--ds-text)]">
                 <Bilingual en="Sales" it="Sales" />
               </div>
-              <div className="hidden items-center justify-center text-[var(--color-slate)] md:flex">→</div>
-              <div className="rounded-xl border border-black/5 bg-[var(--color-background)] px-4 py-3 text-sm font-semibold text-[var(--color-navy)] md:col-span-2">
+              <div className="hidden items-center justify-center text-[var(--ds-muted)] md:flex">→</div>
+              <div className="rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm font-semibold text-[var(--ds-text)] md:col-span-2">
                 <Bilingual en="Dashboard" it="Dashboard" />
               </div>
             </div>
 
-            <p className="mt-4 text-sm leading-6 text-[var(--color-slate)]">
+            <p className="mt-4 text-sm leading-relaxed text-[var(--ds-muted)]">
               <Bilingual
                 en="So leads get captured, qualified, followed up, and tracked — without manual chaos."
                 it="So leads get captured, qualified, followed up, and tracked — without manual chaos."
@@ -255,10 +279,10 @@ export default function Home() {
       <SectionBand tone="light">
         <div className="space-y-6">
           <div className="space-y-2">
-            <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--color-navy)]">
+            <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--ds-text)]">
               <Bilingual en="We don’t sell tools." it="We don’t sell tools." />
             </h2>
-            <p className="max-w-3xl text-sm leading-6 text-[var(--color-slate)]">
+            <p className="max-w-3xl text-sm leading-6 text-[var(--ds-muted)]">
               <Bilingual
                 en="We install revenue systems. Web, marketing, CRM, automation and AI — built to work together."
                 it="We install revenue systems. Web, marketing, CRM, automation and AI — built to work together."
@@ -276,18 +300,18 @@ export default function Home() {
             ].map((m) => (
               <div
                 key={m}
-                className="rounded-2xl border border-black/5 bg-white p-5 text-sm font-semibold text-[var(--color-navy)]"
+                className="ds-glass rounded-2xl p-5 text-sm font-semibold text-[var(--ds-text)]"
               >
                 {m}
               </div>
             ))}
           </div>
 
-          <div className="rounded-2xl border border-black/5 bg-[var(--color-background)] p-5">
-            <div className="text-sm font-semibold text-[var(--color-navy)]">
+          <div className="ds-glass rounded-2xl p-5">
+            <div className="text-sm font-semibold text-[var(--ds-text)]">
               <Bilingual en="Everything works together." it="Everything works together." />
             </div>
-            <p className="mt-2 text-sm leading-6 text-[var(--color-slate)]">
+            <p className="mt-2 text-sm leading-6 text-[var(--ds-muted)]">
               <Bilingual
                 en="One measurable system that generates leads, follows up automatically, and helps sales close more deals."
                 it="One measurable system that generates leads, follows up automatically, and helps sales close more deals."
@@ -300,10 +324,10 @@ export default function Home() {
       <SectionBand tone="muted">
         <div className="space-y-6">
           <div className="space-y-2">
-            <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--color-navy)]">
+            <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--ds-text)]">
               <Bilingual en="Results you can measure" it="Results you can measure" />
             </h2>
-            <p className="max-w-3xl text-sm leading-6 text-[var(--color-slate)]">
+            <p className="max-w-3xl text-sm leading-6 text-[var(--ds-muted)]">
               <Bilingual
                 en="Illustrative but realistic outcomes when the whole system works together."
                 it="Illustrative but realistic outcomes when the whole system works together."
@@ -311,72 +335,38 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
-            <div className="rounded-2xl border border-black/5 bg-white p-6">
-              <div className="text-3xl font-semibold tracking-tight text-[var(--color-navy)]">+40–60%</div>
-              <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="ds-glass ds-lift rounded-2xl p-6">
+              <div className="text-lg font-semibold text-[var(--ds-text)]">
                 <Bilingual en="More qualified leads" it="More qualified leads" />
               </div>
-            </div>
-            <div className="rounded-2xl border border-black/5 bg-white p-6">
-              <div className="text-3xl font-semibold tracking-tight text-[var(--color-navy)]">+25–40%</div>
-              <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">
-                <Bilingual en="Higher conversion rate" it="Higher conversion rate" />
+              <div className="mt-2 text-sm leading-relaxed text-[var(--ds-muted)]">
+                <Bilingual
+                  en="Landing pages + follow-up designed to convert interest into booked conversations."
+                  it="Landing pages + follow-up designed to convert interest into booked conversations."
+                />
               </div>
             </div>
-            <div className="rounded-2xl border border-black/5 bg-white p-6">
-              <div className="text-3xl font-semibold tracking-tight text-[var(--color-navy)]">+30%</div>
-              <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">
-                <Bilingual en="Sales close rate" it="Sales close rate" />
+            <div className="ds-glass ds-lift rounded-2xl p-6">
+              <div className="text-lg font-semibold text-[var(--ds-text)]">
+                <Bilingual en="Faster follow-up" it="Faster follow-up" />
+              </div>
+              <div className="mt-2 text-sm leading-relaxed text-[var(--ds-muted)]">
+                <Bilingual
+                  en="Automation that responds in minutes, keeps momentum, and saves your team time."
+                  it="Automation that responds in minutes, keeps momentum, and saves your team time."
+                />
               </div>
             </div>
-            <div className="rounded-2xl border border-black/5 bg-white p-6">
-              <div className="text-3xl font-semibold tracking-tight text-[var(--color-navy)]">–40%</div>
-              <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">
-                <Bilingual en="Manual work" it="Manual work" />
+            <div className="ds-glass ds-lift rounded-2xl p-6">
+              <div className="text-lg font-semibold text-[var(--ds-text)]">
+                <Bilingual en="Clear pipeline visibility" it="Clear pipeline visibility" />
               </div>
-            </div>
-          </div>
-        </div>
-      </SectionBand>
-
-      <SectionBand tone="muted">
-        <div className="space-y-6">
-          <div className="space-y-2">
-            <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--color-navy)]">
-              <Bilingual en="Real results" it="Real results" />
-            </h2>
-            <p className="max-w-3xl text-sm leading-6 text-[var(--color-slate)]">
-              <Bilingual
-                en="Examples of what happens when you replace disconnected tools with one revenue system."
-                it="Examples of what happens when you replace disconnected tools with one revenue system."
-              />
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
-            <div className="rounded-2xl border border-black/5 bg-white p-6">
-              <div className="text-3xl font-semibold tracking-tight text-[var(--color-navy)]">+127%</div>
-              <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">
-                <Bilingual en="Qualified leads (E-commerce)" it="Qualified leads (E-commerce)" />
-              </div>
-            </div>
-            <div className="rounded-2xl border border-black/5 bg-white p-6">
-              <div className="text-3xl font-semibold tracking-tight text-[var(--color-navy)]">–43%</div>
-              <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">
-                <Bilingual en="Sales cycle (B2B)" it="Sales cycle (B2B)" />
-              </div>
-            </div>
-            <div className="rounded-2xl border border-black/5 bg-white p-6">
-              <div className="text-3xl font-semibold tracking-tight text-[var(--color-navy)]">+18%</div>
-              <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">
-                <Bilingual en="Average ticket (Restaurant)" it="Average ticket (Restaurant)" />
-              </div>
-            </div>
-            <div className="rounded-2xl border border-black/5 bg-white p-6">
-              <div className="text-3xl font-semibold tracking-tight text-[var(--color-navy)]">–64%</div>
-              <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">
-                <Bilingual en="No-show (Hotel)" it="No-show (Hotel)" />
+              <div className="mt-2 text-sm leading-relaxed text-[var(--ds-muted)]">
+                <Bilingual
+                  en="Dashboards + CRM structure so you know what’s working and what to fix next."
+                  it="Dashboards + CRM structure so you know what’s working and what to fix next."
+                />
               </div>
             </div>
           </div>
@@ -386,10 +376,10 @@ export default function Home() {
       <SectionBand tone="light">
         <div className="space-y-6">
           <div className="space-y-2">
-            <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--color-navy)]">
+            <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--ds-text)]">
               <Bilingual en="Who it’s for" it="Who it’s for" />
             </h2>
-            <p className="max-w-3xl text-sm leading-6 text-[var(--color-slate)]">
+            <p className="max-w-3xl text-sm leading-relaxed text-[var(--ds-muted)]">
               <Bilingual
                 en="If you need predictable leads and a faster path to sales, this is built for you."
                 it="If you need predictable leads and a faster path to sales, this is built for you."
@@ -398,43 +388,43 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-5">
-            <div className="rounded-2xl border border-black/5 bg-white p-6">
-              <div className="text-sm font-semibold text-[var(--color-navy)]">
+            <div className="ds-glass ds-lift rounded-2xl p-6">
+              <div className="text-sm font-semibold text-[var(--ds-text)]">
                 <Bilingual en="Small B2B companies" it="Small B2B companies" />
               </div>
-              <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">
+              <div className="mt-2 text-sm leading-relaxed text-[var(--ds-muted)]">
                 <Bilingual en="More pipeline, less guesswork." it="More pipeline, less guesswork." />
               </div>
             </div>
-            <div className="rounded-2xl border border-black/5 bg-white p-6">
-              <div className="text-sm font-semibold text-[var(--color-navy)]">
+            <div className="ds-glass ds-lift rounded-2xl p-6">
+              <div className="text-sm font-semibold text-[var(--ds-text)]">
                 <Bilingual en="Agencies" it="Agencies" />
               </div>
-              <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">
+              <div className="mt-2 text-sm leading-relaxed text-[var(--ds-muted)]">
                 <Bilingual en="Productized systems you can deliver." it="Productized systems you can deliver." />
               </div>
             </div>
-            <div className="rounded-2xl border border-black/5 bg-white p-6">
-              <div className="text-sm font-semibold text-[var(--color-navy)]">
+            <div className="ds-glass ds-lift rounded-2xl p-6">
+              <div className="text-sm font-semibold text-[var(--ds-text)]">
                 <Bilingual en="Restaurants / retail" it="Restaurants / retail" />
               </div>
-              <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">
+              <div className="mt-2 text-sm leading-relaxed text-[var(--ds-muted)]">
                 <Bilingual en="Local traffic to booked customers." it="Local traffic to booked customers." />
               </div>
             </div>
-            <div className="rounded-2xl border border-black/5 bg-white p-6">
-              <div className="text-sm font-semibold text-[var(--color-navy)]">
+            <div className="ds-glass ds-lift rounded-2xl p-6">
+              <div className="text-sm font-semibold text-[var(--ds-text)]">
                 <Bilingual en="Franchises" it="Franchises" />
               </div>
-              <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">
+              <div className="mt-2 text-sm leading-relaxed text-[var(--ds-muted)]">
                 <Bilingual en="Consistent lead flow across locations." it="Consistent lead flow across locations." />
               </div>
             </div>
-            <div className="rounded-2xl border border-black/5 bg-white p-6">
-              <div className="text-sm font-semibold text-[var(--color-navy)]">
+            <div className="ds-glass ds-lift rounded-2xl p-6">
+              <div className="text-sm font-semibold text-[var(--ds-text)]">
                 <Bilingual en="Service businesses" it="Service businesses" />
               </div>
-              <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">
+              <div className="mt-2 text-sm leading-relaxed text-[var(--ds-muted)]">
                 <Bilingual en="Follow-up that wins the job." it="Follow-up that wins the job." />
               </div>
             </div>
@@ -445,10 +435,10 @@ export default function Home() {
       <SectionBand tone="muted">
         <div className="space-y-6">
           <div className="space-y-2">
-            <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--color-navy)]">
+            <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--ds-text)]">
               <Bilingual en="How it works" it="How it works" />
             </h2>
-            <p className="max-w-3xl text-sm leading-6 text-[var(--color-slate)]">
+            <p className="max-w-3xl text-sm leading-relaxed text-[var(--ds-muted)]">
               <Bilingual
                 en="A simple 3-step process designed to get results fast — then improve them every month."
                 it="A simple 3-step process designed to get results fast — then improve them every month."
@@ -457,30 +447,30 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-            <div className="rounded-2xl border border-black/5 bg-white p-6">
-              <div className="text-xs font-semibold tracking-wide text-[var(--color-navy)]/70">01</div>
-              <div className="mt-2 text-lg font-semibold text-[var(--color-navy)]">
+            <div className="ds-glass ds-lift rounded-2xl p-6">
+              <div className="text-xs font-semibold tracking-wide text-[var(--ds-muted)]">01</div>
+              <div className="mt-2 text-lg font-semibold text-[var(--ds-text)]">
                 <Bilingual en="Diagnose" it="Diagnose" />
               </div>
-              <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">
+              <div className="mt-2 text-sm leading-relaxed text-[var(--ds-muted)]">
                 <Bilingual en="We analyze your current funnel." it="We analyze your current funnel." />
               </div>
             </div>
-            <div className="rounded-2xl border border-black/5 bg-white p-6">
-              <div className="text-xs font-semibold tracking-wide text-[var(--color-navy)]/70">02</div>
-              <div className="mt-2 text-lg font-semibold text-[var(--color-navy)]">
+            <div className="ds-glass ds-lift rounded-2xl p-6">
+              <div className="text-xs font-semibold tracking-wide text-[var(--ds-muted)]">02</div>
+              <div className="mt-2 text-lg font-semibold text-[var(--ds-text)]">
                 <Bilingual en="Build" it="Build" />
               </div>
-              <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">
+              <div className="mt-2 text-sm leading-relaxed text-[var(--ds-muted)]">
                 <Bilingual en="We install the system." it="We install the system." />
               </div>
             </div>
-            <div className="rounded-2xl border border-black/5 bg-white p-6">
-              <div className="text-xs font-semibold tracking-wide text-[var(--color-navy)]/70">03</div>
-              <div className="mt-2 text-lg font-semibold text-[var(--color-navy)]">
+            <div className="ds-glass ds-lift rounded-2xl p-6">
+              <div className="text-xs font-semibold tracking-wide text-[var(--ds-muted)]">03</div>
+              <div className="mt-2 text-lg font-semibold text-[var(--ds-text)]">
                 <Bilingual en="Scale" it="Scale" />
               </div>
-              <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">
+              <div className="mt-2 text-sm leading-relaxed text-[var(--ds-muted)]">
                 <Bilingual en="We optimize every month." it="We optimize every month." />
               </div>
             </div>
@@ -491,10 +481,10 @@ export default function Home() {
       <SectionBand tone="light">
         <div className="space-y-6">
           <div className="space-y-2">
-            <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--color-navy)]">
+            <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--ds-text)]">
               <Bilingual en="Packages" it="Packages" />
             </h2>
-            <p className="max-w-3xl text-sm leading-6 text-[var(--color-slate)]">
+            <p className="max-w-3xl text-sm leading-relaxed text-[var(--ds-muted)]">
               <Bilingual
                 en="Outcome-based packages — pick what you want to achieve, and we’ll build the system around it."
                 it="Outcome-based packages — pick what you want to achieve, and we’ll build the system around it."
@@ -503,11 +493,11 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <div className="rounded-2xl border border-black/5 bg-white p-6">
-              <div className="text-sm font-semibold text-[var(--color-navy)]">
+            <div className="ds-glass ds-lift rounded-2xl p-6">
+              <div className="text-sm font-semibold text-[var(--ds-text)]">
                 <Bilingual en="Get More Leads" it="Get More Leads" />
               </div>
-              <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">
+              <div className="mt-2 text-sm leading-relaxed text-[var(--ds-muted)]">
                 <Bilingual
                   en="Increase inbound leads with high-converting pages and smarter acquisition."
                   it="Increase inbound leads with high-converting pages and smarter acquisition."
@@ -516,18 +506,18 @@ export default function Home() {
               <div className="mt-5">
                 <Link
                   href="/audit"
-                  className="inline-flex w-fit rounded-full border border-[var(--color-navy)]/15 px-5 py-2.5 text-sm font-semibold text-[var(--color-navy)] transition-colors hover:border-[var(--color-navy)]/25 hover:bg-[var(--color-navy)]/[0.03]"
+                  className="ds-btn ds-btn-ghost ds-btn-sm"
                 >
                   <Bilingual en="Start audit" it="Start audit" />
                 </Link>
               </div>
             </div>
 
-            <div className="rounded-2xl border border-black/5 bg-white p-6">
-              <div className="text-sm font-semibold text-[var(--color-navy)]">
+            <div className="ds-glass ds-lift rounded-2xl p-6">
+              <div className="text-sm font-semibold text-[var(--ds-text)]">
                 <Bilingual en="Get More Sales" it="Get More Sales" />
               </div>
-              <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">
+              <div className="mt-2 text-sm leading-relaxed text-[var(--ds-muted)]">
                 <Bilingual
                   en="Improve close rate with CRM stages, follow-up automation, and sales visibility."
                   it="Improve close rate with CRM stages, follow-up automation, and sales visibility."
@@ -536,18 +526,18 @@ export default function Home() {
               <div className="mt-5">
                 <Link
                   href="/audit"
-                  className="inline-flex w-fit rounded-full border border-[var(--color-navy)]/15 px-5 py-2.5 text-sm font-semibold text-[var(--color-navy)] transition-colors hover:border-[var(--color-navy)]/25 hover:bg-[var(--color-navy)]/[0.03]"
+                  className="ds-btn ds-btn-ghost ds-btn-sm"
                 >
                   <Bilingual en="Start audit" it="Start audit" />
                 </Link>
               </div>
             </div>
 
-            <div className="rounded-2xl border border-black/5 bg-white p-6">
-              <div className="text-sm font-semibold text-[var(--color-navy)]">
+            <div className="ds-glass ds-lift rounded-2xl p-6">
+              <div className="text-sm font-semibold text-[var(--ds-text)]">
                 <Bilingual en="Automate Operations" it="Automate Operations" />
               </div>
-              <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">
+              <div className="mt-2 text-sm leading-relaxed text-[var(--ds-muted)]">
                 <Bilingual
                   en="Reduce manual work with automation across leads, messaging, and internal workflows."
                   it="Reduce manual work with automation across leads, messaging, and internal workflows."
@@ -556,18 +546,18 @@ export default function Home() {
               <div className="mt-5">
                 <Link
                   href="/audit"
-                  className="inline-flex w-fit rounded-full border border-[var(--color-navy)]/15 px-5 py-2.5 text-sm font-semibold text-[var(--color-navy)] transition-colors hover:border-[var(--color-navy)]/25 hover:bg-[var(--color-navy)]/[0.03]"
+                  className="ds-btn ds-btn-ghost ds-btn-sm"
                 >
                   <Bilingual en="Start audit" it="Start audit" />
                 </Link>
               </div>
             </div>
 
-            <div className="rounded-2xl border border-black/5 bg-white p-6">
-              <div className="text-sm font-semibold text-[var(--color-navy)]">
+            <div className="ds-glass ds-lift rounded-2xl p-6">
+              <div className="text-sm font-semibold text-[var(--ds-text)]">
                 <Bilingual en="Smart Retail System" it="Smart Retail System" />
               </div>
-              <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">
+              <div className="mt-2 text-sm leading-relaxed text-[var(--ds-muted)]">
                 <Bilingual
                   en="Turn local demand into customers with tracking, follow-up, and simple reporting."
                   it="Turn local demand into customers with tracking, follow-up, and simple reporting."
@@ -576,7 +566,7 @@ export default function Home() {
               <div className="mt-5">
                 <Link
                   href="/audit"
-                  className="inline-flex w-fit rounded-full border border-[var(--color-navy)]/15 px-5 py-2.5 text-sm font-semibold text-[var(--color-navy)] transition-colors hover:border-[var(--color-navy)]/25 hover:bg-[var(--color-navy)]/[0.03]"
+                  className="ds-btn ds-btn-ghost ds-btn-sm"
                 >
                   <Bilingual en="Start audit" it="Start audit" />
                 </Link>
@@ -588,13 +578,13 @@ export default function Home() {
 
       <SectionBand tone="accent">
         <div className="space-y-4">
-          <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--color-navy)]">
+          <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--ds-text)]">
             <Bilingual
               en="Tell us what you want to achieve — get a plan in 24h"
               it="Tell us what you want to achieve — get a plan in 24h"
             />
           </h2>
-          <p className="max-w-3xl text-sm leading-6 text-[var(--color-slate)]">
+          <p className="max-w-3xl text-sm leading-relaxed text-[var(--ds-muted)]">
             <Bilingual
               en="Get a clear roadmap of what to fix, what to build, and what will move revenue this month."
               it="Get a clear roadmap of what to fix, what to build, and what will move revenue this month."
@@ -603,13 +593,13 @@ export default function Home() {
           <div className="flex flex-col gap-3 sm:flex-row">
             <Link
               href="/audit"
-              className="inline-flex w-fit rounded-full bg-[var(--color-blue)] px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-95"
+              className="ds-btn ds-btn-primary ds-btn-lg"
             >
               <Bilingual en="Start Now" it="Start Now" />
             </Link>
             <Link
               href="/audit"
-              className="inline-flex w-fit rounded-full border border-[var(--color-navy)]/15 bg-white/60 px-6 py-3 text-sm font-semibold text-[var(--color-navy)] transition-colors hover:border-[var(--color-navy)]/25 hover:bg-white"
+              className="ds-btn ds-btn-ghost ds-btn-lg"
             >
               <Bilingual en="Get a Free System Audit" it="Get a Free System Audit" />
             </Link>

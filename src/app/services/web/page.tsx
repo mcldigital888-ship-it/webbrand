@@ -26,7 +26,7 @@ const whatWeDo = [
 export default function WebServicePage() {
   return (
     <PageShell
-      kicker="Services"
+      kicker={<Bilingual en="Services" it="Servizi" />}
       title={<Bilingual en="Digital Experience / Web" it="Esperienza digitale / Web" />}
       subtitle={
         <Bilingual

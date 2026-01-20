@@ -50,9 +50,16 @@ export default function Navbar() {
           <div className="hidden md:block">
             <LangToggle />
           </div>
+
+          <Link
+            href="/audit"
+            className="hidden ds-btn ds-btn-primary ds-btn-sm md:inline-flex"
+          >
+            <Bilingual en="Get a Free System Audit" it="Get a Free System Audit" />
+          </Link>
           <Link
             href="/admin"
-            className="hidden rounded-full border border-white/10 bg-white/[0.02] px-4 py-2 text-sm font-semibold text-[var(--ds-text)] backdrop-blur transition-colors duration-150 hover:border-white/15 hover:bg-white/[0.04] md:inline-flex"
+            className="hidden ds-btn ds-btn-ghost ds-btn-sm md:inline-flex"
           >
             <Bilingual en="Open Admin" it="Apri admin" />
           </Link>
@@ -86,10 +93,18 @@ export default function Navbar() {
                   {item.label}
                 </Link>
               ))}
+
+              <Link
+                href="/audit"
+                onClick={() => setOpen(false)}
+                className="mt-1 ds-btn ds-btn-primary"
+              >
+                <Bilingual en="Get a Free System Audit" it="Get a Free System Audit" />
+              </Link>
               <Link
                 href="/admin"
                 onClick={() => setOpen(false)}
-                className="mt-1 ds-btn ds-btn-primary"
+                className="ds-btn ds-btn-ghost"
               >
                 <Bilingual en="Open Admin Panel" it="Apri pannello admin" />
               </Link>

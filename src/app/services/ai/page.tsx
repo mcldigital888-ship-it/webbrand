@@ -29,7 +29,7 @@ const whatWeDo = [
 export default function AiServicePage() {
   return (
     <PageShell
-      kicker="Services"
+      kicker={<Bilingual en="Services" it="Servizi" />}
       title={<Bilingual en="AI & Technology" it="AI & tecnologia" />}
       subtitle={
         <Bilingual

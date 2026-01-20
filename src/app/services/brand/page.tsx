@@ -26,7 +26,7 @@ const whatWeDo = [
 export default function BrandServicePage() {
   return (
     <PageShell
-      kicker="Services"
+      kicker={<Bilingual en="Services" it="Servizi" />}
       title={<Bilingual en="Brand & Identity" it="Brand & identità" />}
       subtitle={
         <Bilingual

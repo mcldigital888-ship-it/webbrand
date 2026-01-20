@@ -1,136 +1,103 @@
 import Link from "next/link";
 import PageShell from "@/components/PageShell";
 import type { ReactNode } from "react";
+import Bilingual from "@/components/Bilingual";
 
 const sub = [
   {
     href: "/solutions/ai-automation/assistants",
-    label: (
-      <>
-        Assistenti
-        <br />
-        Assistants
-      </>
-    ),
+    label: <Bilingual it="Assistenti" en="Assistants" />,
   },
   {
     href: "/solutions/ai-automation/automations",
-    label: (
-      <>
-        Automazioni
-        <br />
-        Automations
-      </>
-    ),
+    label: <Bilingual it="Automazioni" en="Automations" />,
   },
   {
     href: "/solutions/ai-automation/ai-apps",
-    label: (
-      <>
-        App AI
-        <br />
-        AI apps
-      </>
-    ),
+    label: <Bilingual it="App AI" en="AI apps" />,
   },
 ];
 
 export default function AiAutomationPage() {
   return (
     <PageShell
-      kicker={
-        <>
-          AI & automazione
-          <br />
-          AI & automation
-        </>
-      }
+      kicker={<Bilingual it="AI & automazione" en="AI & automation" />}
       title={
-        <>
-          Meno lavoro manuale. Più output operativo.
-          <br />
-          Less manual work. More operational output.
-        </>
+        <Bilingual
+          it="Meno lavoro manuale. Più output operativo."
+          en="Less manual work. More operational output."
+        />
       }
       subtitle={
-        <>
-          L’AI è utile solo quando si collega ai tuoi workflow. Forniamo assistant,
-          automazioni e app AI con risultati misurabili.
-          <br />
-          AI is only useful when it connects to your workflows. We deliver assistants, automations,
-          and AI apps that drive measurable outcomes.
-        </>
+        <Bilingual
+          it="L’AI è utile solo quando si collega ai tuoi workflow. Forniamo assistant, automazioni e app AI con risultati misurabili."
+          en="AI is only useful when it connects to your workflows. We deliver assistants, automations, and AI apps that drive measurable outcomes."
+        />
       }
       primaryCta={{
         href: "/contact",
-        label: (
-          <>
-            Richiedi demo AI
-            <br />
-            Request AI demo
-          </>
-        ),
+        label: <Bilingual it="Richiedi demo AI" en="Request AI demo" />,
       }}
     >
       <section className="grid grid-cols-1 gap-4 md:grid-cols-3">
         <Card
-          title="Casi d’uso / Use cases"
+          title={<Bilingual it="Casi d’uso" en="Use cases" />}
           bullets={[
-            <>
-              Qualifica lead e routing automatico (CRM)
-              <br />
-              Lead qualification and automatic routing (CRM)
-            </>,
-            <>
-              Supporto e operations: risposte più rapide, meno backlog
-              <br />
-              Support and ops: faster responses, less backlog
-            </>,
-            <>
-              Task ripetitivi: raccolta dati, report, e aggiornamenti
-              <br />
-              Repetitive tasks: data capture, reporting, and updates
-            </>,
+            <Bilingual
+              key="1"
+              it="Qualifica lead e routing automatico (CRM)"
+              en="Lead qualification and automatic routing (CRM)"
+            />,
+            <Bilingual
+              key="2"
+              it="Supporto e operations: risposte più rapide, meno backlog"
+              en="Support and ops: faster responses, less backlog"
+            />,
+            <Bilingual
+              key="3"
+              it="Task ripetitivi: raccolta dati, report, e aggiornamenti"
+              en="Repetitive tasks: data capture, reporting, and updates"
+            />,
           ]}
         />
         <Card
-          title="Per chi è / Who it’s for"
+          title={<Bilingual it="Per chi è" en="Who it’s for" />}
           bullets={[
-            <>
-              Team operativi con colli di bottiglia ricorrenti
-              <br />
-              Ops-heavy teams with recurring bottlenecks
-            </>,
-            <>
-              Aziende con processi ripetibili e dati minimi disponibili
-              <br />
-              Businesses with repeatable processes and at least basic data
-            </>,
-            <>
-              Team che vogliono output misurabile (tempo, qualità, costi)
-              <br />
-              Teams that want measurable output (time, quality, cost)
-            </>,
+            <Bilingual
+              key="1"
+              it="Team operativi con colli di bottiglia ricorrenti"
+              en="Ops-heavy teams with recurring bottlenecks"
+            />,
+            <Bilingual
+              key="2"
+              it="Aziende con processi ripetibili e dati minimi disponibili"
+              en="Businesses with repeatable processes and at least basic data"
+            />,
+            <Bilingual
+              key="3"
+              it="Team che vogliono output misurabile (tempo, qualità, costi)"
+              en="Teams that want measurable output (time, quality, cost)"
+            />,
           ]}
         />
         <Card
-          title="Non è per / Not for"
+          title={<Bilingual it="Non è per" en="Not for" />}
           bullets={[
-            <>
-              “AI per marketing”: demo senza utilizzo reale
-              <br />
-              “AI for marketing”: demos with no real adoption
-            </>,
-            <>
-              Progetti senza owner e senza workflow da seguire
-              <br />
-              Projects with no owner and no workflow discipline
-            </>,
-            <>
-              Casi che richiedono zero supervisione umana
-              <br />
-              Use cases requiring zero human oversight
-            </>,
+            <Bilingual
+              key="1"
+              it="“AI per marketing”: demo senza utilizzo reale"
+              en="“AI for marketing”: demos with no real adoption"
+            />,
+            <Bilingual
+              key="2"
+              it="Progetti senza owner e senza workflow da seguire"
+              en="Projects with no owner and no workflow discipline"
+            />,
+            <Bilingual
+              key="3"
+              it="Casi che richiedono zero supervisione umana"
+              en="Use cases requiring zero human oversight"
+            />,
           ]}
         />
       </section>
@@ -138,27 +105,25 @@ export default function AiAutomationPage() {
       <section className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-8">
         <div className="space-y-3">
           <div className="text-sm font-semibold text-[var(--color-navy)]">
-            Cosa ricevi
-            <span className="text-[var(--color-slate)]"> / </span>
-            What you receive
+            <Bilingual it="Cosa ricevi" en="What you receive" />
           </div>
           <ul className="space-y-2 text-sm text-[var(--color-slate)]">
             {[
-              <>
-                Mappa automazioni: trigger → azione → output (con ownership)
-                <br />
-                Automation map: trigger → action → output (with ownership)
-              </>,
-              <>
-                Specifica tecnica: tool, permessi, dati, log e fallback
-                <br />
-                Technical spec: tools, permissions, data, logs, and fallback
-              </>,
-              <>
-                Setup di base per misurare output (tempo risparmiato, SLA, qualità)
-                <br />
-                Baseline setup to measure output (time saved, SLA, quality)
-              </>,
+              <Bilingual
+                key="1"
+                it="Mappa automazioni: trigger → azione → output (con ownership)"
+                en="Automation map: trigger → action → output (with ownership)"
+              />,
+              <Bilingual
+                key="2"
+                it="Specifica tecnica: tool, permessi, dati, log e fallback"
+                en="Technical spec: tools, permissions, data, logs, and fallback"
+              />,
+              <Bilingual
+                key="3"
+                it="Setup di base per misurare output (tempo risparmiato, SLA, qualità)"
+                en="Baseline setup to measure output (time saved, SLA, quality)"
+              />,
             ].map((b, idx) => (
               <li key={idx} className="flex gap-2">
                 <span className="mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-cyan)]" />
@@ -184,7 +149,7 @@ export default function AiAutomationPage() {
   );
 }
 
-function Card({ title, bullets }: { title: string; bullets: ReactNode[] }) {
+function Card({ title, bullets }: { title: ReactNode; bullets: ReactNode[] }) {
   return (
     <div className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6">
       <div className="space-y-3">

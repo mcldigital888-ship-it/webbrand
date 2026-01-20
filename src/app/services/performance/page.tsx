@@ -26,7 +26,7 @@ const whatWeDo = [
 export default function PerformanceServicePage() {
   return (
     <PageShell
-      kicker="Services"
+      kicker={<Bilingual en="Services" it="Servizi" />}
       title={<Bilingual en="Performance & Growth" it="Performance & crescita" />}
       subtitle={
         <Bilingual

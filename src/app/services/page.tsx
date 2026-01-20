@@ -23,7 +23,7 @@ const steps = ["Discover", "Design", "Build", "Launch", "Optimize"];
 export default function ServicesPage() {
   return (
     <PageShell
-      kicker="Services"
+      kicker={<Bilingual en="Services" it="Servizi" />}
       title={
         <Bilingual
           en="Services that build, launch and scale brands."

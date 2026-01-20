@@ -41,13 +41,15 @@ export function LangToggle() {
   const { lang, setLang } = useLanguage();
 
   return (
-    <div className="flex items-center rounded-full border border-[var(--color-navy)]/15 bg-white p-1">
+    <div className="flex items-center rounded-full border border-white/10 bg-white/[0.02] p-1 backdrop-blur">
       <button
         type="button"
         onClick={() => setLang("en")}
         className={[
-          "rounded-full px-3 py-1 text-xs font-semibold transition-colors",
-          lang === "en" ? "bg-[var(--color-navy)] text-white" : "text-[var(--color-navy)]",
+          "rounded-full px-3 py-1 text-xs font-semibold transition-colors duration-150",
+          lang === "en"
+            ? "bg-[var(--ds-text)] text-[var(--ds-bg)]"
+            : "text-[var(--ds-muted)] hover:text-[var(--ds-text)]",
         ].join(" ")}
       >
         EN
@@ -56,8 +58,10 @@ export function LangToggle() {
         type="button"
         onClick={() => setLang("it")}
         className={[
-          "rounded-full px-3 py-1 text-xs font-semibold transition-colors",
-          lang === "it" ? "bg-[var(--color-navy)] text-white" : "text-[var(--color-navy)]",
+          "rounded-full px-3 py-1 text-xs font-semibold transition-colors duration-150",
+          lang === "it"
+            ? "bg-[var(--ds-text)] text-[var(--ds-bg)]"
+            : "text-[var(--ds-muted)] hover:text-[var(--ds-text)]",
         ].join(" ")}
       >
         IT

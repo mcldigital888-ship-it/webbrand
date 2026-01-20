@@ -1,101 +1,87 @@
 import PageShell from "@/components/PageShell";
 import type { ReactNode } from "react";
+import Bilingual from "@/components/Bilingual";
 
 export default function OrderingKioskPage() {
   return (
     <PageShell
-      kicker={
-        <>
-          Food / Retail
-          <br />
-          Food / retail
-        </>
-      }
+      kicker={<Bilingual it="Food / Retail" en="Food / retail" />}
       title={
-        <>
-          Kiosk ordini (totem) integrato con le operazioni
-          <br />
-          Ordering kiosk integrated with operations
-        </>
+        <Bilingual
+          it="Kiosk ordini (totem) integrato con le operazioni"
+          en="Ordering kiosk integrated with operations"
+        />
       }
       subtitle={
-        <>
-          Un’esperienza kiosk pensata per ridurre le code e aumentare la capacità—integrata
-          con le tue operazioni.
-          <br />
-          A kiosk experience designed to reduce queues and increase throughput—integrated with your operations.
-        </>
+        <Bilingual
+          it="Un’esperienza kiosk pensata per ridurre le code e aumentare la capacità—integrata con le tue operazioni."
+          en="A kiosk experience designed to reduce queues and increase throughput—integrated with your operations."
+        />
       }
       primaryCta={{
         href: "/contact",
-        label: (
-          <>
-            Richiedi demo kiosk
-            <br />
-            Request kiosk demo
-          </>
-        ),
+        label: <Bilingual it="Richiedi demo kiosk" en="Request kiosk demo" />,
       }}
     >
       <section className="grid grid-cols-1 gap-4 md:grid-cols-3">
         <Card
-          title="Casi d’uso / Use cases"
+          title={<Bilingual it="Casi d’uso" en="Use cases" />}
           bullets={[
-            <>
-              Ridurre code e gestire picchi
-              <br />
-              Reduce queues and handle peak hours
-            </>,
-            <>
-              Aumentare lo scontrino medio con upsell guidato
-              <br />
-              Increase AOV with guided upsell
-            </>,
-            <>
-              Ridurre errori ordine e carico cassa
-              <br />
-              Reduce order errors and cashier load
-            </>,
+            <Bilingual
+              key="1"
+              it="Ridurre code e gestire picchi"
+              en="Reduce queues and handle peak hours"
+            />,
+            <Bilingual
+              key="2"
+              it="Aumentare lo scontrino medio con upsell guidato"
+              en="Increase AOV with guided upsell"
+            />,
+            <Bilingual
+              key="3"
+              it="Ridurre errori ordine e carico cassa"
+              en="Reduce order errors and cashier load"
+            />,
           ]}
         />
         <Card
-          title="Per chi è / Who it’s for"
+          title={<Bilingual it="Per chi è" en="Who it’s for" />}
           bullets={[
-            <>
-              Punti vendita con alto volume e menu strutturato
-              <br />
-              Locations with volume and a structured menu
-            </>,
-            <>
-              Team che vogliono integrazione con cassa/cucina/ritiro
-              <br />
-              Teams needing POS/kitchen/pickup integration
-            </>,
-            <>
-              Operazioni che vogliono metriche e miglioramento continuo
-              <br />
-              Ops teams that want metrics and continuous improvement
-            </>,
+            <Bilingual
+              key="1"
+              it="Punti vendita con alto volume e menu strutturato"
+              en="Locations with volume and a structured menu"
+            />,
+            <Bilingual
+              key="2"
+              it="Team che vogliono integrazione con cassa/cucina/ritiro"
+              en="Teams needing POS/kitchen/pickup integration"
+            />,
+            <Bilingual
+              key="3"
+              it="Operazioni che vogliono metriche e miglioramento continuo"
+              en="Ops teams that want metrics and continuous improvement"
+            />,
           ]}
         />
         <Card
-          title="Non è per / Not for"
+          title={<Bilingual it="Non è per" en="Not for" />}
           bullets={[
-            <>
-              Progetti senza owner in store
-              <br />
-              Projects with no in-store owner
-            </>,
-            <>
-              Menu/processi non definibili o non aggiornabili
-              <br />
-              Menus/processes that can’t be defined or maintained
-            </>,
-            <>
-              Chi cerca solo una demo senza rollout
-              <br />
-              Teams wanting a demo without rollout
-            </>,
+            <Bilingual
+              key="1"
+              it="Progetti senza owner in store"
+              en="Projects with no in-store owner"
+            />,
+            <Bilingual
+              key="2"
+              it="Menu/processi non definibili o non aggiornabili"
+              en="Menus/processes that can’t be defined or maintained"
+            />,
+            <Bilingual
+              key="3"
+              it="Chi cerca solo una demo senza rollout"
+              en="Teams wanting a demo without rollout"
+            />,
           ]}
         />
       </section>
@@ -103,27 +89,25 @@ export default function OrderingKioskPage() {
       <section className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-8">
         <div className="space-y-3">
           <div className="text-sm font-semibold text-[var(--color-navy)]">
-            Cosa ricevi
-            <span className="text-[var(--color-slate)]"> / </span>
-            What you receive
+            <Bilingual it="Cosa ricevi" en="What you receive" />
           </div>
           <ul className="space-y-2 text-sm text-[var(--color-slate)]">
             {[
-              <>
-                Flusso UI kiosk: categorie, varianti, upsell, pagamento
-                <br />
-                Kiosk UI flow: categories, variants, upsell, payment
-              </>,
-              <>
-                Setup operativo: menu, stampanti, kitchen flow, ritiro
-                <br />
-                Operational setup: menu, printers, kitchen flow, pickup
-              </>,
-              <>
-                Piano installazione + checklist rollout
-                <br />
-                Install plan + rollout checklist
-              </>,
+              <Bilingual
+                key="1"
+                it="Flusso UI kiosk: categorie, varianti, upsell, pagamento"
+                en="Kiosk UI flow: categories, variants, upsell, payment"
+              />,
+              <Bilingual
+                key="2"
+                it="Setup operativo: menu, stampanti, kitchen flow, ritiro"
+                en="Operational setup: menu, printers, kitchen flow, pickup"
+              />,
+              <Bilingual
+                key="3"
+                it="Piano installazione + checklist rollout"
+                en="Install plan + rollout checklist"
+              />,
             ].map((b, idx) => (
               <li key={idx} className="flex gap-2">
                 <span className="mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-cyan)]" />
@@ -137,7 +121,7 @@ export default function OrderingKioskPage() {
   );
 }
 
-function Card({ title, bullets }: { title: string; bullets: ReactNode[] }) {
+function Card({ title, bullets }: { title: ReactNode; bullets: ReactNode[] }) {
   return (
     <div className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6">
       <div className="space-y-3">

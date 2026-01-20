@@ -3,6 +3,7 @@ import PageShell from "@/components/PageShell";
 import CTASection from "@/components/CTASection";
 import WorkGrid from "@/components/WorkGrid";
 import { caseStudies } from "@/lib/content";
+import Bilingual from "@/components/Bilingual";
 
 export const metadata: Metadata = {
   title: "Work | Webrrand",
@@ -19,17 +20,27 @@ export const metadata: Metadata = {
 export default function WorkPage() {
   return (
     <PageShell
-      kicker="Work"
-      title="Proof over promises"
-      subtitle="Short case studies showing the problem, the approach, and the result."
-      primaryCta={{ href: "/contact", label: "Book a Call" }}
+      kicker={<Bilingual en="Work" it="Lavori" />}
+      title={<Bilingual en="Proof over promises" it="Prove, non promesse" />}
+      subtitle={
+        <Bilingual
+          en="Short case studies showing the problem, the approach, and the result."
+          it="Casi studio brevi che mostrano il problema, l’approccio e il risultato."
+        />
+      }
+      primaryCta={{ href: "/contact", label: <Bilingual en="Book a Call" it="Prenota una call" /> }}
     >
       <WorkGrid items={caseStudies} />
 
       <CTASection
-        title="Want results like this?"
-        subtitle="Tell us your goal and timeline. We’ll respond with a relevant case and a clear next step."
-        primary={{ href: "/contact", label: "Book a Call" }}
+        title={<Bilingual en="Want results like this?" it="Vuoi risultati così?" />}
+        subtitle={
+          <Bilingual
+            en="Tell us your goal and timeline. We’ll respond with a relevant case and a clear next step."
+            it="Dicci obiettivo e tempistiche. Rispondiamo con un caso rilevante e un prossimo step chiaro."
+          />
+        }
+        primary={{ href: "/contact", label: <Bilingual en="Book a Call" it="Prenota una call" /> }}
       />
     </PageShell>
   );
