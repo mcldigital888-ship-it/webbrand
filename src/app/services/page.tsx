@@ -5,6 +5,7 @@ import CTASection from "@/components/CTASection";
 import Bilingual from "@/components/Bilingual";
 import ServicePillarCard from "@/components/ServicePillarCard";
 import PackageCard from "@/components/PackageCard";
+import servicesPhoto from "../../../fotos/tools1.png";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -38,6 +39,14 @@ export default function ServicesPage() {
       }
       primaryCta={{ href: "/contact", label: <Bilingual en="Book a Call" it="Prenota una call" /> }}
     >
+      <section className="overflow-hidden rounded-2xl border border-white/10">
+        <div
+          className="h-64 w-full bg-contain bg-center bg-no-repeat md:h-72"
+          style={{ backgroundImage: `url(${servicesPhoto.src})` }}
+          aria-hidden="true"
+        />
+      </section>
+
       <section className="flex flex-col gap-3 sm:flex-row">
         <Link
           href="/contact"
@@ -171,7 +180,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-8">
+      <section className="rounded-2xl border border-white/10 bg-[var(--color-surface)] p-8">
         <div className="space-y-2">
           <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--color-navy)]">
             <Bilingual en="How it works" it="Come funziona" />
@@ -187,7 +196,7 @@ export default function ServicesPage() {
           {steps.map((s) => (
             <div
               key={s}
-              className="rounded-2xl border border-black/5 bg-white p-5 text-sm font-semibold text-[var(--color-navy)]"
+              className="rounded-2xl border border-white/10 bg-white/[0.02] p-5 text-sm font-semibold text-[var(--ds-text)]"
             >
               {s}
             </div>

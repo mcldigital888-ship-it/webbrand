@@ -2,6 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Bilingual from "@/components/Bilingual";
 import SectionBand from "@/components/SectionBand";
+import topBandBg from "../../fotos/Webrrand-background-foto.png";
+import leak1 from "../../fotos/leak1.png";
+import leak2 from "../../fotos/leak2.png";
+import tools1 from "../../fotos/tools1.png";
+import tools2 from "../../fotos/tools2.png";
 
 export const metadata: Metadata = {
   title: "Home",
@@ -18,8 +23,18 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div className="space-y-10">
-      <SectionBand tone="accent" className="overflow-hidden">
-        <div className="space-y-8">
+      <div className="-mt-14 h-80 overflow-hidden rounded-3xl border border-white/10">
+        <div
+          className="h-full w-full bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${topBandBg.src})` }}
+          aria-hidden="true"
+        />
+      </div>
+      <SectionBand
+        tone="accent"
+        className="relative overflow-hidden"
+      >
+        <div className="hero-content space-y-8">
           <div className="space-y-3">
             <div className="text-sm font-semibold tracking-wide text-[var(--ds-muted)]">
               <Bilingual en="WEBRRAND" it="WEBRRAND" />
@@ -153,6 +168,14 @@ export default function Home() {
         </div>
       </SectionBand>
 
+      <div className="overflow-hidden rounded-3xl border border-white/10">
+        <div
+          className="h-64 w-full bg-contain bg-center bg-no-repeat md:h-72"
+          style={{ backgroundImage: `url(${leak1.src})` }}
+          aria-hidden="true"
+        />
+      </div>
+
       <SectionBand tone="muted">
         <div className="space-y-6">
           <div className="space-y-2">
@@ -221,6 +244,14 @@ export default function Home() {
           </div>
         </div>
       </SectionBand>
+
+      <div className="overflow-hidden rounded-3xl border border-white/10">
+        <div
+          className="h-64 w-full bg-contain bg-center bg-no-repeat md:h-72"
+          style={{ backgroundImage: `url(${leak2.src})` }}
+          aria-hidden="true"
+        />
+      </div>
 
       <SectionBand tone="light">
         <div id="how-it-works" className="scroll-mt-24 space-y-6">
@@ -320,6 +351,14 @@ export default function Home() {
           </div>
         </div>
       </SectionBand>
+
+      <div className="overflow-hidden rounded-3xl border border-white/10">
+        <div
+          className="h-64 w-full bg-contain bg-center bg-no-repeat md:h-72"
+          style={{ backgroundImage: `url(${tools2.src})` }}
+          aria-hidden="true"
+        />
+      </div>
 
       <SectionBand tone="muted">
         <div className="space-y-6">
@@ -431,6 +470,14 @@ export default function Home() {
           </div>
         </div>
       </SectionBand>
+
+      <div className="overflow-hidden rounded-3xl border border-white/10">
+        <div
+          className="h-64 w-full bg-contain bg-center bg-no-repeat md:h-72"
+          style={{ backgroundImage: `url(${tools1.src})` }}
+          aria-hidden="true"
+        />
+      </div>
 
       <SectionBand tone="muted">
         <div className="space-y-6">

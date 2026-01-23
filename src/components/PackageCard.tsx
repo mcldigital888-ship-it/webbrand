@@ -14,7 +14,7 @@ export default function PackageCard({
   href: string;
 }) {
   return (
-    <div className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6">
+    <div className="rounded-2xl border border-white/10 bg-[var(--color-surface)] p-6">
       <div className="space-y-4">
         <div className="font-[var(--font-display)] text-2xl font-semibold tracking-tight text-[var(--color-navy)]">
           {title}

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import PageShell from "@/components/PageShell";
 import CTASection from "@/components/CTASection";
 import Bilingual from "@/components/Bilingual";
+import aboutPhoto from "../../../fotos/generalbackgorund.png";
 
 export const metadata: Metadata = {
   title: "About | Webrrand",
@@ -54,11 +55,19 @@ export default function AboutPage() {
       }
       primaryCta={{ href: "/contact", label: <Bilingual en="Contact" it="Contatti" /> }}
     >
+      <section className="overflow-hidden rounded-2xl border border-white/10">
+        <div
+          className="h-64 w-full bg-contain bg-center bg-no-repeat md:h-72"
+          style={{ backgroundImage: `url(${aboutPhoto.src})` }}
+          aria-hidden="true"
+        />
+      </section>
+
       <section className="grid grid-cols-1 gap-4 md:grid-cols-3">
         {values.map((v) => (
           <div
             key={v.title.en}
-            className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6"
+            className="rounded-2xl border border-white/10 bg-[var(--color-surface)] p-6"
           >
             <div className="space-y-2">
               <div className="text-sm font-semibold text-[var(--color-navy)]">
@@ -72,7 +81,7 @@ export default function AboutPage() {
         ))}
       </section>
 
-      <section className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-8">
+      <section className="rounded-2xl border border-white/10 bg-[var(--color-surface)] p-8">
         <div className="space-y-2">
           <h2 className="font-[var(--font-display)] text-2xl font-semibold text-[var(--color-navy)]">
             <Bilingual en="Our process" it="Il processo" />
@@ -88,7 +97,7 @@ export default function AboutPage() {
           {steps.map((s) => (
             <div
               key={s}
-              className="rounded-2xl border border-black/5 bg-white p-5 text-sm font-semibold text-[var(--color-navy)]"
+              className="rounded-2xl border border-white/10 bg-white/[0.02] p-5 text-sm font-semibold text-[var(--ds-text)]"
             >
               {s}
             </div>
@@ -97,7 +106,7 @@ export default function AboutPage() {
       </section>
 
       <section className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <div className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6">
+        <div className="rounded-2xl border border-white/10 bg-[var(--color-surface)] p-6">
           <h2 className="font-[var(--font-display)] text-2xl font-semibold text-[var(--color-navy)]">
             <Bilingual en="Team" it="Team" />
           </h2>
@@ -108,7 +117,7 @@ export default function AboutPage() {
             />
           </p>
         </div>
-        <div className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6">
+        <div className="rounded-2xl border border-white/10 bg-[var(--color-surface)] p-6">
           <h2 className="font-[var(--font-display)] text-2xl font-semibold text-[var(--color-navy)]">
             <Bilingual en="Mission" it="Mission" />
           </h2>

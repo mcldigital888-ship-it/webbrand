@@ -10,7 +10,7 @@ export default function ModuleCard({
   bullets: { it: string; en: string }[];
 }) {
   return (
-    <div className="rounded-2xl border border-black/5 bg-white p-6">
+    <div className="ds-glass ds-lift rounded-2xl p-6">
       <div className="space-y-3">
         <div className="space-y-1">
           <div className="text-sm font-semibold text-[var(--color-navy)]">

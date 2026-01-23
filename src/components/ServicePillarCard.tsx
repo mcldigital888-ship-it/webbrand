@@ -16,7 +16,7 @@ export default function ServicePillarCard({
   return (
     <Link
       href={href}
-      className="group relative overflow-hidden rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-black/10"
+      className="group relative overflow-hidden rounded-2xl border border-white/10 bg-[var(--color-surface)] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-white/20"
     >
       <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
         <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-[var(--color-cyan)]/15 blur-2xl" />
@@ -26,11 +26,11 @@ export default function ServicePillarCard({
           {title}
         </div>
         <div className="text-sm leading-6 text-[var(--color-slate)]">{text}</div>
-        <div className="rounded-xl border border-black/5 bg-white p-4">
-          <div className="text-xs font-semibold uppercase tracking-wide text-[var(--color-slate)]">
+        <div className="rounded-xl border border-white/10 bg-white/[0.02] p-4">
+          <div className="text-xs font-semibold uppercase tracking-wide text-[var(--ds-muted)]">
             {outcomeLabel ?? "Outcome"}
           </div>
-          <div className="mt-2 text-sm font-semibold text-[var(--color-navy)]">{outcome}</div>
+          <div className="mt-2 text-sm font-semibold text-[var(--ds-text)]">{outcome}</div>
         </div>
         <div className="pt-1 text-sm font-semibold text-[var(--color-navy)]">
           Explore service <span className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>

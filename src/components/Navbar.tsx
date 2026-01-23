@@ -10,8 +10,7 @@ const navItems = [
   { href: "/about", label: <Bilingual en="About" it="Chi siamo" /> },
   { href: "/services", label: <Bilingual en="Services" it="Servizi" /> },
   { href: "/contact", label: <Bilingual en="Contact" it="Contatti" /> },
-  { href: "/privacy", label: <Bilingual en="Privacy" it="Privacy" /> },
-  { href: "/terms", label: <Bilingual en="Terms" it="Termini" /> },
+  { href: "/terms", label: <Bilingual en="Legal" it="Legal" /> },
 ];
 
 export default function Navbar() {
@@ -38,12 +37,6 @@ export default function Navbar() {
               {item.label}
             </Link>
           ))}
-          <Link
-            href="/admin"
-            className="text-sm font-medium text-[var(--ds-muted)] transition-colors duration-150 hover:text-[var(--ds-text)]"
-          >
-            <Bilingual en="Admin Panel" it="Pannello admin" />
-          </Link>
         </nav>
 
         <div className="flex items-center gap-3">
