@@ -164,6 +164,15 @@ body {
   transition: border-color var(--ds-anim) var(--ds-ease);
 }
 
+select.ds-input {
+  color-scheme: dark;
+}
+
+select.ds-input option {
+  background: var(--ds-bg);
+  color: var(--ds-text);
+}
+
 .ds-input::placeholder {
   color: rgba(168, 168, 184, 0.75);
 }

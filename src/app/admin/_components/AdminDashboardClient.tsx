@@ -51,7 +51,7 @@ function Card({
 }) {
   return (
     <div className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6 shadow-sm">
-      <div className="text-sm font-semibold text-[var(--color-navy)]">{title}</div>
+      <div className="text-sm font-semibold text-[var(--ds-text)]">{title}</div>
       <div className="mt-4">{children}</div>
     </div>
   );
@@ -61,7 +61,7 @@ function PillLink({ href, children }: { href: string; children: React.ReactNode 
   return (
     <Link
       href={href}
-      className="inline-flex w-fit rounded-full border border-[var(--color-navy)]/15 bg-white px-4 py-2 text-sm font-semibold text-[var(--color-navy)] transition-colors hover:border-[var(--color-navy)]/25 hover:bg-[var(--color-navy)]/[0.03]"
+      className="inline-flex w-fit rounded-full border border-white/15 bg-white/[0.02] px-4 py-2 text-sm font-semibold text-[var(--ds-text)] transition-colors hover:border-white/25 hover:bg-white/[0.04]"
     >
       {children}
     </Link>
@@ -94,8 +94,8 @@ export default function AdminDashboardClient({
       <div className="mx-auto w-full max-w-6xl">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="space-y-1">
-            <div className="text-sm font-semibold text-[var(--color-navy)]">{copy.top}</div>
-            <div className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--color-navy)]">
+            <div className="text-sm font-semibold text-[var(--ds-text)]">{copy.top}</div>
+            <div className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--ds-text)]">
               {copy.title}
             </div>
           </div>
@@ -106,7 +106,7 @@ export default function AdminDashboardClient({
               type="button"
               onClick={logout}
               disabled={loggingOut}
-              className="inline-flex rounded-full border border-[var(--color-navy)]/15 bg-white px-4 py-2 text-sm font-semibold text-[var(--color-navy)] hover:border-[var(--color-navy)]/25 hover:bg-[var(--color-navy)]/[0.03] disabled:opacity-60"
+              className="inline-flex rounded-full border border-white/15 bg-white/[0.02] px-4 py-2 text-sm font-semibold text-[var(--ds-text)] hover:border-white/25 hover:bg-white/[0.04] disabled:opacity-60"
             >
               {loggingOut ? "…" : copy.logout}
             </button>
@@ -121,6 +121,7 @@ export default function AdminDashboardClient({
                 <PillLink href="/admin/crm/leads">{copy.crmLeads}</PillLink>
                 <PillLink href="/admin/automation-rules">{copy.crmRules}</PillLink>
                 <PillLink href="/admin/logs">{copy.crmLogs}</PillLink>
+                <PillLink href="/admin/audits">Audits</PillLink>
               </div>
             </Card>
 

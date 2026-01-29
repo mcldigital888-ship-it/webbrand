@@ -96,7 +96,7 @@ export default function AdminLoginClient({
               <input
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="h-11 w-full rounded-xl border border-black/10 bg-white px-3 text-sm text-[var(--color-navy)] outline-none focus:border-[var(--color-blue)]"
+                className="h-11 w-full rounded-xl border border-white/10 bg-[var(--color-background)] px-3 text-sm text-[var(--ds-text)] caret-[var(--ds-text)] outline-none placeholder:text-[var(--ds-muted)] focus:border-[var(--color-blue)]"
                 autoComplete="username"
               />
             </label>
@@ -106,7 +106,7 @@ export default function AdminLoginClient({
               <input
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="h-11 w-full rounded-xl border border-black/10 bg-white px-3 text-sm text-[var(--color-navy)] outline-none focus:border-[var(--color-blue)]"
+                className="h-11 w-full rounded-xl border border-white/10 bg-[var(--color-background)] px-3 text-sm text-[var(--ds-text)] caret-[var(--ds-text)] outline-none placeholder:text-[var(--ds-muted)] focus:border-[var(--color-blue)]"
                 type="password"
                 autoComplete="current-password"
               />

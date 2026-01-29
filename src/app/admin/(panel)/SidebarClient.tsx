@@ -166,6 +166,7 @@ const groups: Group[] = [
     title: "OVERVIEW",
     items: [
       { href: "/admin", label: "Dashboard", icon: GridIcon },
+      { href: "/admin/audits", label: "Audits", icon: FileTextIcon },
       { href: "/admin/health", label: "System Health", icon: HeartbeatIcon },
     ],
   },

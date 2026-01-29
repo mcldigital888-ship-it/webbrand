@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/db";
 import { postToWebhook } from "@/lib/webhook";
+import { generateAuditPdf } from "@/lib/audit/generate";
 
 const BodySchema = z.object({
   pageUrl: z.string().optional().default(""),
@@ -48,7 +49,7 @@ export async function POST(req: Request) {
       monthlyLeadsRange: parsed.monthlyLeadsRange || null,
       painPoints: parsed.painPoints,
       biggestBottleneck: parsed.biggestBottleneck || null,
-      toolsUsed: parsed.toolsUsed && parsed.toolsUsed.length ? parsed.toolsUsed : null,
+      toolsUsed: parsed.toolsUsed && parsed.toolsUsed.length ? parsed.toolsUsed : undefined,
       targetMarket: parsed.targetMarket || null,
       name: parsed.name,
       email: parsed.email,
@@ -86,6 +87,11 @@ export async function POST(req: Request) {
     },
     consent: parsed.consent,
   }).catch(() => {
+    return;
+  });
+
+  // Trigger generation asynchronously. Errors are persisted to DB (status/lastError).
+  void generateAuditPdf(submission.id).catch(() => {
     return;
   });
 

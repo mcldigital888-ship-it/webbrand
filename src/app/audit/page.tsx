@@ -240,7 +240,7 @@ export default function AuditPage() {
         return;
       }
 
-      router.push(`/audit/thanks?auditId=${encodeURIComponent(data.auditId)}`);
+      router.push("/audit/thanks");
     } catch {
       setSubmitError("Failed to submit. Payload saved locally.");
     } finally {
@@ -253,12 +253,12 @@ export default function AuditPage() {
       <SectionBand tone="accent" className="overflow-hidden">
         <div className="space-y-6">
           <div className="space-y-3">
-            <div className="text-sm font-semibold tracking-wide text-[var(--color-navy)]/70">WEBRRAND</div>
-            <h1 className="max-w-4xl font-[var(--font-display)] text-4xl font-semibold tracking-tight text-[var(--color-navy)] sm:text-6xl">
+            <div className="text-sm font-semibold tracking-wide text-[var(--ds-muted)]">WEBRRAND</div>
+            <h1 className="max-w-4xl font-[var(--font-display)] text-4xl font-semibold tracking-tight text-[var(--ds-text)] sm:text-6xl">
               Get your full Revenue System Blueprint in 24 hours
             </h1>
-            <p className="max-w-3xl text-lg leading-8 text-[var(--color-slate)]">
-              Answer a few strategic questions and Webrrand will generate your funnel map, CRM & automation plan, timeline,
+            <p className="max-w-3xl text-lg leading-8 text-[var(--ds-muted)]">
+              Answer a few strategic questions and Webbrand will generate your funnel map, CRM & automation plan, timeline,
               and expected ROI.
             </p>
             <div className="flex flex-col gap-3 sm:flex-row">
@@ -270,7 +270,7 @@ export default function AuditPage() {
               </a>
               <Link
                 href="/"
-                className="inline-flex w-fit rounded-full border border-[var(--color-navy)]/15 bg-white/60 px-6 py-3 text-sm font-semibold text-[var(--color-navy)] transition-colors hover:border-[var(--color-navy)]/25 hover:bg-white"
+                className="inline-flex w-fit rounded-full border border-white/15 bg-white/[0.02] px-6 py-3 text-sm font-semibold text-[var(--ds-text)] transition-colors hover:border-white/25 hover:bg-white/[0.04]"
               >
                 See the system
               </Link>
@@ -278,9 +278,9 @@ export default function AuditPage() {
           </div>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <div className="rounded-2xl border border-black/5 bg-white/70 p-6">
-              <div className="text-sm font-semibold text-[var(--color-navy)]">You will receive</div>
-              <div className="mt-3 space-y-2 text-sm leading-6 text-[var(--color-slate)]">
+            <div className="ds-glass rounded-2xl p-6">
+              <div className="text-sm font-semibold text-[var(--ds-text)]">You will receive</div>
+              <div className="mt-3 space-y-2 text-sm leading-6 text-[var(--ds-muted)]">
                 {[
                   "Project Brief (goal, target, constraints)",
                   "Funnel & Page Blueprint",
@@ -296,8 +296,8 @@ export default function AuditPage() {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-black/5 bg-white/70 p-6">
-              <div className="text-sm font-semibold text-[var(--color-navy)]">Built for your industry</div>
+            <div className="ds-glass rounded-2xl p-6">
+              <div className="text-sm font-semibold text-[var(--ds-text)]">Built for your industry</div>
               <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
                 {[
                   "Food & Hospitality",
@@ -308,13 +308,13 @@ export default function AuditPage() {
                 ].map((t) => (
                   <div
                     key={t}
-                    className="rounded-xl border border-black/5 bg-[var(--color-background)] px-4 py-3 text-sm font-semibold text-[var(--color-navy)]"
+                    className="rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm font-semibold text-[var(--ds-text)]"
                   >
                     {t}
                   </div>
                 ))}
               </div>
-              <p className="mt-4 text-sm leading-6 text-[var(--color-slate)]">
+              <p className="mt-4 text-sm leading-6 text-[var(--ds-muted)]">
                 Each system is pre-optimized for your sector with proven KPIs.
               </p>
             </div>
@@ -325,30 +325,30 @@ export default function AuditPage() {
       <SectionBand tone="muted">
         <div className="space-y-6">
           <div className="space-y-2">
-            <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--color-navy)]">
+            <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--ds-text)]">
               Real results
             </h2>
-            <p className="max-w-3xl text-sm leading-6 text-[var(--color-slate)]">
+            <p className="max-w-3xl text-sm leading-6 text-[var(--ds-muted)]">
               Outcomes when the full system is installed — not just a website.
             </p>
           </div>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
-            <div className="rounded-2xl border border-black/5 bg-white p-6">
-              <div className="text-3xl font-semibold tracking-tight text-[var(--color-navy)]">+127%</div>
-              <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">Qualified leads (E-commerce)</div>
+            <div className="ds-glass rounded-2xl p-6">
+              <div className="text-3xl font-semibold tracking-tight text-[var(--ds-text)]">+127%</div>
+              <div className="mt-2 text-sm leading-6 text-[var(--ds-muted)]">Qualified leads (E-commerce)</div>
             </div>
-            <div className="rounded-2xl border border-black/5 bg-white p-6">
-              <div className="text-3xl font-semibold tracking-tight text-[var(--color-navy)]">–43%</div>
-              <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">Sales cycle (B2B)</div>
+            <div className="ds-glass rounded-2xl p-6">
+              <div className="text-3xl font-semibold tracking-tight text-[var(--ds-text)]">–43%</div>
+              <div className="mt-2 text-sm leading-6 text-[var(--ds-muted)]">Sales cycle (B2B)</div>
             </div>
-            <div className="rounded-2xl border border-black/5 bg-white p-6">
-              <div className="text-3xl font-semibold tracking-tight text-[var(--color-navy)]">+18%</div>
-              <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">Average ticket (Restaurant)</div>
+            <div className="ds-glass rounded-2xl p-6">
+              <div className="text-3xl font-semibold tracking-tight text-[var(--ds-text)]">+18%</div>
+              <div className="mt-2 text-sm leading-6 text-[var(--ds-muted)]">Average ticket (Restaurant)</div>
             </div>
-            <div className="rounded-2xl border border-black/5 bg-white p-6">
-              <div className="text-3xl font-semibold tracking-tight text-[var(--color-navy)]">–64%</div>
-              <div className="mt-2 text-sm leading-6 text-[var(--color-slate)]">No-show (Hotel)</div>
+            <div className="ds-glass rounded-2xl p-6">
+              <div className="text-3xl font-semibold tracking-tight text-[var(--ds-text)]">–64%</div>
+              <div className="mt-2 text-sm leading-6 text-[var(--ds-muted)]">No-show (Hotel)</div>
             </div>
           </div>
         </div>
@@ -357,10 +357,10 @@ export default function AuditPage() {
       <SectionBand tone="light">
         <div className="space-y-6">
           <div className="space-y-2">
-            <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--color-navy)]">
+            <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--ds-text)]">
               System, not tools
             </h2>
-            <p className="max-w-3xl text-sm leading-6 text-[var(--color-slate)]">
+            <p className="max-w-3xl text-sm leading-6 text-[var(--ds-muted)]">
               We don’t sell tools. We install revenue systems.
             </p>
           </div>
@@ -375,14 +375,14 @@ export default function AuditPage() {
             ].map((m) => (
               <div
                 key={m}
-                className="rounded-2xl border border-black/5 bg-white p-5 text-sm font-semibold text-[var(--color-navy)]"
+                className="ds-glass rounded-2xl p-5 text-sm font-semibold text-[var(--ds-text)]"
               >
                 {m}
               </div>
             ))}
           </div>
 
-          <p className="text-sm leading-6 text-[var(--color-slate)]">
+          <p className="text-sm leading-6 text-[var(--ds-muted)]">
             Everything works together in one measurable system.
           </p>
         </div>
@@ -391,15 +391,15 @@ export default function AuditPage() {
       <SectionBand tone="light">
         <div id="audit" className="scroll-mt-24 space-y-6">
           <div className="space-y-2">
-            <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--color-navy)]">
+            <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--ds-text)]">
               Start the 2-minute audit
             </h2>
-            <p className="max-w-3xl text-sm leading-6 text-[var(--color-slate)]">
+            <p className="max-w-3xl text-sm leading-6 text-[var(--ds-muted)]">
               This is a diagnostic funnel — not a contact form.
             </p>
           </div>
 
-          <div className="rounded-2xl border border-black/5 bg-white p-6 sm:p-8">
+          <div className="ds-glass rounded-2xl p-6 sm:p-8">
             <form
               onSubmit={onSubmit}
               className="space-y-8"
@@ -421,10 +421,10 @@ export default function AuditPage() {
               />
 
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <div className="text-xs font-semibold tracking-wide text-[var(--color-slate)]">
+                <div className="text-xs font-semibold tracking-wide text-[var(--ds-muted)]">
                   Step {step + 1} / 4
                 </div>
-                <div className="h-2 w-full overflow-hidden rounded-full border border-black/5 bg-[var(--color-background)] sm:max-w-xs">
+                <div className="h-2 w-full overflow-hidden rounded-full border border-white/10 bg-[var(--ds-line)] sm:max-w-xs">
                   <div
                     className="h-full bg-[var(--color-blue)]"
                     style={{ width: `${((step + 1) / 4) * 100}%` }}
@@ -434,15 +434,15 @@ export default function AuditPage() {
 
               {step === 0 ? (
                 <div className="space-y-3">
-                  <div className="text-sm font-semibold text-[var(--color-navy)]">Step 1 — Choose your goal</div>
+                  <div className="text-sm font-semibold text-[var(--ds-text)]">Step 1 — Choose your goal</div>
                   {errors.goal ? (
-                    <div className="text-xs font-medium text-[var(--color-slate)]">{errors.goal}</div>
+                    <div className="text-xs font-medium text-[var(--ds-muted)]">{errors.goal}</div>
                   ) : null}
                   <div className="grid grid-cols-1 gap-3">
                     {goalOptions.map((o) => (
                       <label
                         key={o.value}
-                        className="flex cursor-pointer items-start gap-3 rounded-2xl border border-black/10 bg-white p-4 hover:bg-[var(--color-background)]"
+                        className="flex cursor-pointer items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.02] p-4 hover:bg-white/[0.04]"
                       >
                         <input
                           type="radio"
@@ -452,7 +452,7 @@ export default function AuditPage() {
                           onChange={(e) => setField("goal", e.target.value)}
                           className="mt-1 h-4 w-4"
                         />
-                        <span className="text-sm font-semibold text-[var(--color-navy)]">{o.label}</span>
+                        <span className="text-sm font-semibold text-[var(--ds-text)]">{o.label}</span>
                       </label>
                     ))}
                   </div>
@@ -461,56 +461,56 @@ export default function AuditPage() {
 
               {step === 1 ? (
                 <div className="space-y-5">
-                  <div className="text-sm font-semibold text-[var(--color-navy)]">Step 2 — Your business</div>
+                  <div className="text-sm font-semibold text-[var(--ds-text)]">Step 2 — Your business</div>
 
                   <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <div className="space-y-2">
-                      <label className="text-xs font-semibold tracking-wide text-[var(--color-slate)]">Business type</label>
+                      <label className="text-xs font-semibold tracking-wide text-[var(--ds-muted)]">Business type</label>
                       <input
                         value={form.businessType}
                         onChange={(e) => setField("businessType", e.target.value)}
-                        className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[var(--color-navy)]"
+                        className="ds-input"
                         placeholder="e.g., agency, restaurant group, service company"
                       />
                       {errors.businessType ? (
-                        <div className="text-xs font-medium text-[var(--color-slate)]">{errors.businessType}</div>
+                        <div className="text-xs font-medium text-[var(--ds-muted)]">{errors.businessType}</div>
                       ) : null}
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-xs font-semibold tracking-wide text-[var(--color-slate)]">Industry</label>
+                      <label className="text-xs font-semibold tracking-wide text-[var(--ds-muted)]">Industry</label>
                       <input
                         value={form.industry}
                         onChange={(e) => setField("industry", e.target.value)}
-                        className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[var(--color-navy)]"
+                        className="ds-input"
                         placeholder="e.g., retail, hospitality, B2B services"
                       />
                       {errors.industry ? (
-                        <div className="text-xs font-medium text-[var(--color-slate)]">{errors.industry}</div>
+                        <div className="text-xs font-medium text-[var(--ds-muted)]">{errors.industry}</div>
                       ) : null}
                     </div>
 
                     <div className="space-y-2 md:col-span-2">
-                      <label className="text-xs font-semibold tracking-wide text-[var(--color-slate)]">
+                      <label className="text-xs font-semibold tracking-wide text-[var(--ds-muted)]">
                         Primary offer (what do you sell?)
                       </label>
                       <input
                         value={form.primaryOffer}
                         onChange={(e) => setField("primaryOffer", e.target.value)}
-                        className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[var(--color-navy)]"
+                        className="ds-input"
                         placeholder="e.g., monthly retainers, dinners, consultations, subscriptions"
                       />
                       {errors.primaryOffer ? (
-                        <div className="text-xs font-medium text-[var(--color-slate)]">{errors.primaryOffer}</div>
+                        <div className="text-xs font-medium text-[var(--ds-muted)]">{errors.primaryOffer}</div>
                       ) : null}
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-xs font-semibold tracking-wide text-[var(--color-slate)]">Team size</label>
+                      <label className="text-xs font-semibold tracking-wide text-[var(--ds-muted)]">Team size</label>
                       <select
                         value={form.teamSize}
                         onChange={(e) => setField("teamSize", e.target.value)}
-                        className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[var(--color-navy)]"
+                        className="ds-input"
                       >
                         <option value="">Select…</option>
                         {[
@@ -526,18 +526,18 @@ export default function AuditPage() {
                         ))}
                       </select>
                       {errors.teamSize ? (
-                        <div className="text-xs font-medium text-[var(--color-slate)]">{errors.teamSize}</div>
+                        <div className="text-xs font-medium text-[var(--ds-muted)]">{errors.teamSize}</div>
                       ) : null}
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-xs font-semibold tracking-wide text-[var(--color-slate)]">
+                      <label className="text-xs font-semibold tracking-wide text-[var(--ds-muted)]">
                         Monthly revenue range
                       </label>
                       <select
                         value={form.monthlyRevenueRange}
                         onChange={(e) => setField("monthlyRevenueRange", e.target.value)}
-                        className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[var(--color-navy)]"
+                        className="ds-input"
                       >
                         <option value="">Select…</option>
                         {[
@@ -553,18 +553,18 @@ export default function AuditPage() {
                         ))}
                       </select>
                       {errors.monthlyRevenueRange ? (
-                        <div className="text-xs font-medium text-[var(--color-slate)]">{errors.monthlyRevenueRange}</div>
+                        <div className="text-xs font-medium text-[var(--ds-muted)]">{errors.monthlyRevenueRange}</div>
                       ) : null}
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-xs font-semibold tracking-wide text-[var(--color-slate)]">
+                      <label className="text-xs font-semibold tracking-wide text-[var(--ds-muted)]">
                         Avg deal value / ticket
                       </label>
                       <select
                         value={form.avgTicketRange}
                         onChange={(e) => setField("avgTicketRange", e.target.value)}
-                        className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[var(--color-navy)]"
+                        className="ds-input"
                       >
                         <option value="">Select…</option>
                         {["< €50", "€50–€200", "€200–€1k", "€1k–€10k", "€10k+"].map((v) => (
@@ -574,18 +574,18 @@ export default function AuditPage() {
                         ))}
                       </select>
                       {errors.avgTicketRange ? (
-                        <div className="text-xs font-medium text-[var(--color-slate)]">{errors.avgTicketRange}</div>
+                        <div className="text-xs font-medium text-[var(--ds-muted)]">{errors.avgTicketRange}</div>
                       ) : null}
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-xs font-semibold tracking-wide text-[var(--color-slate)]">
+                      <label className="text-xs font-semibold tracking-wide text-[var(--ds-muted)]">
                         Monthly lead volume
                       </label>
                       <select
                         value={form.monthlyLeadVolumeRange}
                         onChange={(e) => setField("monthlyLeadVolumeRange", e.target.value)}
-                        className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[var(--color-navy)]"
+                        className="ds-input"
                       >
                         <option value="">Select…</option>
                         {["0–10", "10–50", "50–200", "200–1,000", "1,000+"].map((v) => (
@@ -595,7 +595,7 @@ export default function AuditPage() {
                         ))}
                       </select>
                       {errors.monthlyLeadVolumeRange ? (
-                        <div className="text-xs font-medium text-[var(--color-slate)]">{errors.monthlyLeadVolumeRange}</div>
+                        <div className="text-xs font-medium text-[var(--ds-muted)]">{errors.monthlyLeadVolumeRange}</div>
                       ) : null}
                     </div>
                   </div>
@@ -604,17 +604,17 @@ export default function AuditPage() {
 
               {step === 2 ? (
                 <div className="space-y-3">
-                  <div className="text-sm font-semibold text-[var(--color-navy)]">Step 3 — Pain</div>
-                  <div className="text-sm leading-6 text-[var(--color-slate)]">Where do you lose money today?</div>
+                  <div className="text-sm font-semibold text-[var(--ds-text)]">Step 3 — Pain</div>
+                  <div className="text-sm leading-6 text-[var(--ds-muted)]">Where do you lose money today?</div>
                   {errors.pain ? (
-                    <div className="text-xs font-medium text-[var(--color-slate)]">{errors.pain}</div>
+                    <div className="text-xs font-medium text-[var(--ds-muted)]">{errors.pain}</div>
                   ) : null}
 
                   <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                     {painOptions.map((o) => (
                       <label
                         key={o.value}
-                        className="flex cursor-pointer items-center gap-3 rounded-2xl border border-black/10 bg-white p-4 hover:bg-[var(--color-background)]"
+                        className="flex cursor-pointer items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.02] p-4 hover:bg-white/[0.04]"
                       >
                         <input
                           type="checkbox"
@@ -622,7 +622,7 @@ export default function AuditPage() {
                           onChange={() => togglePain(o.value)}
                           className="h-4 w-4"
                         />
-                        <span className="text-sm font-semibold text-[var(--color-navy)]">{o.label}</span>
+                        <span className="text-sm font-semibold text-[var(--ds-text)]">{o.label}</span>
                       </label>
                     ))}
                   </div>
@@ -630,9 +630,9 @@ export default function AuditPage() {
                   <div className="pt-2" />
 
                   <div className="space-y-2">
-                    <div className="text-sm font-semibold text-[var(--color-navy)]">Biggest bottleneck</div>
+                    <div className="text-sm font-semibold text-[var(--ds-text)]">Biggest bottleneck</div>
                     {errors.biggestBottleneck ? (
-                      <div className="text-xs font-medium text-[var(--color-slate)]">{errors.biggestBottleneck}</div>
+                      <div className="text-xs font-medium text-[var(--ds-muted)]">{errors.biggestBottleneck}</div>
                     ) : null}
                     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                       {(
@@ -646,7 +646,7 @@ export default function AuditPage() {
                       ).map((o) => (
                         <label
                           key={o.value}
-                          className="flex cursor-pointer items-center gap-3 rounded-2xl border border-black/10 bg-white p-4 hover:bg-[var(--color-background)]"
+                          className="flex cursor-pointer items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.02] p-4 hover:bg-white/[0.04]"
                         >
                           <input
                             type="radio"
@@ -656,19 +656,19 @@ export default function AuditPage() {
                             onChange={(e) => setField("biggestBottleneck", e.target.value as BiggestBottleneck)}
                             className="h-4 w-4"
                           />
-                          <span className="text-sm font-semibold text-[var(--color-navy)]">{o.label}</span>
+                          <span className="text-sm font-semibold text-[var(--ds-text)]">{o.label}</span>
                         </label>
                       ))}
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <div className="text-sm font-semibold text-[var(--color-navy)]">Tools you use today</div>
+                    <div className="text-sm font-semibold text-[var(--ds-text)]">Tools you use today</div>
                     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                       {toolOptions.map((t) => (
                         <label
                           key={t}
-                          className="flex cursor-pointer items-center gap-3 rounded-2xl border border-black/10 bg-white p-4 hover:bg-[var(--color-background)]"
+                          className="flex cursor-pointer items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.02] p-4 hover:bg-white/[0.04]"
                         >
                           <input
                             type="checkbox"
@@ -676,16 +676,16 @@ export default function AuditPage() {
                             onChange={() => toggleTool(t)}
                             className="h-4 w-4"
                           />
-                          <span className="text-sm font-semibold text-[var(--color-navy)]">{t}</span>
+                          <span className="text-sm font-semibold text-[var(--ds-text)]">{t}</span>
                         </label>
                       ))}
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <div className="text-sm font-semibold text-[var(--color-navy)]">Target country/language</div>
+                    <div className="text-sm font-semibold text-[var(--ds-text)]">Target country/language</div>
                     {errors.targetMarket ? (
-                      <div className="text-xs font-medium text-[var(--color-slate)]">{errors.targetMarket}</div>
+                      <div className="text-xs font-medium text-[var(--ds-muted)]">{errors.targetMarket}</div>
                     ) : null}
                     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                       {[
@@ -694,7 +694,7 @@ export default function AuditPage() {
                       ].map((o) => (
                         <label
                           key={o.value}
-                          className="flex cursor-pointer items-center gap-3 rounded-2xl border border-black/10 bg-white p-4 hover:bg-[var(--color-background)]"
+                          className="flex cursor-pointer items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.02] p-4 hover:bg-white/[0.04]"
                         >
                           <input
                             type="radio"
@@ -704,7 +704,7 @@ export default function AuditPage() {
                             onChange={(e) => setField("targetMarket", e.target.value)}
                             className="h-4 w-4"
                           />
-                          <span className="text-sm font-semibold text-[var(--color-navy)]">{o.label}</span>
+                          <span className="text-sm font-semibold text-[var(--ds-text)]">{o.label}</span>
                         </label>
                       ))}
                     </div>
@@ -714,82 +714,82 @@ export default function AuditPage() {
 
               {step === 3 ? (
                 <div className="space-y-5">
-                  <div className="text-sm font-semibold text-[var(--color-navy)]">Step 4 — Contact</div>
+                  <div className="text-sm font-semibold text-[var(--ds-text)]">Step 4 — Contact</div>
 
                   <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <div className="space-y-2">
-                      <label className="text-xs font-semibold tracking-wide text-[var(--color-slate)]">Name</label>
+                      <label className="text-xs font-semibold tracking-wide text-[var(--ds-muted)]">Name</label>
                       <input
                         value={form.name}
                         onChange={(e) => setField("name", e.target.value)}
-                        className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[var(--color-navy)]"
+                        className="ds-input"
                         placeholder="Your name"
                       />
                       {errors.name ? (
-                        <div className="text-xs font-medium text-[var(--color-slate)]">{errors.name}</div>
+                        <div className="text-xs font-medium text-[var(--ds-muted)]">{errors.name}</div>
                       ) : null}
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-xs font-semibold tracking-wide text-[var(--color-slate)]">Email</label>
+                      <label className="text-xs font-semibold tracking-wide text-[var(--ds-muted)]">Email</label>
                       <input
                         value={form.email}
                         onChange={(e) => setField("email", e.target.value)}
-                        className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[var(--color-navy)]"
+                        className="ds-input"
                         placeholder="you@company.com"
                       />
                       {errors.email ? (
-                        <div className="text-xs font-medium text-[var(--color-slate)]">{errors.email}</div>
+                        <div className="text-xs font-medium text-[var(--ds-muted)]">{errors.email}</div>
                       ) : null}
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-xs font-semibold tracking-wide text-[var(--color-slate)]">Company</label>
+                      <label className="text-xs font-semibold tracking-wide text-[var(--ds-muted)]">Company</label>
                       <input
                         value={form.company}
                         onChange={(e) => setField("company", e.target.value)}
-                        className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[var(--color-navy)]"
+                        className="ds-input"
                         placeholder="Company name"
                       />
                       {errors.company ? (
-                        <div className="text-xs font-medium text-[var(--color-slate)]">{errors.company}</div>
+                        <div className="text-xs font-medium text-[var(--ds-muted)]">{errors.company}</div>
                       ) : null}
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-xs font-semibold tracking-wide text-[var(--color-slate)]">
+                      <label className="text-xs font-semibold tracking-wide text-[var(--ds-muted)]">
                         WhatsApp (optional)
                       </label>
                       <input
                         value={form.whatsapp}
                         onChange={(e) => setField("whatsapp", e.target.value)}
-                        className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[var(--color-navy)]"
+                        className="ds-input"
                         placeholder="+39 ..."
                       />
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <label className="flex cursor-pointer items-start gap-3 rounded-2xl border border-black/10 bg-[var(--color-background)] p-4">
+                    <label className="flex cursor-pointer items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.02] p-4">
                       <input
                         type="checkbox"
                         checked={form.consent}
                         onChange={(e) => setField("consent", e.target.checked)}
                         className="mt-1 h-4 w-4"
                       />
-                      <span className="text-sm text-[var(--color-slate)]">
+                      <span className="text-sm text-[var(--ds-muted)]">
                         I agree to be contacted about this audit.
                       </span>
                     </label>
                     {errors.consent ? (
-                      <div className="text-xs font-medium text-[var(--color-slate)]">{errors.consent}</div>
+                      <div className="text-xs font-medium text-[var(--ds-muted)]">{errors.consent}</div>
                     ) : null}
                   </div>
                 </div>
               ) : null}
 
               {submitError ? (
-                <div className="rounded-2xl border border-black/5 bg-[var(--color-background)] p-4 text-sm text-[var(--color-slate)]">
+                <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-4 text-sm text-[var(--ds-muted)]">
                   {submitError}
                 </div>
               ) : null}
@@ -800,7 +800,7 @@ export default function AuditPage() {
                     <button
                       type="button"
                       onClick={prevStep}
-                      className="inline-flex w-fit rounded-full border border-[var(--color-navy)]/15 px-5 py-2.5 text-sm font-semibold text-[var(--color-navy)] transition-colors hover:border-[var(--color-navy)]/25 hover:bg-[var(--color-navy)]/[0.03]"
+                      className="inline-flex w-fit rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-[var(--ds-text)] transition-colors hover:border-white/25 hover:bg-white/[0.04]"
                     >
                       Back
                     </button>

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/db";
-import { getAuditDownloadUrl } from "@/lib/audit/storage";
+import { getAuditDownloadUrl } from "@/lib/audit/url";
 
 const QuerySchema = z.object({
   auditId: z.string().min(1),

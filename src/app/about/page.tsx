@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import PageShell from "@/components/PageShell";
 import CTASection from "@/components/CTASection";
 import Bilingual from "@/components/Bilingual";
-import aboutPhoto from "../../../fotos/generalbackgorund.png";
+import aboutPhoto from "../../../fotos/Webrrand-background-foto.png";
 
 export const metadata: Metadata = {
   title: "About | Webrrand",
