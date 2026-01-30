@@ -15,6 +15,8 @@ const t = {
     crmLeads: "Leads",
     crmRules: "Automation Rules",
     crmLogs: "Activity Logs",
+    auditsQuickTitle: "Audit Submissions",
+    auditsQuickCta: "Open audit lists",
     blogTitle: "Auto Blog Generator",
     blogGenerate: "Generate blog post",
     blogProducts: "Fetch products & create drafts",
@@ -32,6 +34,8 @@ const t = {
     crmLeads: "Contatti",
     crmRules: "Regole di Automazione",
     crmLogs: "Log Attività",
+    auditsQuickTitle: "Invii Audit",
+    auditsQuickCta: "Apri liste audit",
     blogTitle: "Generatore Blog Automatico",
     blogGenerate: "Genera articolo",
     blogProducts: "Importa prodotti e crea bozze",
@@ -143,6 +147,14 @@ export default function AdminDashboardClient({
             </Card>
             <Card title={copy.errorsTitle}>
               <div className="text-sm text-[var(--color-slate)]">0</div>
+            </Card>
+            <Card title={copy.auditsQuickTitle}>
+              <Link
+                href="/admin/audits"
+                className="inline-flex w-fit rounded-full bg-[var(--color-blue)] px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-95"
+              >
+                {copy.auditsQuickCta}
+              </Link>
             </Card>
           </div>
         </div>

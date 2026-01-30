@@ -37,28 +37,43 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: "Invalid payload" }, { status: 400 });
   }
 
-  const submission = await prisma.auditSubmission.create({
-    data: {
-      goal: parsed.goal,
-      businessType: parsed.businessType,
-      industry: parsed.industry,
-      teamSize: parsed.teamSize,
-      revenueRange: parsed.revenueRange,
-      offer: parsed.offer || null,
-      avgTicketRange: parsed.avgTicketRange || null,
-      monthlyLeadsRange: parsed.monthlyLeadsRange || null,
-      painPoints: parsed.painPoints,
-      biggestBottleneck: parsed.biggestBottleneck || null,
-      toolsUsed: parsed.toolsUsed && parsed.toolsUsed.length ? parsed.toolsUsed : undefined,
-      targetMarket: parsed.targetMarket || null,
-      name: parsed.name,
-      email: parsed.email,
-      company: parsed.company,
-      whatsapp: parsed.whatsapp || null,
-      status: "RECEIVED",
-    },
-    select: { id: true, createdAt: true },
-  });
+  if (!process.env.DATABASE_URL) {
+    return NextResponse.json(
+      { ok: false, error: "Server configuration error" },
+      { status: 500 },
+    );
+  }
+
+  let submission: { id: string; createdAt: Date };
+  try {
+    submission = await prisma.auditSubmission.create({
+      data: {
+        goal: parsed.goal,
+        businessType: parsed.businessType,
+        industry: parsed.industry,
+        teamSize: parsed.teamSize,
+        revenueRange: parsed.revenueRange,
+        offer: parsed.offer || null,
+        avgTicketRange: parsed.avgTicketRange || null,
+        monthlyLeadsRange: parsed.monthlyLeadsRange || null,
+        painPoints: parsed.painPoints,
+        biggestBottleneck: parsed.biggestBottleneck || null,
+        toolsUsed: parsed.toolsUsed && parsed.toolsUsed.length ? parsed.toolsUsed : undefined,
+        targetMarket: parsed.targetMarket || null,
+        name: parsed.name,
+        email: parsed.email,
+        company: parsed.company,
+        whatsapp: parsed.whatsapp || null,
+        status: "RECEIVED",
+      },
+      select: { id: true, createdAt: true },
+    });
+  } catch {
+    return NextResponse.json(
+      { ok: false, error: "Server configuration error" },
+      { status: 500 },
+    );
+  }
 
   // Preserve current automation: forward to existing webhook pipeline server-side.
   // IMPORTANT: do not log PII.

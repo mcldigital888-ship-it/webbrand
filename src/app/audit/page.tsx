@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { trackEvent } from "@/lib/tracking";
@@ -28,9 +28,18 @@ export default function AuditPage() {
   const [step, setStep] = useState<AuditStep>(0);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [thankYouOpen, setThankYouOpen] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const startedAtRef = useRef<number | null>(null);
   const [started, setStarted] = useState(false);
+
+  useEffect(() => {
+    if (!thankYouOpen) return;
+    const t = window.setTimeout(() => {
+      router.push("/");
+    }, 2500);
+    return () => window.clearTimeout(t);
+  }, [thankYouOpen, router]);
 
   const [form, setForm] = useState({
     goal: "",
@@ -240,7 +249,8 @@ export default function AuditPage() {
         return;
       }
 
-      router.push("/audit/thanks");
+      setSubmitError(null);
+      setThankYouOpen(true);
     } catch {
       setSubmitError("Failed to submit. Payload saved locally.");
     } finally {
@@ -250,6 +260,34 @@ export default function AuditPage() {
 
   return (
     <div className="space-y-10">
+      {thankYouOpen ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-6">
+          <div className="w-full max-w-lg rounded-2xl border border-white/10 bg-[var(--ds-bg)] p-6 shadow-2xl">
+            <div className="space-y-2">
+              <div className="text-sm font-semibold tracking-wide text-[var(--ds-muted)]">Thank you</div>
+              <div className="text-xl font-semibold text-[var(--ds-text)]">
+                We received your request.
+              </div>
+              <div className="text-sm leading-6 text-[var(--ds-muted)]">
+                We’ll get back to you within a week. Redirecting you to the menu…
+              </div>
+            </div>
+
+            <div className="mt-6 flex items-center justify-end gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  setThankYouOpen(false);
+                  router.push("/");
+                }}
+                className="inline-flex w-fit rounded-full bg-[var(--color-blue)] px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-95"
+              >
+                Go to menu
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
       <SectionBand tone="accent" className="overflow-hidden">
         <div className="space-y-6">
           <div className="space-y-3">
