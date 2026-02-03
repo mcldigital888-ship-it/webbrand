@@ -4,7 +4,7 @@ import AuditProposalPdf from "@/lib/audit/pdf";
 import { getAuditPdfDir, getAuditPdfPath } from "@/lib/audit/storage";
 import { getAuditDownloadUrl } from "@/lib/audit/url";
 
-export async function generateAuditPdf(auditId: string) {
+export async function generateAuditPdf(auditId: string, opts?: { force?: boolean }) {
   const submission = await prisma.auditSubmission.findUnique({ where: { id: auditId } });
   if (!submission) {
     throw new Error("Not found");
@@ -25,9 +25,11 @@ export async function generateAuditPdf(auditId: string) {
     }
   };
 
-  if (submission.status === "GENERATED" && submission.pdfPath) {
-    if (await fileExists(submission.pdfPath)) {
-      return { pdfUrl: downloadUrl };
+  if (!opts?.force) {
+    if (submission.status === "GENERATED" && submission.pdfPath) {
+      if (await fileExists(submission.pdfPath)) {
+        return { pdfUrl: downloadUrl };
+      }
     }
   }
 

@@ -99,6 +99,63 @@ type AuditAnswers = {
   company: string;
 };
 
+async function sleep(ms: number) {
+  await new Promise((r) => setTimeout(r, ms));
+}
+
+async function fetchOpenAiWithRetry(input: AuditAnswers) {
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) {
+    throw new Error("Missing OPENAI_API_KEY");
+  }
+
+  const payload = {
+    model: "gpt-4o-mini",
+    temperature: 0.2,
+    response_format: { type: "json_object" as const },
+    messages: [
+      { role: "system" as const, content: "Return only valid JSON. No markdown." },
+      { role: "user" as const, content: buildPrompt(input) },
+    ],
+  };
+
+  const maxAttempts = 3;
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    const res = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (res.ok) return res;
+
+    const status = res.status;
+    const retryable = status === 429 || (status >= 500 && status <= 599);
+
+    let detail = "";
+    try {
+      const j = (await res.json().catch(() => null)) as any;
+      const msg = j?.error?.message;
+      const code = j?.error?.code;
+      detail = msg ? ` (${code ? `${code}: ` : ""}${msg})` : "";
+    } catch {
+      detail = "";
+    }
+
+    if (!retryable || attempt === maxAttempts) {
+      throw new Error(`OpenAI error: ${status}${detail}`);
+    }
+
+    const backoffMs = 800 * Math.pow(2, attempt - 1);
+    await sleep(backoffMs);
+  }
+
+  throw new Error("OpenAI error: retry exhausted");
+}
+
 function buildPrompt(input: AuditAnswers) {
   return [
     "You are WEBRRAND. You build revenue systems (not websites).",
@@ -115,31 +172,7 @@ function buildPrompt(input: AuditAnswers) {
 }
 
 export async function generateProposalPack(input: AuditAnswers): Promise<ProposalPack> {
-  const apiKey = process.env.OPENAI_API_KEY;
-  if (!apiKey) {
-    throw new Error("Missing OPENAI_API_KEY");
-  }
-
-  const res = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      model: "gpt-4o-mini",
-      temperature: 0.2,
-      response_format: { type: "json_object" },
-      messages: [
-        { role: "system", content: "Return only valid JSON. No markdown." },
-        { role: "user", content: buildPrompt(input) },
-      ],
-    }),
-  });
-
-  if (!res.ok) {
-    throw new Error(`OpenAI error: ${res.status}`);
-  }
+  const res = await fetchOpenAiWithRetry(input);
 
   const data = (await res.json().catch(() => null)) as
     | {

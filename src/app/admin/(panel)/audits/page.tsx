@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { prisma } from "@/lib/db";
 import { requireAdminPanel } from "@/lib/admin/rbac";
+import AuditPdfActionsClient from "@/app/admin/(panel)/audits/AuditPdfActionsClient";
 
 const PAGE_SIZE = 20;
 
@@ -131,6 +132,7 @@ export default async function AdminAuditsPage({
               <th className="px-4 py-3">Industry</th>
               <th className="px-4 py-3">Status</th>
               <th className="px-4 py-3">pdfPath</th>
+              <th className="px-4 py-3">Actions</th>
               <th className="px-4 py-3">Attempts</th>
               <th className="px-4 py-3">Last error</th>
             </tr>
@@ -177,6 +179,12 @@ export default async function AdminAuditsPage({
                   <Link href={`/admin/audits/${it.id}`} className="block">
                     {it.pdfPath || ""}
                   </Link>
+                </td>
+                <td className="px-4 py-3">
+                  <AuditPdfActionsClient
+                    auditId={it.id}
+                    initialPdfUrl={it.status === "GENERATED" && it.pdfPath ? `/api/audit/download?auditId=${encodeURIComponent(it.id)}` : null}
+                  />
                 </td>
                 <td className="px-4 py-3 text-[var(--ds-muted)]">
                   <Link href={`/admin/audits/${it.id}`} className="block">
