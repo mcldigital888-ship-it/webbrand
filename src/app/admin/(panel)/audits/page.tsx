@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { prisma } from "@/lib/db";
 import { requireAdminPanel } from "@/lib/admin/rbac";
 import AuditPdfActionsClient from "@/app/admin/(panel)/audits/AuditPdfActionsClient";
 
@@ -39,6 +38,7 @@ export default async function AdminAuditsPage({
   }> = [];
 
   try {
+    const { prisma } = await import("@/lib/db");
     const result = await Promise.all([
       prisma.auditSubmission.count({ where }),
       prisma.auditSubmission.findMany({
