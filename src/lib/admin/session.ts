@@ -52,9 +52,16 @@ export async function getAdminSession(): Promise<AdminSession | null> {
   const raw = jar.get(COOKIE_NAME)?.value;
   if (!raw) return null;
 
+  let secret: string;
+  try {
+    secret = getSecret();
+  } catch {
+    return null;
+  }
+
   try {
     const data = (await unsealData(raw, {
-      password: getSecret(),
+      password: secret,
     })) as AdminSession;
 
     if (!data || data.role !== "admin" || !data.user) return null;
