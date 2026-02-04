@@ -23,28 +23,62 @@ export default async function AdminAuditsPage({
   if (email.trim()) where.email = { contains: email.trim(), mode: "insensitive" };
   if (status.trim()) where.status = status.trim();
 
-  const [total, items] = await Promise.all([
-    prisma.auditSubmission.count({ where }),
-    prisma.auditSubmission.findMany({
-      where,
-      orderBy: { createdAt: sort === "asc" ? "asc" : "desc" },
-      skip: (page - 1) * PAGE_SIZE,
-      take: PAGE_SIZE,
-      select: {
-        id: true,
-        createdAt: true,
-        name: true,
-        email: true,
-        company: true,
-        businessType: true,
-        industry: true,
-        status: true,
-        pdfPath: true,
-        attemptCount: true,
-        lastError: true,
-      },
-    }),
-  ]);
+  let total = 0;
+  let items: Array<{
+    id: string;
+    createdAt: Date;
+    name: string;
+    email: string;
+    company: string | null;
+    businessType: string;
+    industry: string;
+    status: string;
+    pdfPath: string | null;
+    attemptCount: number;
+    lastError: string | null;
+  }> = [];
+
+  try {
+    const result = await Promise.all([
+      prisma.auditSubmission.count({ where }),
+      prisma.auditSubmission.findMany({
+        where,
+        orderBy: { createdAt: sort === "asc" ? "asc" : "desc" },
+        skip: (page - 1) * PAGE_SIZE,
+        take: PAGE_SIZE,
+        select: {
+          id: true,
+          createdAt: true,
+          name: true,
+          email: true,
+          company: true,
+          businessType: true,
+          industry: true,
+          status: true,
+          pdfPath: true,
+          attemptCount: true,
+          lastError: true,
+        },
+      }),
+    ]);
+
+    total = result[0];
+    items = result[1];
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    return (
+      <div className="space-y-4">
+        <div className="space-y-1">
+          <div className="text-sm font-semibold text-[var(--ds-text)]">Audits</div>
+          <div className="text-sm text-[var(--ds-muted)]">Failed to load audit submissions.</div>
+        </div>
+        <div className="rounded-2xl border border-red-500/20 bg-red-500/5 p-4 text-sm text-[var(--ds-text)]">
+          <div className="font-semibold">Server error</div>
+          <div className="mt-2 break-words font-mono text-xs text-[var(--ds-muted)]">{message}</div>
+        </div>
+      </div>
+    );
+  }
 
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
 
