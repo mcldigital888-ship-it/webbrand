@@ -58,6 +58,11 @@ export default async function AdminAuditPdfPage({
         auditId={item.id}
         initialProposalJson={(item.proposalJson as unknown) ?? null}
         initialPdfUrl={pdfUrl}
+        meta={{
+          company: item.company,
+          industry: item.industry,
+          goal: item.goal,
+        }}
       />
     </div>
   );
