@@ -1,14 +1,16 @@
 import type { MetadataRoute } from "next";
 import { caseStudies, insights } from "@/lib/content";
+import { absoluteUrl, localePath } from "@/lib/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://webbrand.com";
-
   const now = new Date();
 
+  const locales = ["it", "en"] as const;
+
   const staticRoutes = [
-    "",
+    "/",
     "/about",
+    "/audit",
     "/contact",
     "/plans",
     "/process",
@@ -16,23 +18,34 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/solutions",
     "/work",
     "/insights",
-    "/privacy",
+    "/terms",
+    "/thank-you",
   ];
 
-  const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((path) => ({
-    url: `${baseUrl}${path}`,
-    lastModified: now,
-  }));
+  const allPaths = [
+    ...staticRoutes,
+    ...caseStudies.map((c) => `/work/${c.slug}`),
+    ...insights.map((p) => `/insights/${p.slug}`),
+  ];
 
-  const workEntries: MetadataRoute.Sitemap = caseStudies.map((c) => ({
-    url: `${baseUrl}/work/${c.slug}`,
-    lastModified: now,
-  }));
+  const entries: MetadataRoute.Sitemap = locales.flatMap((locale) =>
+    allPaths.map((path) => {
+      const itAbs = absoluteUrl(localePath("it", path));
+      const enAbs = absoluteUrl(localePath("en", path));
 
-  const insightEntries: MetadataRoute.Sitemap = insights.map((p) => ({
-    url: `${baseUrl}/insights/${p.slug}`,
-    lastModified: now,
-  }));
+      return {
+        url: absoluteUrl(localePath(locale, path)),
+        lastModified: now,
+        alternates: {
+          languages: {
+            it: itAbs,
+            en: enAbs,
+            "x-default": itAbs,
+          },
+        },
+      };
+    })
+  );
 
-  return [...staticEntries, ...workEntries, ...insightEntries];
+  return entries;
 }

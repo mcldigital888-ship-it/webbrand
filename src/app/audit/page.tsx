@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { trackEvent } from "@/lib/tracking";
 import { getUtmFromUrl } from "@/lib/utm";
 import SectionBand from "@/components/SectionBand";
+import LocaleLink from "@/components/LocaleLink";
+import { useLocale } from "@/i18n/LocaleProvider";
 
 type AuditStep = 0 | 1 | 2 | 3;
 
@@ -25,6 +26,7 @@ type BiggestBottleneck =
 
 export default function AuditPage() {
   const router = useRouter();
+  const { t, locale } = useLocale();
   const [step, setStep] = useState<AuditStep>(0);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -36,10 +38,10 @@ export default function AuditPage() {
   useEffect(() => {
     if (!thankYouOpen) return;
     const t = window.setTimeout(() => {
-      router.push("/");
+      router.push(`/${locale}`);
     }, 2500);
     return () => window.clearTimeout(t);
-  }, [thankYouOpen, router]);
+  }, [thankYouOpen, router, locale]);
 
   const [form, setForm] = useState({
     goal: "",
@@ -64,13 +66,13 @@ export default function AuditPage() {
 
   const goalOptions = useMemo(
     () => [
-      { value: "more_leads", label: "I want more leads" },
-      { value: "more_sales", label: "I want more sales" },
-      { value: "automate_operations", label: "I want to automate operations" },
-      { value: "ai_for_business", label: "I want AI for my business" },
-      { value: "smart_retail_food", label: "I want smart retail / food system" },
+      { value: "more_leads", label: t("audit.goal.more_leads") },
+      { value: "more_sales", label: t("audit.goal.more_sales") },
+      { value: "automate_operations", label: t("audit.goal.automate_operations") },
+      { value: "ai_for_business", label: t("audit.goal.ai_for_business") },
+      { value: "smart_retail_food", label: t("audit.goal.smart_retail_food") },
     ],
-    []
+    [t]
   );
 
   const toolOptions = useMemo(
@@ -84,21 +86,21 @@ export default function AuditPage() {
       "POS",
       "WhatsApp",
       "Mailchimp",
-      "Other",
+      t("audit.tools.other"),
     ],
-    []
+    [t]
   );
 
   const painOptions = useMemo(
     () =>
       [
-        { value: "low_leads" as const, label: "Low leads" },
-        { value: "low_conversion" as const, label: "Low conversion" },
-        { value: "no_follow_up" as const, label: "No follow-up" },
-        { value: "manual_work" as const, label: "Manual work" },
-        { value: "no_visibility" as const, label: "No visibility" },
+        { value: "low_leads" as const, label: t("audit.pain.low_leads") },
+        { value: "low_conversion" as const, label: t("audit.pain.low_conversion") },
+        { value: "no_follow_up" as const, label: t("audit.pain.no_follow_up") },
+        { value: "manual_work" as const, label: t("audit.pain.manual_work") },
+        { value: "no_visibility" as const, label: t("audit.pain.no_visibility") },
       ] satisfies Array<{ value: PainPoint; label: string }>,
-    []
+    [t]
   );
 
   function setField<Name extends keyof typeof form>(name: Name, value: (typeof form)[Name]) {
@@ -138,35 +140,35 @@ export default function AuditPage() {
   function validateStep(s: AuditStep) {
     const next: Record<string, string> = {};
 
-    if (s >= 0 && !form.goal) next.goal = "Choose a goal.";
+    if (s >= 0 && !form.goal) next.goal = t("audit.validation.goal_required");
 
     if (s >= 1) {
-      if (!form.businessType.trim()) next.businessType = "Business type is required.";
-      if (!form.industry.trim()) next.industry = "Industry is required.";
-      if (!form.teamSize) next.teamSize = "Select team size.";
-      if (!form.monthlyRevenueRange) next.monthlyRevenueRange = "Select monthly revenue range.";
-      if (!form.primaryOffer.trim()) next.primaryOffer = "Primary offer is required.";
-      if (!form.avgTicketRange) next.avgTicketRange = "Select avg deal value / ticket range.";
-      if (!form.monthlyLeadVolumeRange) next.monthlyLeadVolumeRange = "Select monthly lead volume.";
+      if (!form.businessType.trim()) next.businessType = t("audit.validation.business_type_required");
+      if (!form.industry.trim()) next.industry = t("audit.validation.industry_required");
+      if (!form.teamSize) next.teamSize = t("audit.validation.team_size_required");
+      if (!form.monthlyRevenueRange) next.monthlyRevenueRange = t("audit.validation.monthly_revenue_required");
+      if (!form.primaryOffer.trim()) next.primaryOffer = t("audit.validation.primary_offer_required");
+      if (!form.avgTicketRange) next.avgTicketRange = t("audit.validation.avg_ticket_required");
+      if (!form.monthlyLeadVolumeRange) next.monthlyLeadVolumeRange = t("audit.validation.monthly_leads_required");
     }
 
     if (s >= 2) {
-      if (!form.pain || form.pain.length === 0) next.pain = "Select at least one pain point.";
-      if (!form.biggestBottleneck) next.biggestBottleneck = "Select the biggest bottleneck.";
-      if (!form.targetMarket) next.targetMarket = "Select target country/language.";
+      if (!form.pain || form.pain.length === 0) next.pain = t("audit.validation.pain_required");
+      if (!form.biggestBottleneck) next.biggestBottleneck = t("audit.validation.bottleneck_required");
+      if (!form.targetMarket) next.targetMarket = t("audit.validation.target_market_required");
     }
 
     if (s >= 3) {
-      if (!form.name.trim()) next.name = "Name is required.";
-      if (!form.email.trim()) next.email = "Email is required.";
+      if (!form.name.trim()) next.name = t("audit.validation.name_required");
+      if (!form.email.trim()) next.email = t("audit.validation.email_required");
       if (
         form.email.trim() &&
         !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())
       ) {
-        next.email = "Enter a valid email.";
+        next.email = t("audit.validation.email_invalid");
       }
-      if (!form.company.trim()) next.company = "Company is required.";
-      if (!form.consent) next.consent = "Consent is required.";
+      if (!form.company.trim()) next.company = t("audit.validation.company_required");
+      if (!form.consent) next.consent = t("audit.validation.consent_required");
     }
 
     return next;
@@ -186,6 +188,12 @@ export default function AuditPage() {
     setStep((s) => (s > 0 ? ((s - 1) as AuditStep) : s));
   }
 
+  function mapServerError(message: string) {
+    if (message === "Invalid payload") return t("audit.errors.invalid_payload");
+    if (message === "Server configuration error") return t("audit.errors.server_config_error");
+    return message;
+  }
+
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSubmitError(null);
@@ -194,7 +202,7 @@ export default function AuditPage() {
 
     const startedAt = startedAtRef.current;
     if (startedAt && Date.now() - startedAt < 1200) {
-      setSubmitError("Please wait a moment and try again.");
+      setSubmitError(t("audit.submit_wait"));
       return;
     }
 
@@ -245,14 +253,16 @@ export default function AuditPage() {
         | null;
 
       if (!res.ok || !data || data.ok === false) {
-        setSubmitError(data && data.ok === false ? data.error : "Failed to submit");
+        setSubmitError(
+          data && data.ok === false ? mapServerError(data.error) : t("audit.submit_failed")
+        );
         return;
       }
 
       setSubmitError(null);
       setThankYouOpen(true);
     } catch {
-      setSubmitError("Failed to submit. Payload saved locally.");
+      setSubmitError(t("audit.submit_failed_local"));
     } finally {
       setSubmitting(false);
     }
@@ -264,12 +274,14 @@ export default function AuditPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-6">
           <div className="w-full max-w-lg rounded-2xl border border-white/10 bg-[var(--ds-bg)] p-6 shadow-2xl">
             <div className="space-y-2">
-              <div className="text-sm font-semibold tracking-wide text-[var(--ds-muted)]">Thank you</div>
+              <div className="text-sm font-semibold tracking-wide text-[var(--ds-muted)]">
+                {t("audit.thank_you.kicker")}
+              </div>
               <div className="text-xl font-semibold text-[var(--ds-text)]">
-                We received your request.
+                {t("audit.thank_you.title")}
               </div>
               <div className="text-sm leading-6 text-[var(--ds-muted)]">
-                We’ll get back to you within a week. Redirecting you to the menu…
+                {t("audit.thank_you.subtitle")}
               </div>
             </div>
 
@@ -278,11 +290,11 @@ export default function AuditPage() {
                 type="button"
                 onClick={() => {
                   setThankYouOpen(false);
-                  router.push("/");
+                  router.push(`/${locale}`);
                 }}
                 className="inline-flex w-fit rounded-full bg-[var(--color-blue)] px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-95"
               >
-                Go to menu
+                {t("audit.thank_you.cta")}
               </button>
             </div>
           </div>
@@ -291,69 +303,74 @@ export default function AuditPage() {
       <SectionBand tone="accent" className="overflow-hidden">
         <div className="space-y-6">
           <div className="space-y-3">
-            <div className="text-sm font-semibold tracking-wide text-[var(--ds-muted)]">WEBRRAND</div>
+            <div className="text-sm font-semibold tracking-wide text-[var(--ds-muted)]">
+              {t("audit.hero.brand")}
+            </div>
             <h1 className="max-w-4xl font-[var(--font-display)] text-4xl font-semibold tracking-tight text-[var(--ds-text)] sm:text-6xl">
-              Get your full Revenue System Blueprint in 24 hours
+              {t("audit.hero.title")}
             </h1>
             <p className="max-w-3xl text-lg leading-8 text-[var(--ds-muted)]">
-              Answer a few strategic questions and Webbrand will generate your funnel map, CRM & automation plan, timeline,
-              and expected ROI.
+              {t("audit.hero.subtitle")}
             </p>
             <div className="flex flex-col gap-3 sm:flex-row">
               <a
                 href="#audit"
                 className="inline-flex w-fit rounded-full bg-[var(--color-blue)] px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-95"
               >
-                Start the 2-minute audit
+                {t("audit.hero.cta_primary")}
               </a>
-              <Link
+              <LocaleLink
                 href="/"
                 className="inline-flex w-fit rounded-full border border-white/15 bg-white/[0.02] px-6 py-3 text-sm font-semibold text-[var(--ds-text)] transition-colors hover:border-white/25 hover:bg-white/[0.04]"
               >
-                See the system
-              </Link>
+                {t("audit.hero.cta_secondary")}
+              </LocaleLink>
             </div>
           </div>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div className="ds-glass rounded-2xl p-6">
-              <div className="text-sm font-semibold text-[var(--ds-text)]">You will receive</div>
+              <div className="text-sm font-semibold text-[var(--ds-text)]">
+                {t("audit.you_will_receive.title")}
+              </div>
               <div className="mt-3 space-y-2 text-sm leading-6 text-[var(--ds-muted)]">
                 {[
-                  "Project Brief (goal, target, constraints)",
-                  "Funnel & Page Blueprint",
-                  "Deliverables & Timeline",
-                  "KPI & ROI estimate",
-                  "Modular price proposal",
-                ].map((t) => (
-                  <div key={t} className="flex gap-3">
+                  t("audit.you_will_receive.item_1"),
+                  t("audit.you_will_receive.item_2"),
+                  t("audit.you_will_receive.item_3"),
+                  t("audit.you_will_receive.item_4"),
+                  t("audit.you_will_receive.item_5"),
+                ].map((item) => (
+                  <div key={item} className="flex gap-3">
                     <div className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-blue)]" />
-                    <div>{t}</div>
+                    <div>{item}</div>
                   </div>
                 ))}
               </div>
             </div>
 
             <div className="ds-glass rounded-2xl p-6">
-              <div className="text-sm font-semibold text-[var(--ds-text)]">Built for your industry</div>
+              <div className="text-sm font-semibold text-[var(--ds-text)]">
+                {t("audit.industry.title")}
+              </div>
               <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
                 {[
-                  "Food & Hospitality",
-                  "Retail",
-                  "B2B Services",
-                  "Franchise",
-                  "Professionals",
-                ].map((t) => (
+                  t("audit.industry.badge_food"),
+                  t("audit.industry.badge_retail"),
+                  t("audit.industry.badge_b2b"),
+                  t("audit.industry.badge_franchise"),
+                  t("audit.industry.badge_pros"),
+                ].map((item) => (
                   <div
-                    key={t}
+                    key={item}
                     className="rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm font-semibold text-[var(--ds-text)]"
                   >
-                    {t}
+                    {item}
                   </div>
                 ))}
               </div>
               <p className="mt-4 text-sm leading-6 text-[var(--ds-muted)]">
-                Each system is pre-optimized for your sector with proven KPIs.
+                {t("audit.industry.note")}
               </p>
             </div>
           </div>
@@ -364,29 +381,29 @@ export default function AuditPage() {
         <div className="space-y-6">
           <div className="space-y-2">
             <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--ds-text)]">
-              Real results
+              {t("audit.results.title")}
             </h2>
             <p className="max-w-3xl text-sm leading-6 text-[var(--ds-muted)]">
-              Outcomes when the full system is installed — not just a website.
+              {t("audit.results.subtitle")}
             </p>
           </div>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
             <div className="ds-glass rounded-2xl p-6">
               <div className="text-3xl font-semibold tracking-tight text-[var(--ds-text)]">+127%</div>
-              <div className="mt-2 text-sm leading-6 text-[var(--ds-muted)]">Qualified leads (E-commerce)</div>
+              <div className="mt-2 text-sm leading-6 text-[var(--ds-muted)]">{t("audit.results.card_1")}</div>
             </div>
             <div className="ds-glass rounded-2xl p-6">
               <div className="text-3xl font-semibold tracking-tight text-[var(--ds-text)]">–43%</div>
-              <div className="mt-2 text-sm leading-6 text-[var(--ds-muted)]">Sales cycle (B2B)</div>
+              <div className="mt-2 text-sm leading-6 text-[var(--ds-muted)]">{t("audit.results.card_2")}</div>
             </div>
             <div className="ds-glass rounded-2xl p-6">
               <div className="text-3xl font-semibold tracking-tight text-[var(--ds-text)]">+18%</div>
-              <div className="mt-2 text-sm leading-6 text-[var(--ds-muted)]">Average ticket (Restaurant)</div>
+              <div className="mt-2 text-sm leading-6 text-[var(--ds-muted)]">{t("audit.results.card_3")}</div>
             </div>
             <div className="ds-glass rounded-2xl p-6">
               <div className="text-3xl font-semibold tracking-tight text-[var(--ds-text)]">–64%</div>
-              <div className="mt-2 text-sm leading-6 text-[var(--ds-muted)]">No-show (Hotel)</div>
+              <div className="mt-2 text-sm leading-6 text-[var(--ds-muted)]">{t("audit.results.card_4")}</div>
             </div>
           </div>
         </div>
@@ -396,20 +413,20 @@ export default function AuditPage() {
         <div className="space-y-6">
           <div className="space-y-2">
             <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--ds-text)]">
-              System, not tools
+              {t("audit.system.title")}
             </h2>
             <p className="max-w-3xl text-sm leading-6 text-[var(--ds-muted)]">
-              We don’t sell tools. We install revenue systems.
+              {t("audit.system.subtitle")}
             </p>
           </div>
 
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-5">
             {[
-              "Web",
-              "Marketing",
-              "CRM",
-              "AI",
-              "Integrations",
+              t("audit.system.badge_web"),
+              t("audit.system.badge_marketing"),
+              t("audit.system.badge_crm"),
+              t("audit.system.badge_ai"),
+              t("audit.system.badge_integrations"),
             ].map((m) => (
               <div
                 key={m}
@@ -421,7 +438,7 @@ export default function AuditPage() {
           </div>
 
           <p className="text-sm leading-6 text-[var(--ds-muted)]">
-            Everything works together in one measurable system.
+            {t("audit.system.note")}
           </p>
         </div>
       </SectionBand>
@@ -430,10 +447,10 @@ export default function AuditPage() {
         <div id="audit" className="scroll-mt-24 space-y-6">
           <div className="space-y-2">
             <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--ds-text)]">
-              Start the 2-minute audit
+              {t("audit.title")}
             </h2>
             <p className="max-w-3xl text-sm leading-6 text-[var(--ds-muted)]">
-              This is a diagnostic funnel — not a contact form.
+              {t("audit.subtitle")}
             </p>
           </div>
 
@@ -460,7 +477,7 @@ export default function AuditPage() {
 
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div className="text-xs font-semibold tracking-wide text-[var(--ds-muted)]">
-                  Step {step + 1} / 4
+                  {t("audit.form.step_progress", { step: step + 1, total: 4 })}
                 </div>
                 <div className="h-2 w-full overflow-hidden rounded-full border border-white/10 bg-[var(--ds-line)] sm:max-w-xs">
                   <div
@@ -472,7 +489,9 @@ export default function AuditPage() {
 
               {step === 0 ? (
                 <div className="space-y-3">
-                  <div className="text-sm font-semibold text-[var(--ds-text)]">Step 1 — Choose your goal</div>
+                  <div className="text-sm font-semibold text-[var(--ds-text)]">
+                    {t("audit.form.step_1_title")}
+                  </div>
                   {errors.goal ? (
                     <div className="text-xs font-medium text-[var(--ds-muted)]">{errors.goal}</div>
                   ) : null}
@@ -499,16 +518,20 @@ export default function AuditPage() {
 
               {step === 1 ? (
                 <div className="space-y-5">
-                  <div className="text-sm font-semibold text-[var(--ds-text)]">Step 2 — Your business</div>
+                  <div className="text-sm font-semibold text-[var(--ds-text)]">
+                    {t("audit.form.step_2_title")}
+                  </div>
 
                   <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <div className="space-y-2">
-                      <label className="text-xs font-semibold tracking-wide text-[var(--ds-muted)]">Business type</label>
+                      <label className="text-xs font-semibold tracking-wide text-[var(--ds-muted)]">
+                        {t("audit.form.business_type")}
+                      </label>
                       <input
                         value={form.businessType}
                         onChange={(e) => setField("businessType", e.target.value)}
                         className="ds-input"
-                        placeholder="e.g., agency, restaurant group, service company"
+                        placeholder={t("audit.form.business_type_placeholder")}
                       />
                       {errors.businessType ? (
                         <div className="text-xs font-medium text-[var(--ds-muted)]">{errors.businessType}</div>
@@ -516,12 +539,14 @@ export default function AuditPage() {
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-xs font-semibold tracking-wide text-[var(--ds-muted)]">Industry</label>
+                      <label className="text-xs font-semibold tracking-wide text-[var(--ds-muted)]">
+                        {t("audit.form.industry")}
+                      </label>
                       <input
                         value={form.industry}
                         onChange={(e) => setField("industry", e.target.value)}
                         className="ds-input"
-                        placeholder="e.g., retail, hospitality, B2B services"
+                        placeholder={t("audit.form.industry_placeholder")}
                       />
                       {errors.industry ? (
                         <div className="text-xs font-medium text-[var(--ds-muted)]">{errors.industry}</div>
@@ -530,13 +555,13 @@ export default function AuditPage() {
 
                     <div className="space-y-2 md:col-span-2">
                       <label className="text-xs font-semibold tracking-wide text-[var(--ds-muted)]">
-                        Primary offer (what do you sell?)
+                        {t("audit.form.primary_offer")}
                       </label>
                       <input
                         value={form.primaryOffer}
                         onChange={(e) => setField("primaryOffer", e.target.value)}
                         className="ds-input"
-                        placeholder="e.g., monthly retainers, dinners, consultations, subscriptions"
+                        placeholder={t("audit.form.primary_offer_placeholder")}
                       />
                       {errors.primaryOffer ? (
                         <div className="text-xs font-medium text-[var(--ds-muted)]">{errors.primaryOffer}</div>
@@ -544,13 +569,15 @@ export default function AuditPage() {
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-xs font-semibold tracking-wide text-[var(--ds-muted)]">Team size</label>
+                      <label className="text-xs font-semibold tracking-wide text-[var(--ds-muted)]">
+                        {t("audit.form.team_size")}
+                      </label>
                       <select
                         value={form.teamSize}
                         onChange={(e) => setField("teamSize", e.target.value)}
                         className="ds-input"
                       >
-                        <option value="">Select…</option>
+                        <option value="">{t("audit.form.select")}</option>
                         {[
                           "1-5",
                           "6-20",
@@ -570,14 +597,14 @@ export default function AuditPage() {
 
                     <div className="space-y-2">
                       <label className="text-xs font-semibold tracking-wide text-[var(--ds-muted)]">
-                        Monthly revenue range
+                        {t("audit.form.monthly_revenue")}
                       </label>
                       <select
                         value={form.monthlyRevenueRange}
                         onChange={(e) => setField("monthlyRevenueRange", e.target.value)}
                         className="ds-input"
                       >
-                        <option value="">Select…</option>
+                        <option value="">{t("audit.form.select")}</option>
                         {[
                           "< €10k",
                           "€10k–€50k",
@@ -597,14 +624,14 @@ export default function AuditPage() {
 
                     <div className="space-y-2">
                       <label className="text-xs font-semibold tracking-wide text-[var(--ds-muted)]">
-                        Avg deal value / ticket
+                        {t("audit.form.avg_ticket")}
                       </label>
                       <select
                         value={form.avgTicketRange}
                         onChange={(e) => setField("avgTicketRange", e.target.value)}
                         className="ds-input"
                       >
-                        <option value="">Select…</option>
+                        <option value="">{t("audit.form.select")}</option>
                         {["< €50", "€50–€200", "€200–€1k", "€1k–€10k", "€10k+"].map((v) => (
                           <option key={v} value={v}>
                             {v}
@@ -618,14 +645,14 @@ export default function AuditPage() {
 
                     <div className="space-y-2">
                       <label className="text-xs font-semibold tracking-wide text-[var(--ds-muted)]">
-                        Monthly lead volume
+                        {t("audit.form.monthly_leads")}
                       </label>
                       <select
                         value={form.monthlyLeadVolumeRange}
                         onChange={(e) => setField("monthlyLeadVolumeRange", e.target.value)}
                         className="ds-input"
                       >
-                        <option value="">Select…</option>
+                        <option value="">{t("audit.form.select")}</option>
                         {["0–10", "10–50", "50–200", "200–1,000", "1,000+"].map((v) => (
                           <option key={v} value={v}>
                             {v}
@@ -642,8 +669,12 @@ export default function AuditPage() {
 
               {step === 2 ? (
                 <div className="space-y-3">
-                  <div className="text-sm font-semibold text-[var(--ds-text)]">Step 3 — Pain</div>
-                  <div className="text-sm leading-6 text-[var(--ds-muted)]">Where do you lose money today?</div>
+                  <div className="text-sm font-semibold text-[var(--ds-text)]">
+                    {t("audit.form.step_3_title")}
+                  </div>
+                  <div className="text-sm leading-6 text-[var(--ds-muted)]">
+                    {t("audit.form.step_3_subtitle")}
+                  </div>
                   {errors.pain ? (
                     <div className="text-xs font-medium text-[var(--ds-muted)]">{errors.pain}</div>
                   ) : null}
@@ -668,18 +699,20 @@ export default function AuditPage() {
                   <div className="pt-2" />
 
                   <div className="space-y-2">
-                    <div className="text-sm font-semibold text-[var(--ds-text)]">Biggest bottleneck</div>
+                    <div className="text-sm font-semibold text-[var(--ds-text)]">
+                      {t("audit.form.bottleneck")}
+                    </div>
                     {errors.biggestBottleneck ? (
                       <div className="text-xs font-medium text-[var(--ds-muted)]">{errors.biggestBottleneck}</div>
                     ) : null}
                     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                       {(
                         [
-                          { value: "traffic", label: "Traffic" },
-                          { value: "conversion", label: "Conversion" },
-                          { value: "follow_up", label: "Follow-up" },
-                          { value: "ops", label: "Ops" },
-                          { value: "visibility", label: "Visibility" },
+                          { value: "traffic", label: t("audit.bottleneck.traffic") },
+                          { value: "conversion", label: t("audit.bottleneck.conversion") },
+                          { value: "follow_up", label: t("audit.bottleneck.follow_up") },
+                          { value: "ops", label: t("audit.bottleneck.ops") },
+                          { value: "visibility", label: t("audit.bottleneck.visibility") },
                         ] as const
                       ).map((o) => (
                         <label
@@ -701,7 +734,9 @@ export default function AuditPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <div className="text-sm font-semibold text-[var(--ds-text)]">Tools you use today</div>
+                    <div className="text-sm font-semibold text-[var(--ds-text)]">
+                      {t("audit.form.tools_used")}
+                    </div>
                     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                       {toolOptions.map((t) => (
                         <label
@@ -721,7 +756,9 @@ export default function AuditPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <div className="text-sm font-semibold text-[var(--ds-text)]">Target country/language</div>
+                    <div className="text-sm font-semibold text-[var(--ds-text)]">
+                      {t("audit.form.target_market")}
+                    </div>
                     {errors.targetMarket ? (
                       <div className="text-xs font-medium text-[var(--ds-muted)]">{errors.targetMarket}</div>
                     ) : null}
@@ -752,16 +789,20 @@ export default function AuditPage() {
 
               {step === 3 ? (
                 <div className="space-y-5">
-                  <div className="text-sm font-semibold text-[var(--ds-text)]">Step 4 — Contact</div>
+                  <div className="text-sm font-semibold text-[var(--ds-text)]">
+                    {t("audit.form.step_4_title")}
+                  </div>
 
                   <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <div className="space-y-2">
-                      <label className="text-xs font-semibold tracking-wide text-[var(--ds-muted)]">Name</label>
+                      <label className="text-xs font-semibold tracking-wide text-[var(--ds-muted)]">
+                        {t("audit.form.name")}
+                      </label>
                       <input
                         value={form.name}
                         onChange={(e) => setField("name", e.target.value)}
                         className="ds-input"
-                        placeholder="Your name"
+                        placeholder={t("audit.form.name_placeholder")}
                       />
                       {errors.name ? (
                         <div className="text-xs font-medium text-[var(--ds-muted)]">{errors.name}</div>
@@ -769,12 +810,14 @@ export default function AuditPage() {
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-xs font-semibold tracking-wide text-[var(--ds-muted)]">Email</label>
+                      <label className="text-xs font-semibold tracking-wide text-[var(--ds-muted)]">
+                        {t("audit.form.email")}
+                      </label>
                       <input
                         value={form.email}
                         onChange={(e) => setField("email", e.target.value)}
                         className="ds-input"
-                        placeholder="you@company.com"
+                        placeholder={t("audit.form.email_placeholder")}
                       />
                       {errors.email ? (
                         <div className="text-xs font-medium text-[var(--ds-muted)]">{errors.email}</div>
@@ -782,12 +825,14 @@ export default function AuditPage() {
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-xs font-semibold tracking-wide text-[var(--ds-muted)]">Company</label>
+                      <label className="text-xs font-semibold tracking-wide text-[var(--ds-muted)]">
+                        {t("audit.form.company")}
+                      </label>
                       <input
                         value={form.company}
                         onChange={(e) => setField("company", e.target.value)}
                         className="ds-input"
-                        placeholder="Company name"
+                        placeholder={t("audit.form.company_placeholder")}
                       />
                       {errors.company ? (
                         <div className="text-xs font-medium text-[var(--ds-muted)]">{errors.company}</div>
@@ -796,13 +841,13 @@ export default function AuditPage() {
 
                     <div className="space-y-2">
                       <label className="text-xs font-semibold tracking-wide text-[var(--ds-muted)]">
-                        WhatsApp (optional)
+                        {t("audit.form.whatsapp")}
                       </label>
                       <input
                         value={form.whatsapp}
                         onChange={(e) => setField("whatsapp", e.target.value)}
                         className="ds-input"
-                        placeholder="+39 ..."
+                        placeholder={t("audit.form.whatsapp_placeholder")}
                       />
                     </div>
                   </div>
@@ -816,7 +861,7 @@ export default function AuditPage() {
                         className="mt-1 h-4 w-4"
                       />
                       <span className="text-sm text-[var(--ds-muted)]">
-                        I agree to be contacted about this audit.
+                        {t("audit.form.consent")}
                       </span>
                     </label>
                     {errors.consent ? (
@@ -840,7 +885,7 @@ export default function AuditPage() {
                       onClick={prevStep}
                       className="inline-flex w-fit rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-[var(--ds-text)] transition-colors hover:border-white/25 hover:bg-white/[0.04]"
                     >
-                      Back
+                      {t("audit.form.back")}
                     </button>
                   ) : null}
                 </div>
@@ -851,7 +896,7 @@ export default function AuditPage() {
                     onClick={nextStep}
                     className="inline-flex w-fit rounded-full bg-[var(--color-blue)] px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-95"
                   >
-                    Continue
+                    {t("audit.form.continue")}
                   </button>
                 ) : (
                   <button
@@ -859,7 +904,7 @@ export default function AuditPage() {
                     disabled={submitting}
                     className="inline-flex w-fit rounded-full bg-[var(--color-blue)] px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-95 disabled:opacity-60"
                   >
-                    {submitting ? "Submitting…" : "Generate my blueprint"}
+                    {submitting ? t("audit.form.submitting") : t("audit.form.submit")}
                   </button>
                 )}
               </div>

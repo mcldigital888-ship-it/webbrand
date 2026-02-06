@@ -1,6 +1,6 @@
 "use client";
 
-import { useLanguage } from "@/components/LangToggle";
+import { useLocale } from "@/i18n/LocaleProvider";
 
 export default function Bilingual({
   en,
@@ -9,6 +9,6 @@ export default function Bilingual({
   en: React.ReactNode;
   it: React.ReactNode;
 }) {
-  const { lang } = useLanguage();
-  return <>{lang === "it" ? it : en}</>;
+  const { locale } = useLocale();
+  return <>{locale === "it" ? it : en}</>;
 }

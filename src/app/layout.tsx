@@ -1,12 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
-import { LanguageProvider } from "@/components/LangToggle";
-import TrackingClient from "@/components/TrackingClient";
-import CookieBanner from "@/components/CookieBanner";
-import ChatWidget from "@/components/ChatWidget";
+import { dictionaries } from "@/i18n/dictionaries";
+import { LocaleProvider } from "@/i18n/LocaleProvider";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -37,20 +33,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="it">
       <body
         className={`${inter.variable} ${spaceGrotesk.variable} antialiased`}
       >
-        <LanguageProvider>
-          <TrackingClient />
-          <Navbar />
-          <main className="mx-auto w-full max-w-6xl px-4 py-14">
-            {children}
-          </main>
-          <Footer />
-          <CookieBanner />
-          <ChatWidget />
-        </LanguageProvider>
+        <LocaleProvider locale="it" dict={dictionaries.it}>
+          {children}
+        </LocaleProvider>
       </body>
     </html>
   );
