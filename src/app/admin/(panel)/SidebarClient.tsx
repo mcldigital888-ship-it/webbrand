@@ -16,8 +16,8 @@ type Group = {
 
 function cls(active: boolean) {
   return active
-    ? "flex items-center gap-2 rounded-xl bg-[var(--color-background)] px-3 py-2 text-[var(--color-navy)]"
-    : "flex items-center gap-2 rounded-xl px-3 py-2 text-[var(--color-slate)] hover:bg-[var(--color-background)] hover:text-[var(--color-navy)]";
+    ? "flex items-center gap-2 rounded-xl bg-[var(--color-background)] px-3 py-2 text-[var(--ds-text)]"
+    : "flex items-center gap-2 rounded-xl px-3 py-2 text-[var(--ds-muted)] hover:bg-[var(--color-background)] hover:text-[var(--ds-text)]";
 }
 
 function IconWrap({ children }: { children: React.ReactNode }) {
@@ -204,7 +204,7 @@ export default function SidebarClient() {
     <nav className="space-y-4 text-sm">
       {groups.map((g) => (
         <div key={g.title}>
-          <div className="px-3 pb-1 text-[11px] font-semibold tracking-wide text-[var(--color-slate)]">
+          <div className="px-3 pb-1 text-[11px] font-semibold tracking-wide text-[var(--ds-muted)]">
             {g.title}
           </div>
           <div className="space-y-1">

@@ -78,42 +78,42 @@ export default function AdminLoginClient({
     <div className="min-h-[calc(100vh-4rem)] bg-[var(--color-background)] px-4 py-10">
       <div className="mx-auto w-full max-w-md">
         <div className="flex items-center justify-between">
-          <div className="text-sm font-semibold text-[var(--color-navy)]">{copy.top}</div>
+          <div className="text-sm font-semibold text-[var(--ds-text)]">{copy.top}</div>
           <AdminLangToggleClient value={lang} onChange={setLang} />
         </div>
 
-        <div className="mt-4 rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6 shadow-sm">
+        <div className="mt-4 rounded-2xl border border-[var(--ds-border)] bg-[var(--color-surface)] p-6 shadow-sm">
           <div className="space-y-2">
-            <h1 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--color-navy)]">
+            <h1 className="font-[var(--font-display)] text-3xl font-semibold tracking-tight text-[var(--ds-text)]">
               {copy.title}
             </h1>
-            <div className="text-sm text-[var(--color-slate)]">{copy.note}</div>
+            <div className="text-sm text-[var(--ds-muted)]">{copy.note}</div>
           </div>
 
           <form onSubmit={onSubmit} className="mt-6 space-y-4">
             <label className="block space-y-2">
-              <div className="text-sm font-semibold text-[var(--color-navy)]">{copy.fieldUser}</div>
+              <div className="text-sm font-semibold text-[var(--ds-text)]">{copy.fieldUser}</div>
               <input
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="h-11 w-full rounded-xl border border-white/10 bg-[var(--color-background)] px-3 text-sm text-[var(--ds-text)] caret-[var(--ds-text)] outline-none placeholder:text-[var(--ds-muted)] focus:border-[var(--color-blue)]"
+                className="h-11 w-full rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface-2)] px-3 text-sm text-[var(--ds-text)] caret-[var(--ds-text)] outline-none placeholder:text-[var(--ds-muted)]"
                 autoComplete="username"
               />
             </label>
 
             <label className="block space-y-2">
-              <div className="text-sm font-semibold text-[var(--color-navy)]">{copy.fieldPass}</div>
+              <div className="text-sm font-semibold text-[var(--ds-text)]">{copy.fieldPass}</div>
               <input
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="h-11 w-full rounded-xl border border-white/10 bg-[var(--color-background)] px-3 text-sm text-[var(--ds-text)] caret-[var(--ds-text)] outline-none placeholder:text-[var(--ds-muted)] focus:border-[var(--color-blue)]"
+                className="h-11 w-full rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface-2)] px-3 text-sm text-[var(--ds-text)] caret-[var(--ds-text)] outline-none placeholder:text-[var(--ds-muted)]"
                 type="password"
                 autoComplete="current-password"
               />
             </label>
 
             {error ? (
-              <div className="rounded-xl border border-black/5 bg-[var(--color-background)] px-4 py-3 text-sm text-[var(--color-slate)]">
+              <div className="rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface-2)] px-4 py-3 text-sm text-[var(--ds-muted)]">
                 {error}
               </div>
             ) : null}

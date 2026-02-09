@@ -54,7 +54,7 @@ function Card({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-2xl border border-black/5 bg-[var(--color-surface)] p-6 shadow-sm">
+    <div className="rounded-2xl border border-[var(--ds-border)] bg-[var(--color-surface)] p-6 shadow-sm">
       <div className="text-sm font-semibold text-[var(--ds-text)]">{title}</div>
       <div className="mt-4">{children}</div>
     </div>
@@ -65,7 +65,7 @@ function PillLink({ href, children }: { href: string; children: React.ReactNode 
   return (
     <Link
       href={href}
-      className="inline-flex w-fit rounded-full border border-white/15 bg-white/[0.02] px-4 py-2 text-sm font-semibold text-[var(--ds-text)] transition-colors hover:border-white/25 hover:bg-white/[0.04]"
+      className="inline-flex w-fit rounded-full border border-[var(--ds-border)] bg-[var(--ds-surface)] px-4 py-2 text-sm font-semibold text-[var(--ds-text)] transition-colors hover:bg-[var(--ds-surface-2)]"
     >
       {children}
     </Link>
@@ -110,7 +110,7 @@ export default function AdminDashboardClient({
               type="button"
               onClick={logout}
               disabled={loggingOut}
-              className="inline-flex rounded-full border border-white/15 bg-white/[0.02] px-4 py-2 text-sm font-semibold text-[var(--ds-text)] hover:border-white/25 hover:bg-white/[0.04] disabled:opacity-60"
+              className="inline-flex rounded-full border border-[var(--ds-border)] bg-[var(--ds-surface)] px-4 py-2 text-sm font-semibold text-[var(--ds-text)] hover:bg-[var(--ds-surface-2)] disabled:opacity-60"
             >
               {loggingOut ? "…" : copy.logout}
             </button>
@@ -132,6 +132,7 @@ export default function AdminDashboardClient({
             <Card title={copy.blogTitle}>
               <div className="flex flex-wrap gap-2">
                 <PillLink href="/admin/blog/generate">{copy.blogGenerate}</PillLink>
+                <PillLink href="/admin/blog/auto-generator">Auto Blog Generator</PillLink>
                 <PillLink href="/admin/blog/products">{copy.blogProducts}</PillLink>
                 <PillLink href="/admin/blog/queue">{copy.blogQueue}</PillLink>
               </div>
@@ -140,21 +141,29 @@ export default function AdminDashboardClient({
 
           <div className="grid grid-cols-1 gap-4">
             <Card title={copy.statusTitle}>
-              <div className="text-sm text-[var(--color-slate)]">OK (placeholder)</div>
+              <div className="text-sm text-[var(--ds-muted)]">OK (placeholder)</div>
             </Card>
             <Card title={copy.lastRunTitle}>
-              <div className="text-sm text-[var(--color-slate)]">—</div>
+              <div className="text-sm text-[var(--ds-muted)]">—</div>
             </Card>
             <Card title={copy.errorsTitle}>
-              <div className="text-sm text-[var(--color-slate)]">0</div>
+              <div className="text-sm text-[var(--ds-muted)]">0</div>
             </Card>
             <Card title={copy.auditsQuickTitle}>
-              <Link
-                href="/admin/audits"
-                className="inline-flex w-fit rounded-full bg-[var(--color-blue)] px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-95"
-              >
-                {copy.auditsQuickCta}
-              </Link>
+              <div className="flex flex-wrap gap-2">
+                <Link
+                  href="/admin/audits"
+                  className="inline-flex w-fit rounded-full bg-[var(--color-blue)] px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-95"
+                >
+                  {copy.auditsQuickCta}
+                </Link>
+                <Link
+                  href="/admin/blog/auto-generator"
+                  className="inline-flex w-fit rounded-full border border-[var(--ds-border)] bg-[var(--ds-surface)] px-5 py-2.5 text-sm font-semibold text-[var(--ds-text)] transition-colors hover:bg-[var(--ds-surface-2)]"
+                >
+                  Auto Blog Generator
+                </Link>
+              </div>
             </Card>
           </div>
         </div>

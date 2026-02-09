@@ -10,7 +10,7 @@ export default function AdminLangToggleClient({
   onChange: (next: AdminLang) => void;
 }) {
   return (
-    <div className="inline-flex rounded-full border border-black/10 bg-white/60 p-1 text-xs font-semibold text-[var(--color-navy)]">
+    <div className="inline-flex rounded-full border border-[var(--ds-border)] bg-[var(--ds-surface)] p-1 text-xs font-semibold text-[var(--ds-text)]">
       <button
         type="button"
         onClick={() => onChange("en")}

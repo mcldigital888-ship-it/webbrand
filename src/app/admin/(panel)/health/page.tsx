@@ -21,32 +21,32 @@ export default async function AdminHealthPage() {
   return (
     <div className="space-y-6">
       <div className="space-y-1">
-        <div className="text-sm font-semibold text-[var(--color-navy)]">Health</div>
-        <div className="text-sm text-[var(--color-slate)]">
+        <div className="text-sm font-semibold text-[var(--ds-text)]">Health</div>
+        <div className="text-sm text-[var(--ds-muted)]">
           If localhost links don’t work, use this page to verify base URL, API and DB.
         </div>
       </div>
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="rounded-2xl border border-black/5 bg-white p-5">
-          <div className="text-xs font-semibold text-[var(--color-slate)]">Base URL</div>
-          <div className="mt-2 break-all text-sm font-semibold text-[var(--color-navy)]">{baseUrl}</div>
+        <div className="rounded-2xl border border-[var(--ds-border)] bg-[var(--ds-surface)] p-5">
+          <div className="text-xs font-semibold text-[var(--ds-muted)]">Base URL</div>
+          <div className="mt-2 break-all text-sm font-semibold text-[var(--ds-text)]">{baseUrl}</div>
         </div>
-        <div className="rounded-2xl border border-black/5 bg-white p-5">
-          <div className="text-xs font-semibold text-[var(--color-slate)]">DB counts</div>
-          <div className="mt-2 text-sm text-[var(--color-navy)]">Leads: {leadCount}</div>
-          <div className="text-sm text-[var(--color-navy)]">Deals: {dealCount}</div>
-          <div className="text-sm text-[var(--color-navy)]">Events: {eventCount}</div>
-          <div className="text-sm text-[var(--color-navy)]">Logs: {logCount}</div>
+        <div className="rounded-2xl border border-[var(--ds-border)] bg-[var(--ds-surface)] p-5">
+          <div className="text-xs font-semibold text-[var(--ds-muted)]">DB counts</div>
+          <div className="mt-2 text-sm text-[var(--ds-text)]">Leads: {leadCount}</div>
+          <div className="text-sm text-[var(--ds-text)]">Deals: {dealCount}</div>
+          <div className="text-sm text-[var(--ds-text)]">Events: {eventCount}</div>
+          <div className="text-sm text-[var(--ds-text)]">Logs: {logCount}</div>
         </div>
-        <div className="rounded-2xl border border-black/5 bg-white p-5">
-          <div className="text-xs font-semibold text-[var(--color-slate)]">Environment</div>
-          <div className="mt-2 text-sm text-[var(--color-navy)]">NODE_ENV: {process.env.NODE_ENV}</div>
-          <div className="text-sm text-[var(--color-navy)]">DB: sqlite</div>
+        <div className="rounded-2xl border border-[var(--ds-border)] bg-[var(--ds-surface)] p-5">
+          <div className="text-xs font-semibold text-[var(--ds-muted)]">Environment</div>
+          <div className="mt-2 text-sm text-[var(--ds-text)]">NODE_ENV: {process.env.NODE_ENV}</div>
+          <div className="text-sm text-[var(--ds-text)]">DB: sqlite</div>
         </div>
-        <div className="rounded-2xl border border-black/5 bg-white p-5">
-          <div className="text-xs font-semibold text-[var(--color-slate)]">Last event</div>
-          <div className="mt-2 text-sm text-[var(--color-navy)]">(use viewer for details)</div>
+        <div className="rounded-2xl border border-[var(--ds-border)] bg-[var(--ds-surface)] p-5">
+          <div className="text-xs font-semibold text-[var(--ds-muted)]">Last event</div>
+          <div className="mt-2 text-sm text-[var(--ds-text)]">(use viewer for details)</div>
         </div>
       </div>
 

@@ -5,8 +5,8 @@ export default async function AdminActivityLogsPage() {
 
   return (
     <div className="space-y-2">
-      <div className="text-sm font-semibold text-[var(--color-navy)]">Activity Logs</div>
-      <div className="text-sm text-[var(--color-slate)]">Coming next.</div>
+      <div className="text-sm font-semibold text-[var(--ds-text)]">Activity Logs</div>
+      <div className="text-sm text-[var(--ds-muted)]">Coming next.</div>
     </div>
   );
 }

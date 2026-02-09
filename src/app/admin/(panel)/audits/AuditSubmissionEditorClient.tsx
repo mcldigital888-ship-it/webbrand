@@ -138,14 +138,14 @@ export default function AuditSubmissionEditorClient({ initialItem }: { initialIt
 
   return (
     <div className="space-y-4">
-      <div className="rounded-2xl border border-white/10 bg-[var(--color-surface)] p-5">
+      <div className="rounded-2xl border border-[var(--ds-border)] bg-[var(--color-surface)] p-5">
         <div className="space-y-1">
           <div className="text-sm font-semibold text-[var(--ds-text)]">Meta</div>
           <div className="text-xs text-[var(--ds-muted)]">Edit fields and press Save.</div>
         </div>
 
-        {error ? <div className="mt-3 text-sm text-red-600">{error}</div> : null}
-        {ok ? <div className="mt-3 text-sm text-emerald-700">{ok}</div> : null}
+        {error ? <div className="mt-3 text-sm text-red-400">{error}</div> : null}
+        {ok ? <div className="mt-3 text-sm text-emerald-300">{ok}</div> : null}
 
         <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">
           <label className="space-y-1">
@@ -153,7 +153,7 @@ export default function AuditSubmissionEditorClient({ initialItem }: { initialIt
             <select
               value={item.status}
               onChange={(e) => setItem((p) => ({ ...p, status: e.target.value as AuditStatus }))}
-              className="h-10 w-full rounded-xl border border-white/10 bg-[var(--color-background)] px-3 text-sm text-[var(--ds-text)] outline-none focus:border-[var(--color-blue)]"
+              className="h-10 w-full rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface-2)] px-3 text-sm text-[var(--ds-text)] outline-none"
             >
               <option value="RECEIVED">RECEIVED</option>
               <option value="GENERATED">GENERATED</option>
@@ -172,7 +172,7 @@ export default function AuditSubmissionEditorClient({ initialItem }: { initialIt
                   attemptCount: Number.parseInt(e.target.value || "0", 10) || 0,
                 }))
               }
-              className="h-10 w-full rounded-xl border border-white/10 bg-[var(--color-background)] px-3 text-sm text-[var(--ds-text)] outline-none focus:border-[var(--color-blue)]"
+              className="h-10 w-full rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface-2)] px-3 text-sm text-[var(--ds-text)] outline-none"
             />
             <div className="text-[11px] text-[var(--ds-muted)]">Retries for PDF generation.</div>
           </label>
@@ -182,7 +182,7 @@ export default function AuditSubmissionEditorClient({ initialItem }: { initialIt
             <input
               value={item.pdfPath || ""}
               onChange={(e) => setItem((p) => ({ ...p, pdfPath: e.target.value }))}
-              className="h-10 w-full rounded-xl border border-white/10 bg-[var(--color-background)] px-3 text-sm text-[var(--ds-text)] outline-none focus:border-[var(--color-blue)]"
+              className="h-10 w-full rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface-2)] px-3 text-sm text-[var(--ds-text)] outline-none"
             />
             <div className="text-[11px] text-[var(--ds-muted)]">Local filesystem path if generated.</div>
           </label>
@@ -192,7 +192,7 @@ export default function AuditSubmissionEditorClient({ initialItem }: { initialIt
             <input
               value={item.lastError || ""}
               onChange={(e) => setItem((p) => ({ ...p, lastError: e.target.value }))}
-              className="h-10 w-full rounded-xl border border-white/10 bg-[var(--color-background)] px-3 text-sm text-[var(--ds-text)] outline-none focus:border-[var(--color-blue)]"
+              className="h-10 w-full rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface-2)] px-3 text-sm text-[var(--ds-text)] outline-none"
             />
           </label>
         </div>
@@ -209,7 +209,7 @@ export default function AuditSubmissionEditorClient({ initialItem }: { initialIt
         </div>
       </div>
 
-      <div className="rounded-2xl border border-white/10 bg-[var(--color-surface)] p-5">
+      <div className="rounded-2xl border border-[var(--ds-border)] bg-[var(--color-surface)] p-5">
         <div className="space-y-1">
           <div className="text-sm font-semibold text-[var(--ds-text)]">Contact</div>
           <div className="text-xs text-[var(--ds-muted)]">User provided details.</div>
@@ -221,7 +221,7 @@ export default function AuditSubmissionEditorClient({ initialItem }: { initialIt
             <input
               value={item.name}
               onChange={(e) => setItem((p) => ({ ...p, name: e.target.value }))}
-              className="h-10 w-full rounded-xl border border-white/10 bg-[var(--color-background)] px-3 text-sm text-[var(--ds-text)] outline-none focus:border-[var(--color-blue)]"
+              className="h-10 w-full rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface-2)] px-3 text-sm text-[var(--ds-text)] outline-none"
             />
           </label>
 
@@ -230,7 +230,7 @@ export default function AuditSubmissionEditorClient({ initialItem }: { initialIt
             <input
               value={item.email}
               onChange={(e) => setItem((p) => ({ ...p, email: e.target.value }))}
-              className="h-10 w-full rounded-xl border border-white/10 bg-[var(--color-background)] px-3 text-sm text-[var(--ds-text)] outline-none focus:border-[var(--color-blue)]"
+              className="h-10 w-full rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface-2)] px-3 text-sm text-[var(--ds-text)] outline-none"
             />
           </label>
 
@@ -239,7 +239,7 @@ export default function AuditSubmissionEditorClient({ initialItem }: { initialIt
             <input
               value={item.company}
               onChange={(e) => setItem((p) => ({ ...p, company: e.target.value }))}
-              className="h-10 w-full rounded-xl border border-white/10 bg-[var(--color-background)] px-3 text-sm text-[var(--ds-text)] outline-none focus:border-[var(--color-blue)]"
+              className="h-10 w-full rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface-2)] px-3 text-sm text-[var(--ds-text)] outline-none"
             />
           </label>
 
@@ -248,13 +248,13 @@ export default function AuditSubmissionEditorClient({ initialItem }: { initialIt
             <input
               value={item.whatsapp || ""}
               onChange={(e) => setItem((p) => ({ ...p, whatsapp: e.target.value }))}
-              className="h-10 w-full rounded-xl border border-white/10 bg-[var(--color-background)] px-3 text-sm text-[var(--ds-text)] outline-none focus:border-[var(--color-blue)]"
+              className="h-10 w-full rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface-2)] px-3 text-sm text-[var(--ds-text)] outline-none"
             />
           </label>
         </div>
       </div>
 
-      <div className="rounded-2xl border border-white/10 bg-[var(--color-surface)] p-5">
+      <div className="rounded-2xl border border-[var(--ds-border)] bg-[var(--color-surface)] p-5">
         <div className="space-y-1">
           <div className="text-sm font-semibold text-[var(--ds-text)]">Business</div>
           <div className="text-xs text-[var(--ds-muted)]">Core audit answers.</div>
@@ -266,7 +266,7 @@ export default function AuditSubmissionEditorClient({ initialItem }: { initialIt
             <input
               value={item.goal}
               onChange={(e) => setItem((p) => ({ ...p, goal: e.target.value }))}
-              className="h-10 w-full rounded-xl border border-white/10 bg-[var(--color-background)] px-3 text-sm text-[var(--ds-text)] outline-none focus:border-[var(--color-blue)]"
+              className="h-10 w-full rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface-2)] px-3 text-sm text-[var(--ds-text)] outline-none"
             />
           </label>
 
@@ -275,7 +275,7 @@ export default function AuditSubmissionEditorClient({ initialItem }: { initialIt
             <input
               value={item.businessType}
               onChange={(e) => setItem((p) => ({ ...p, businessType: e.target.value }))}
-              className="h-10 w-full rounded-xl border border-white/10 bg-[var(--color-background)] px-3 text-sm text-[var(--ds-text)] outline-none focus:border-[var(--color-blue)]"
+              className="h-10 w-full rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface-2)] px-3 text-sm text-[var(--ds-text)] outline-none"
             />
           </label>
 
@@ -284,7 +284,7 @@ export default function AuditSubmissionEditorClient({ initialItem }: { initialIt
             <input
               value={item.industry}
               onChange={(e) => setItem((p) => ({ ...p, industry: e.target.value }))}
-              className="h-10 w-full rounded-xl border border-white/10 bg-[var(--color-background)] px-3 text-sm text-[var(--ds-text)] outline-none focus:border-[var(--color-blue)]"
+              className="h-10 w-full rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface-2)] px-3 text-sm text-[var(--ds-text)] outline-none"
             />
           </label>
 
@@ -293,7 +293,7 @@ export default function AuditSubmissionEditorClient({ initialItem }: { initialIt
             <input
               value={item.teamSize}
               onChange={(e) => setItem((p) => ({ ...p, teamSize: e.target.value }))}
-              className="h-10 w-full rounded-xl border border-white/10 bg-[var(--color-background)] px-3 text-sm text-[var(--ds-text)] outline-none focus:border-[var(--color-blue)]"
+              className="h-10 w-full rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface-2)] px-3 text-sm text-[var(--ds-text)] outline-none"
             />
           </label>
 
@@ -302,7 +302,7 @@ export default function AuditSubmissionEditorClient({ initialItem }: { initialIt
             <input
               value={item.revenueRange}
               onChange={(e) => setItem((p) => ({ ...p, revenueRange: e.target.value }))}
-              className="h-10 w-full rounded-xl border border-white/10 bg-[var(--color-background)] px-3 text-sm text-[var(--ds-text)] outline-none focus:border-[var(--color-blue)]"
+              className="h-10 w-full rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface-2)] px-3 text-sm text-[var(--ds-text)] outline-none"
             />
           </label>
 
@@ -311,7 +311,7 @@ export default function AuditSubmissionEditorClient({ initialItem }: { initialIt
             <input
               value={item.avgTicketRange || ""}
               onChange={(e) => setItem((p) => ({ ...p, avgTicketRange: e.target.value }))}
-              className="h-10 w-full rounded-xl border border-white/10 bg-[var(--color-background)] px-3 text-sm text-[var(--ds-text)] outline-none focus:border-[var(--color-blue)]"
+              className="h-10 w-full rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface-2)] px-3 text-sm text-[var(--ds-text)] outline-none"
             />
           </label>
 
@@ -320,7 +320,7 @@ export default function AuditSubmissionEditorClient({ initialItem }: { initialIt
             <input
               value={item.monthlyLeadsRange || ""}
               onChange={(e) => setItem((p) => ({ ...p, monthlyLeadsRange: e.target.value }))}
-              className="h-10 w-full rounded-xl border border-white/10 bg-[var(--color-background)] px-3 text-sm text-[var(--ds-text)] outline-none focus:border-[var(--color-blue)]"
+              className="h-10 w-full rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface-2)] px-3 text-sm text-[var(--ds-text)] outline-none"
             />
           </label>
 
@@ -329,7 +329,7 @@ export default function AuditSubmissionEditorClient({ initialItem }: { initialIt
             <input
               value={item.offer || ""}
               onChange={(e) => setItem((p) => ({ ...p, offer: e.target.value }))}
-              className="h-10 w-full rounded-xl border border-white/10 bg-[var(--color-background)] px-3 text-sm text-[var(--ds-text)] outline-none focus:border-[var(--color-blue)]"
+              className="h-10 w-full rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface-2)] px-3 text-sm text-[var(--ds-text)] outline-none"
             />
           </label>
 
@@ -338,7 +338,7 @@ export default function AuditSubmissionEditorClient({ initialItem }: { initialIt
             <input
               value={item.biggestBottleneck || ""}
               onChange={(e) => setItem((p) => ({ ...p, biggestBottleneck: e.target.value }))}
-              className="h-10 w-full rounded-xl border border-white/10 bg-[var(--color-background)] px-3 text-sm text-[var(--ds-text)] outline-none focus:border-[var(--color-blue)]"
+              className="h-10 w-full rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface-2)] px-3 text-sm text-[var(--ds-text)] outline-none"
             />
           </label>
 
@@ -347,7 +347,7 @@ export default function AuditSubmissionEditorClient({ initialItem }: { initialIt
             <input
               value={item.targetMarket || ""}
               onChange={(e) => setItem((p) => ({ ...p, targetMarket: e.target.value }))}
-              className="h-10 w-full rounded-xl border border-white/10 bg-[var(--color-background)] px-3 text-sm text-[var(--ds-text)] outline-none focus:border-[var(--color-blue)]"
+              className="h-10 w-full rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface-2)] px-3 text-sm text-[var(--ds-text)] outline-none"
             />
           </label>
 
@@ -356,7 +356,7 @@ export default function AuditSubmissionEditorClient({ initialItem }: { initialIt
             <textarea
               value={painPointsText}
               onChange={(e) => setPainPointsText(e.target.value)}
-              className="min-h-[140px] w-full rounded-xl border border-white/10 bg-[var(--color-background)] p-3 text-xs text-[var(--ds-text)] outline-none focus:border-[var(--color-blue)]"
+              className="min-h-[140px] w-full rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface-2)] p-3 text-xs text-[var(--ds-text)] outline-none"
             />
             <div className="text-[11px] text-[var(--ds-muted)]">Stored as JSON in DB.</div>
           </label>
@@ -366,13 +366,13 @@ export default function AuditSubmissionEditorClient({ initialItem }: { initialIt
             <textarea
               value={toolsUsedText}
               onChange={(e) => setToolsUsedText(e.target.value)}
-              className="min-h-[140px] w-full rounded-xl border border-white/10 bg-[var(--color-background)] p-3 text-xs text-[var(--ds-text)] outline-none focus:border-[var(--color-blue)]"
+              className="min-h-[140px] w-full rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface-2)] p-3 text-xs text-[var(--ds-text)] outline-none"
             />
           </label>
         </div>
       </div>
 
-      <div className="rounded-2xl border border-white/10 bg-[var(--color-surface)] p-5">
+      <div className="rounded-2xl border border-[var(--ds-border)] bg-[var(--color-surface)] p-5">
         <div className="space-y-1">
           <div className="text-sm font-semibold text-[var(--ds-text)]">Proposal JSON</div>
           <div className="text-xs text-[var(--ds-muted)]">Stored as JSON in DB.</div>
@@ -381,7 +381,7 @@ export default function AuditSubmissionEditorClient({ initialItem }: { initialIt
           <textarea
             value={proposalJsonText}
             onChange={(e) => setProposalJsonText(e.target.value)}
-            className="min-h-[220px] w-full rounded-xl border border-white/10 bg-[var(--color-background)] p-3 text-xs text-[var(--ds-text)] outline-none focus:border-[var(--color-blue)]"
+            className="min-h-[220px] w-full rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface-2)] p-3 text-xs text-[var(--ds-text)] outline-none"
           />
         </div>
       </div>

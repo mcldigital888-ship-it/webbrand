@@ -29,29 +29,29 @@ export default function HealthClient() {
         <button
           type="button"
           onClick={() => run("/admin/api/health/ping", setPing)}
-          className="rounded-xl border border-black/10 bg-white px-4 py-3 text-sm font-semibold text-[var(--color-navy)]"
+          className="rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface)] px-4 py-3 text-sm font-semibold text-[var(--ds-text)]"
         >
           Test API ping
         </button>
         <button
           type="button"
           onClick={() => run("/admin/api/health/db", setDb)}
-          className="rounded-xl border border-black/10 bg-white px-4 py-3 text-sm font-semibold text-[var(--color-navy)]"
+          className="rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface)] px-4 py-3 text-sm font-semibold text-[var(--ds-text)]"
         >
           Test DB connection
         </button>
       </div>
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-        <div className="rounded-2xl border border-black/5 bg-white p-4">
-          <div className="text-xs font-semibold text-[var(--color-slate)]">Ping result</div>
-          <pre className="mt-2 overflow-auto rounded-xl bg-[var(--color-background)] p-3 text-xs text-[var(--color-navy)]">
+        <div className="rounded-2xl border border-[var(--ds-border)] bg-[var(--ds-surface)] p-4">
+          <div className="text-xs font-semibold text-[var(--ds-muted)]">Ping result</div>
+          <pre className="mt-2 overflow-auto rounded-xl bg-[var(--ds-surface-2)] p-3 text-xs text-[var(--ds-text)]">
             {ping ? JSON.stringify(ping, null, 2) : "(not run)"}
           </pre>
         </div>
-        <div className="rounded-2xl border border-black/5 bg-white p-4">
-          <div className="text-xs font-semibold text-[var(--color-slate)]">DB result</div>
-          <pre className="mt-2 overflow-auto rounded-xl bg-[var(--color-background)] p-3 text-xs text-[var(--color-navy)]">
+        <div className="rounded-2xl border border-[var(--ds-border)] bg-[var(--ds-surface)] p-4">
+          <div className="text-xs font-semibold text-[var(--ds-muted)]">DB result</div>
+          <pre className="mt-2 overflow-auto rounded-xl bg-[var(--ds-surface-2)] p-3 text-xs text-[var(--ds-text)]">
             {db ? JSON.stringify(db, null, 2) : "(not run)"}
           </pre>
         </div>

@@ -5,8 +5,8 @@ export default async function AdminSystemConfigPage() {
 
   return (
     <div className="space-y-2">
-      <div className="text-sm font-semibold text-[var(--color-navy)]">System Config</div>
-      <div className="text-sm text-[var(--color-slate)]">Coming next.</div>
+      <div className="text-sm font-semibold text-[var(--ds-text)]">System Config</div>
+      <div className="text-sm text-[var(--ds-muted)]">Coming next.</div>
     </div>
   );
 }

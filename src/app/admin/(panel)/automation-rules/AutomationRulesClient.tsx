@@ -188,8 +188,8 @@ export default function AutomationRulesClient({ initialRules }: Props) {
     <div className="space-y-5">
       <div className="flex items-start justify-between gap-4">
         <div className="space-y-1">
-          <div className="text-sm font-semibold text-[var(--color-navy)]">Automation Rules</div>
-          <div className="text-sm text-[var(--color-slate)]">Rules that react to internal events.</div>
+          <div className="text-sm font-semibold text-[var(--ds-text)]">Automation Rules</div>
+          <div className="text-sm text-[var(--ds-muted)]">Rules that react to internal events.</div>
         </div>
 
         <button
@@ -201,11 +201,11 @@ export default function AutomationRulesClient({ initialRules }: Props) {
         </button>
       </div>
 
-      {error ? <div className="text-sm text-[var(--color-slate)]">{error}</div> : null}
+      {error ? <div className="text-sm text-[var(--ds-muted)]">{error}</div> : null}
 
-      <div className="overflow-hidden rounded-2xl border border-black/5 bg-white">
+      <div className="overflow-hidden rounded-2xl border border-[var(--ds-border)] bg-[var(--ds-surface)]">
         <table className="w-full text-left text-sm">
-          <thead className="bg-[var(--color-background)] text-xs font-semibold text-[var(--color-slate)]">
+          <thead className="bg-[var(--ds-surface-2)] text-xs font-semibold text-[var(--ds-muted)]">
             <tr>
               <th className="px-4 py-3">Event</th>
               <th className="px-4 py-3">Active</th>
@@ -215,8 +215,11 @@ export default function AutomationRulesClient({ initialRules }: Props) {
           </thead>
           <tbody>
             {sorted.map((r) => (
-              <tr key={r.id} className="border-t border-black/5">
-                <td className="px-4 py-3 font-semibold text-[var(--color-navy)]">{r.eventName}</td>
+              <tr
+                key={r.id}
+                className="border-t border-[var(--ds-border)] hover:bg-[var(--ds-surface-2)]"
+              >
+                <td className="px-4 py-3 font-semibold text-[var(--ds-text)]">{r.eventName}</td>
                 <td className="px-4 py-3">
                   <button
                     type="button"
@@ -225,19 +228,19 @@ export default function AutomationRulesClient({ initialRules }: Props) {
                     className={
                       r.active
                         ? "rounded-full bg-emerald-600/10 px-3 py-1 text-xs font-semibold text-emerald-700"
-                        : "rounded-full bg-black/5 px-3 py-1 text-xs font-semibold text-[var(--color-slate)]"
+                        : "rounded-full bg-[var(--ds-surface-2)] px-3 py-1 text-xs font-semibold text-[var(--ds-muted)]"
                     }
                   >
                     {r.active ? "Active" : "Inactive"}
                   </button>
                 </td>
-                <td className="px-4 py-3 text-[var(--color-slate)]">{r.description || ""}</td>
+                <td className="px-4 py-3 text-[var(--ds-muted)]">{r.description || ""}</td>
                 <td className="px-4 py-3">
                   <div className="flex items-center justify-end gap-2">
                     <button
                       type="button"
                       onClick={() => openEdit(r)}
-                      className="rounded-full border border-black/10 px-3 py-1 text-xs font-semibold text-[var(--color-navy)]"
+                      className="rounded-full border border-[var(--ds-border)] px-3 py-1 text-xs font-semibold text-[var(--ds-text)]"
                     >
                       Edit
                     </button>
@@ -245,7 +248,7 @@ export default function AutomationRulesClient({ initialRules }: Props) {
                       type="button"
                       disabled={busyId === r.id}
                       onClick={() => del(r)}
-                      className="rounded-full border border-black/10 px-3 py-1 text-xs font-semibold text-[var(--color-navy)]"
+                      className="rounded-full border border-[var(--ds-border)] px-3 py-1 text-xs font-semibold text-[var(--ds-text)]"
                     >
                       Delete
                     </button>
@@ -259,18 +262,18 @@ export default function AutomationRulesClient({ initialRules }: Props) {
 
       {modalOpen ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-4">
-          <div className="w-full max-w-xl rounded-2xl border border-black/10 bg-white p-6">
+          <div className="w-full max-w-xl rounded-2xl border border-[var(--ds-border)] bg-[var(--ds-surface)] p-6">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <div className="text-sm font-semibold text-[var(--color-navy)]">
+                <div className="text-sm font-semibold text-[var(--ds-text)]">
                   {editing ? "Edit rule" : "Create rule"}
                 </div>
-                <div className="text-sm text-[var(--color-slate)]">JSON condition is stored as-is.</div>
+                <div className="text-sm text-[var(--ds-muted)]">JSON condition is stored as-is.</div>
               </div>
               <button
                 type="button"
                 onClick={closeModal}
-                className="rounded-full border border-black/10 px-3 py-1 text-xs font-semibold text-[var(--color-navy)]"
+                className="rounded-full border border-[var(--ds-border)] px-3 py-1 text-xs font-semibold text-[var(--ds-text)]"
               >
                 Close
               </button>
@@ -278,20 +281,20 @@ export default function AutomationRulesClient({ initialRules }: Props) {
 
             <div className="mt-5 grid grid-cols-1 gap-4">
               <label className="block space-y-2">
-                <div className="text-sm font-semibold text-[var(--color-navy)]">event_name</div>
+                <div className="text-sm font-semibold text-[var(--ds-text)]">event_name</div>
                 <input
                   value={eventName}
                   onChange={(e) => setEventName(e.target.value)}
-                  className="h-11 w-full rounded-xl border border-black/10 bg-white px-3 text-sm text-[var(--color-navy)] outline-none focus:border-[var(--color-blue)]"
+                  className="h-11 w-full rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface-2)] px-3 text-sm text-[var(--ds-text)] outline-none"
                 />
               </label>
 
               <label className="block space-y-2">
-                <div className="text-sm font-semibold text-[var(--color-navy)]">description</div>
+                <div className="text-sm font-semibold text-[var(--ds-text)]">description</div>
                 <input
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  className="h-11 w-full rounded-xl border border-black/10 bg-white px-3 text-sm text-[var(--color-navy)] outline-none focus:border-[var(--color-blue)]"
+                  className="h-11 w-full rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface-2)] px-3 text-sm text-[var(--ds-text)] outline-none"
                 />
               </label>
 
@@ -302,26 +305,26 @@ export default function AutomationRulesClient({ initialRules }: Props) {
                   onChange={(e) => setActive(e.target.checked)}
                   className="h-4 w-4"
                 />
-                <div className="text-sm font-semibold text-[var(--color-navy)]">active</div>
+                <div className="text-sm font-semibold text-[var(--ds-text)]">active</div>
               </label>
 
               <label className="block space-y-2">
-                <div className="text-sm font-semibold text-[var(--color-navy)]">condition_json</div>
+                <div className="text-sm font-semibold text-[var(--ds-text)]">condition_json</div>
                 <textarea
                   value={conditionText}
                   onChange={(e) => setConditionText(e.target.value)}
                   rows={10}
-                  className="w-full rounded-xl border border-black/10 bg-white px-3 py-2 font-mono text-xs text-[var(--color-navy)] outline-none focus:border-[var(--color-blue)]"
+                  className="w-full rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface-2)] px-3 py-2 font-mono text-xs text-[var(--ds-text)] outline-none"
                 />
               </label>
 
-              {busyId ? <div className="text-sm text-[var(--color-slate)]">Saving...</div> : null}
+              {busyId ? <div className="text-sm text-[var(--ds-muted)]">Saving...</div> : null}
 
               <div className="flex items-center justify-end gap-2">
                 <button
                   type="button"
                   onClick={closeModal}
-                  className="rounded-full border border-black/10 px-5 py-3 text-sm font-semibold text-[var(--color-navy)]"
+                  className="rounded-full border border-[var(--ds-border)] px-5 py-3 text-sm font-semibold text-[var(--ds-text)]"
                 >
                   Cancel
                 </button>

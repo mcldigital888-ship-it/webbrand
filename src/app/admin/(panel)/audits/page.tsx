@@ -107,13 +107,13 @@ export default async function AdminAuditsPage({
         <div className="text-sm text-[var(--ds-muted)]">All audit submissions.</div>
       </div>
 
-      <form className="flex flex-col gap-3 rounded-2xl border border-white/10 bg-[var(--color-surface)] p-4 md:flex-row md:items-end" method="get">
+      <form className="flex flex-col gap-3 rounded-2xl border border-[var(--ds-border)] bg-[var(--color-surface)] p-4 md:flex-row md:items-end" method="get">
         <label className="flex w-full flex-col gap-1 md:max-w-sm">
           <span className="text-xs font-semibold text-[var(--ds-muted)]">Email</span>
           <input
             name="email"
             defaultValue={email}
-            className="h-10 w-full rounded-xl border border-white/10 bg-[var(--color-background)] px-3 text-sm text-[var(--ds-text)] outline-none placeholder:text-[var(--ds-muted)] focus:border-[var(--color-blue)]"
+            className="h-10 w-full rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface-2)] px-3 text-sm text-[var(--ds-text)] outline-none placeholder:text-[var(--ds-muted)]"
           />
         </label>
 
@@ -122,7 +122,7 @@ export default async function AdminAuditsPage({
           <select
             name="status"
             defaultValue={status}
-            className="h-10 w-full rounded-xl border border-white/10 bg-[var(--color-background)] px-3 text-sm text-[var(--ds-text)] outline-none focus:border-[var(--color-blue)]"
+            className="h-10 w-full rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface-2)] px-3 text-sm text-[var(--ds-text)] outline-none"
           >
             <option value="">All</option>
             <option value="RECEIVED">RECEIVED</option>
@@ -143,13 +143,13 @@ export default async function AdminAuditsPage({
 
         <Link
           href="/admin/audits"
-          className="inline-flex w-fit rounded-full border border-white/15 bg-white/[0.02] px-5 py-2.5 text-sm font-semibold text-[var(--ds-text)] hover:border-white/25 hover:bg-white/[0.04]"
+          className="inline-flex w-fit rounded-full border border-[var(--ds-border)] bg-[var(--ds-surface)] px-5 py-2.5 text-sm font-semibold text-[var(--ds-text)] hover:bg-[var(--ds-surface-2)]"
         >
           Reset
         </Link>
       </form>
 
-      <div className="overflow-hidden rounded-2xl border border-white/10 bg-[var(--color-surface)]">
+      <div className="overflow-hidden rounded-2xl border border-[var(--ds-border)] bg-[var(--color-surface)]">
         <table className="w-full text-left text-sm">
           <thead className="bg-[var(--color-background)] text-xs font-semibold text-[var(--ds-muted)]">
             <tr>
@@ -173,7 +173,7 @@ export default async function AdminAuditsPage({
           </thead>
           <tbody>
             {items.map((it) => (
-              <tr key={it.id} className="border-t border-white/10 hover:bg-white/[0.03]">
+              <tr key={it.id} className="border-t border-[var(--ds-border)] hover:bg-[var(--ds-surface-2)]">
                 <td className="px-4 py-3 text-xs text-[var(--ds-muted)]">
                   <Link href={`/admin/audits/${it.id}`} className="block">
                     {it.createdAt.toISOString()}
@@ -240,33 +240,34 @@ export default async function AdminAuditsPage({
         <div className="text-xs text-[var(--ds-muted)]">
           Showing {(page - 1) * PAGE_SIZE + 1}–{Math.min(page * PAGE_SIZE, total)} of {total}
         </div>
-        <div className="flex gap-2">
-          <Link
-            href={buildHref(Math.max(1, page - 1))}
-            aria-disabled={page <= 1}
-            className={
-              page <= 1
-                ? "pointer-events-none rounded-full border border-white/10 bg-white/[0.02] px-4 py-2 text-xs font-semibold text-[var(--ds-muted)] opacity-60"
-                : "rounded-full border border-white/10 bg-white/[0.02] px-4 py-2 text-xs font-semibold text-[var(--ds-text)]"
-            }
-          >
-            Prev
-          </Link>
-          <div className="rounded-full border border-white/10 bg-white/[0.02] px-4 py-2 text-xs font-semibold text-[var(--ds-muted)]">
-            Page {page} / {totalPages}
-          </div>
-          <Link
-            href={buildHref(Math.min(totalPages, page + 1))}
-            aria-disabled={page >= totalPages}
-            className={
-              page >= totalPages
-                ? "pointer-events-none rounded-full border border-white/10 bg-white/[0.02] px-4 py-2 text-xs font-semibold text-[var(--ds-muted)] opacity-60"
-                : "rounded-full border border-white/10 bg-white/[0.02] px-4 py-2 text-xs font-semibold text-[var(--ds-text)]"
-            }
-          >
-            Next
-          </Link>
+        <div className="flex items-center justify-between">
+        <Link
+          href={buildHref(page - 1)}
+          aria-disabled={page <= 1}
+          className={
+            page <= 1
+              ? "pointer-events-none rounded-full border border-[var(--ds-border)] bg-[var(--ds-surface)] px-4 py-2 text-xs font-semibold text-[var(--ds-muted)] opacity-60"
+              : "rounded-full border border-[var(--ds-border)] bg-[var(--ds-surface)] px-4 py-2 text-xs font-semibold text-[var(--ds-text)] hover:bg-[var(--ds-surface-2)]"
+          }
+        >
+          Prev
+        </Link>
+
+        <div className="rounded-full border border-[var(--ds-border)] bg-[var(--ds-surface)] px-4 py-2 text-xs font-semibold text-[var(--ds-muted)]">
+          Page {page} / {totalPages}
         </div>
+          <Link
+          href={buildHref(page + 1)}
+          aria-disabled={page >= totalPages}
+          className={
+            page >= totalPages
+              ? "pointer-events-none rounded-full border border-[var(--ds-border)] bg-[var(--ds-surface)] px-4 py-2 text-xs font-semibold text-[var(--ds-muted)] opacity-60"
+              : "rounded-full border border-[var(--ds-border)] bg-[var(--ds-surface)] px-4 py-2 text-xs font-semibold text-[var(--ds-text)] hover:bg-[var(--ds-surface-2)]"
+          }
+        >
+          Next
+        </Link>
+      </div>
       </div>
     </div>
   );

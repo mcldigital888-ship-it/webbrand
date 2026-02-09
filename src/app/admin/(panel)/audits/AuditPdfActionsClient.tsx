@@ -17,7 +17,7 @@ export default function AuditPdfActionsClient({
       <div className="flex flex-wrap items-center gap-2">
         <a
           href={editorHref}
-          className="rounded-full border border-white/15 bg-white/[0.02] px-3 py-1.5 text-xs font-semibold text-[var(--ds-text)] hover:border-white/25 hover:bg-white/[0.04]"
+          className="rounded-full border border-[var(--ds-border)] bg-[var(--ds-surface)] px-3 py-1.5 text-xs font-semibold text-[var(--ds-text)] hover:bg-[var(--ds-surface-2)]"
         >
           Open editor
         </a>

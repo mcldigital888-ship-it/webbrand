@@ -343,7 +343,7 @@ export default function AuditPdfEditorClient({
 
   return (
     <div className="space-y-4">
-      <div className="rounded-2xl border border-white/10 bg-[var(--color-surface)] p-5">
+      <div className="rounded-2xl border border-[var(--ds-border)] bg-[var(--color-surface)] p-5">
         <div className="space-y-1">
           <div className="text-sm font-semibold text-[var(--ds-text)]">PDF content (proposalJson)</div>
           <div className="text-xs text-[var(--ds-muted)]">Edit JSON, save, then generate the final PDF.</div>
@@ -352,7 +352,7 @@ export default function AuditPdfEditorClient({
         {error ? <div className="mt-3 text-sm text-red-600">{error}</div> : null}
         {ok ? <div className="mt-3 text-sm text-emerald-700">{ok}</div> : null}
         {validationIssues && validationIssues.length ? (
-          <div className="mt-3 rounded-xl border border-white/10 bg-white/[0.02] p-3">
+          <div className="mt-3 rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface)] p-3">
             <div className="text-xs font-semibold text-[var(--ds-text)]">Validation issues</div>
             <div className="mt-2 space-y-1 text-xs text-[var(--ds-muted)]">
               {validationIssues.slice(0, 20).map((it, idx) => (
@@ -368,7 +368,7 @@ export default function AuditPdfEditorClient({
           <textarea
             value={proposalJsonText}
             onChange={(e) => setProposalJsonText(e.target.value)}
-            className="min-h-[420px] w-full rounded-xl border border-white/10 bg-[var(--color-background)] p-3 text-xs text-[var(--ds-text)] outline-none focus:border-[var(--color-blue)]"
+            className="min-h-[420px] w-full rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface-2)] p-3 text-xs text-[var(--ds-text)] outline-none"
           />
         </div>
 
@@ -377,7 +377,7 @@ export default function AuditPdfEditorClient({
             type="button"
             disabled={!canSave}
             onClick={fillTemplate}
-            className="rounded-full border border-white/15 bg-white/[0.02] px-5 py-2.5 text-sm font-semibold text-[var(--ds-text)] hover:border-white/25 hover:bg-white/[0.04] disabled:opacity-60"
+            className="rounded-full border border-[var(--ds-border)] bg-[var(--ds-surface)] px-5 py-2.5 text-sm font-semibold text-[var(--ds-text)] hover:bg-[var(--ds-surface-2)] disabled:opacity-60"
           >
             Template ile doldur
           </button>
@@ -386,7 +386,7 @@ export default function AuditPdfEditorClient({
             type="button"
             disabled={!canSave}
             onClick={validateJson}
-            className="rounded-full border border-white/15 bg-white/[0.02] px-5 py-2.5 text-sm font-semibold text-[var(--ds-text)] hover:border-white/25 hover:bg-white/[0.04] disabled:opacity-60"
+            className="rounded-full border border-[var(--ds-border)] bg-[var(--ds-surface)] px-5 py-2.5 text-sm font-semibold text-[var(--ds-text)] hover:bg-[var(--ds-surface-2)] disabled:opacity-60"
           >
             {validating ? "Validating…" : "Validate JSON"}
           </button>
@@ -395,7 +395,7 @@ export default function AuditPdfEditorClient({
             type="button"
             disabled={!canSave}
             onClick={generateWithOpenAi}
-            className="rounded-full border border-white/15 bg-white/[0.02] px-5 py-2.5 text-sm font-semibold text-[var(--ds-text)] hover:border-white/25 hover:bg-white/[0.04] disabled:opacity-60"
+            className="rounded-full border border-[var(--ds-border)] bg-[var(--ds-surface)] px-5 py-2.5 text-sm font-semibold text-[var(--ds-text)] hover:bg-[var(--ds-surface-2)] disabled:opacity-60"
           >
             {aiGenerating ? "Generating…" : "OpenAI ile üret"}
           </button>
@@ -405,7 +405,7 @@ export default function AuditPdfEditorClient({
               href={pdfUrl}
               target="_blank"
               rel="noreferrer"
-              className="rounded-full border border-white/15 bg-white/[0.02] px-5 py-2.5 text-sm font-semibold text-[var(--ds-text)] hover:border-white/25 hover:bg-white/[0.04]"
+              className="rounded-full border border-[var(--ds-border)] bg-[var(--ds-surface)] px-5 py-2.5 text-sm font-semibold text-[var(--ds-text)] hover:bg-[var(--ds-surface-2)]"
             >
               Download current PDF
             </a>
@@ -415,7 +415,7 @@ export default function AuditPdfEditorClient({
             type="button"
             disabled={!canSave}
             onClick={saveOnly}
-            className="rounded-full border border-white/15 bg-white/[0.02] px-5 py-2.5 text-sm font-semibold text-[var(--ds-text)] hover:border-white/25 hover:bg-white/[0.04] disabled:opacity-60"
+            className="rounded-full border border-[var(--ds-border)] bg-[var(--ds-surface)] px-5 py-2.5 text-sm font-semibold text-[var(--ds-text)] hover:bg-[var(--ds-surface-2)] disabled:opacity-60"
           >
             {saving ? "Saving…" : "Save"}
           </button>

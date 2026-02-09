@@ -94,20 +94,20 @@ export default function AutomationEventsClient({
     <div className="space-y-5">
       <div className="flex items-start justify-between gap-4">
         <div className="space-y-1">
-          <div className="text-sm font-semibold text-[var(--color-navy)]">Automation Events</div>
-          <div className="text-sm text-[var(--color-slate)]">
+          <div className="text-sm font-semibold text-[var(--ds-text)]">Automation Events</div>
+          <div className="text-sm text-[var(--ds-muted)]">
             The system heartbeat. Filter and inspect event payloads.
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-3 rounded-2xl border border-black/5 bg-white p-4 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="grid grid-cols-1 gap-3 rounded-2xl border border-[var(--ds-border)] bg-[var(--ds-surface)] p-4 sm:grid-cols-2 lg:grid-cols-5">
         <label className="block space-y-1 lg:col-span-2">
-          <div className="text-xs font-semibold text-[var(--color-slate)]">event_name</div>
+          <div className="text-xs font-semibold text-[var(--ds-muted)]">event_name</div>
           <select
             value={filterEventName}
             onChange={(e) => setFilterEventName(e.target.value)}
-            className="h-10 w-full rounded-xl border border-black/10 bg-white px-3 text-sm text-[var(--color-navy)]"
+            className="h-10 w-full rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface-2)] px-3 text-sm text-[var(--ds-text)]"
           >
             <option value="">All</option>
             {eventNames.map((n) => (
@@ -119,11 +119,11 @@ export default function AutomationEventsClient({
         </label>
 
         <label className="block space-y-1">
-          <div className="text-xs font-semibold text-[var(--color-slate)]">status</div>
+          <div className="text-xs font-semibold text-[var(--ds-muted)]">status</div>
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
-            className="h-10 w-full rounded-xl border border-black/10 bg-white px-3 text-sm text-[var(--color-navy)]"
+            className="h-10 w-full rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface-2)] px-3 text-sm text-[var(--ds-text)]"
           >
             <option value="">All</option>
             {statusOptions.map((s) => (
@@ -135,22 +135,22 @@ export default function AutomationEventsClient({
         </label>
 
         <label className="block space-y-1">
-          <div className="text-xs font-semibold text-[var(--color-slate)]">from</div>
+          <div className="text-xs font-semibold text-[var(--ds-muted)]">from</div>
           <input
             type="date"
             value={from}
             onChange={(e) => setFrom(e.target.value)}
-            className="h-10 w-full rounded-xl border border-black/10 bg-white px-3 text-sm text-[var(--color-navy)]"
+            className="h-10 w-full rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface-2)] px-3 text-sm text-[var(--ds-text)]"
           />
         </label>
 
         <label className="block space-y-1">
-          <div className="text-xs font-semibold text-[var(--color-slate)]">to</div>
+          <div className="text-xs font-semibold text-[var(--ds-muted)]">to</div>
           <input
             type="date"
             value={to}
             onChange={(e) => setTo(e.target.value)}
-            className="h-10 w-full rounded-xl border border-black/10 bg-white px-3 text-sm text-[var(--color-navy)]"
+            className="h-10 w-full rounded-xl border border-[var(--ds-border)] bg-[var(--ds-surface-2)] px-3 text-sm text-[var(--ds-text)]"
           />
         </label>
 
@@ -166,21 +166,21 @@ export default function AutomationEventsClient({
           <button
             type="button"
             onClick={clearFilters}
-            className="rounded-full border border-black/10 px-5 py-3 text-sm font-semibold text-[var(--color-navy)]"
+            className="rounded-full border border-[var(--ds-border)] px-5 py-3 text-sm font-semibold text-[var(--ds-text)]"
           >
             Clear
           </button>
-          <div className="ml-auto text-xs text-[var(--color-slate)]">
+          <div className="ml-auto text-xs text-[var(--ds-muted)]">
             Showing {rows.length}
           </div>
         </div>
       </div>
 
-      {error ? <div className="text-sm text-[var(--color-slate)]">{error}</div> : null}
+      {error ? <div className="text-sm text-[var(--ds-muted)]">{error}</div> : null}
 
-      <div className="overflow-hidden rounded-2xl border border-black/5 bg-white">
+      <div className="overflow-hidden rounded-2xl border border-[var(--ds-border)] bg-[var(--ds-surface)]">
         <table className="w-full text-left text-sm">
-          <thead className="bg-[var(--color-background)] text-xs font-semibold text-[var(--color-slate)]">
+          <thead className="bg-[var(--ds-surface-2)] text-xs font-semibold text-[var(--ds-muted)]">
             <tr>
               <th className="px-4 py-3">event_name</th>
               <th className="px-4 py-3">entity_type</th>
@@ -193,12 +193,12 @@ export default function AutomationEventsClient({
             {rows.map((r) => (
               <tr
                 key={r.id}
-                className="cursor-pointer border-t border-black/5 hover:bg-[var(--color-background)]"
+                className="cursor-pointer border-t border-[var(--ds-border)] hover:bg-[var(--ds-surface-2)]"
                 onClick={() => setSelected(r)}
               >
-                <td className="px-4 py-3 font-semibold text-[var(--color-navy)]">{r.eventName}</td>
-                <td className="px-4 py-3 text-[var(--color-slate)]">{r.entityType}</td>
-                <td className="px-4 py-3 text-[var(--color-slate)]">{r.entityId}</td>
+                <td className="px-4 py-3 font-semibold text-[var(--ds-text)]">{r.eventName}</td>
+                <td className="px-4 py-3 text-[var(--ds-muted)]">{r.entityType}</td>
+                <td className="px-4 py-3 text-[var(--ds-muted)]">{r.entityId}</td>
                 <td className="px-4 py-3">
                   <span
                     className={
@@ -212,7 +212,7 @@ export default function AutomationEventsClient({
                     {r.status}
                   </span>
                 </td>
-                <td className="px-4 py-3 text-[var(--color-slate)]">
+                <td className="px-4 py-3 text-[var(--ds-muted)]">
                   {new Date(r.createdAt).toLocaleString()}
                 </td>
               </tr>
@@ -223,26 +223,26 @@ export default function AutomationEventsClient({
 
       {selected ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-4">
-          <div className="w-full max-w-3xl rounded-2xl border border-black/10 bg-white p-6">
+          <div className="w-full max-w-3xl rounded-2xl border border-[var(--ds-border)] bg-[var(--ds-surface)] p-6">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <div className="text-sm font-semibold text-[var(--color-navy)]">{selected.eventName}</div>
-                <div className="mt-1 text-sm text-[var(--color-slate)]">
+                <div className="text-sm font-semibold text-[var(--ds-text)]">{selected.eventName}</div>
+                <div className="mt-1 text-sm text-[var(--ds-muted)]">
                   {selected.entityType}:{selected.entityId} · {selected.status} · {new Date(selected.createdAt).toLocaleString()}
                 </div>
               </div>
               <button
                 type="button"
                 onClick={() => setSelected(null)}
-                className="rounded-full border border-black/10 px-3 py-1 text-xs font-semibold text-[var(--color-navy)]"
+                className="rounded-full border border-[var(--ds-border)] px-3 py-1 text-xs font-semibold text-[var(--ds-text)]"
               >
                 Close
               </button>
             </div>
 
             <div className="mt-4">
-              <div className="text-xs font-semibold text-[var(--color-slate)]">payload</div>
-              <pre className="mt-2 max-h-[60vh] overflow-auto rounded-xl bg-[var(--color-background)] p-4 text-xs text-[var(--color-navy)]">
+              <div className="text-xs font-semibold text-[var(--ds-muted)]">payload</div>
+              <pre className="mt-2 max-h-[60vh] overflow-auto rounded-xl bg-[var(--ds-surface-2)] p-4 text-xs text-[var(--ds-text)]">
                 {safeStringify(selected.payload)}
               </pre>
             </div>
