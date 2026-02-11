@@ -31,9 +31,9 @@ export default function InsightsExplorer({ items }: { items: InsightPost[] }) {
 
   if (items.length === 0) {
     return (
-      <div className="rounded-2xl border border-black/10 bg-white/60 p-6 backdrop-blur">
-        <div className="text-sm font-semibold text-[var(--color-navy)]">No posts yet</div>
-        <div className="mt-1 text-sm text-[var(--color-slate)]">
+      <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 backdrop-blur">
+        <div className="text-sm font-semibold text-[var(--ds-text)]">No posts yet</div>
+        <div className="mt-1 text-sm text-[var(--ds-muted)]">
           New blog posts will appear here as soon as they’re published.
         </div>
       </div>
