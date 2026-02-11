@@ -66,26 +66,4 @@ export type InsightPost = {
   date: string;
 };
 
-export const insights: InsightPost[] = [
-  {
-    slug: "message-hierarchy-that-converts",
-    title: "Message hierarchy that converts",
-    excerpt: "Big type is not the strategy. Clarity is. Here’s the hierarchy we use to guide decisions.",
-    category: "Web",
-    date: "2025-12-01",
-  },
-  {
-    slug: "ai-speed-human-judgment",
-    title: "AI speed, human judgment",
-    excerpt: "AI compresses cycles. Humans protect the signal. This is how we run a modern studio.",
-    category: "Strategy",
-    date: "2025-11-18",
-  },
-  {
-    slug: "tracking-first-growth",
-    title: "Tracking-first growth",
-    excerpt: "If you can’t trust the numbers, you can’t scale. Start with instrumentation.",
-    category: "Performance",
-    date: "2025-10-22",
-  },
-];
+export const insights: InsightPost[] = [];

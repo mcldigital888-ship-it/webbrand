@@ -29,6 +29,17 @@ export default function InsightsExplorer({ items }: { items: InsightPost[] }) {
       );
   }, [items, query, category]);
 
+  if (items.length === 0) {
+    return (
+      <div className="rounded-2xl border border-black/10 bg-white/60 p-6 backdrop-blur">
+        <div className="text-sm font-semibold text-[var(--color-navy)]">No posts yet</div>
+        <div className="mt-1 text-sm text-[var(--color-slate)]">
+          New blog posts will appear here as soon as they’re published.
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
