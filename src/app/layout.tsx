@@ -3,6 +3,7 @@ import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { dictionaries } from "@/i18n/dictionaries";
 import { LocaleProvider } from "@/i18n/LocaleProvider";
+import { absoluteUrl, getSiteUrl } from "@/lib/seo";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -15,15 +16,29 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(getSiteUrl()),
   title: {
     default: "Webrrand",
     template: "%s | Webrrand",
   },
   description: "AI + data + craft. Built for measurable growth.",
+  robots: {
+    index: true,
+    follow: true,
+  },
   openGraph: {
     title: "Webrrand",
     description: "AI + data + craft. Built for measurable growth.",
     type: "website",
+    url: absoluteUrl("/"),
+    siteName: "Webrrand",
+    images: [{ url: absoluteUrl("/window.svg") }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Webrrand",
+    description: "AI + data + craft. Built for measurable growth.",
+    images: [absoluteUrl("/window.svg")],
   },
 };
 

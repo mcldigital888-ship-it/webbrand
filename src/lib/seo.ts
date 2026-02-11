@@ -6,6 +6,10 @@ export function getSiteUrl() {
   return raw.replace(/\/+$/, "");
 }
 
+function getDefaultOgImage() {
+  return absoluteUrl("/window.svg");
+}
+
 export function localePath(locale: Locale, path: string) {
   const clean = path.startsWith("/") ? path : `/${path}`;
   const normalized = clean === "/" ? "" : clean.replace(/\/+$/, "");
@@ -41,6 +45,7 @@ export function buildLocalizedMetadata(args: {
 }): Metadata {
   const { locale, path, title, description, type = "website", ogImage, noindex } = args;
   const alternates = buildAlternates(locale, path);
+  const image = ogImage || getDefaultOgImage();
 
   return {
     metadataBase: new URL(getSiteUrl()),
@@ -55,13 +60,13 @@ export function buildLocalizedMetadata(args: {
       url: alternates.canonical,
       siteName: "Webrrand",
       locale: locale === "it" ? "it_IT" : "en_US",
-      images: ogImage ? [{ url: ogImage }] : undefined,
+      images: [{ url: image }],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: ogImage ? [ogImage] : undefined,
+      images: [image],
     },
   };
 }
