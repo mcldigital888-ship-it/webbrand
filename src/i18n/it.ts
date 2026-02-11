@@ -13,6 +13,7 @@ export const it = {
     home: "Home",
     about: "Chi siamo",
     services: "Servizi",
+    blog: "Blog",
     contact: "Contatti",
     legal: "Legal",
     get_audit: "Ricevi un Audit di Sistema gratuito",

@@ -13,6 +13,7 @@ export const en = {
     home: "Home",
     about: "About",
     services: "Services",
+    blog: "Blog",
     contact: "Contact",
     legal: "Legal",
     get_audit: "Get a Free System Audit",
